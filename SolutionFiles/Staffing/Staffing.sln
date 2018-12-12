@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KMS.Staffing.WebAPI(1)", "..\..\KMS.Staffing.WebAPI\", "{DA575C86-7AD3-42F0-90BF-3DF328D9B260}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{7ecc1ba6-fe6e-4ee7-9bf2-b24a56fb9ae1}|KMS.Staffing.Logic.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58955"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\KMS.Staffing.WebAPI\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58955\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58955"
+		Release.AspNetCompiler.PhysicalPath = "..\..\KMS.Staffing.WebAPI\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58955\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58955"
+		SlnRelativePath = "..\..\KMS.Staffing.WebAPI\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMS.Staffing.Logic", "..\..\KMS.Staffing.Logic\KMS.Staffing.Logic.csproj", "{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA575C86-7AD3-42F0-90BF-3DF328D9B260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA575C86-7AD3-42F0-90BF-3DF328D9B260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA575C86-7AD3-42F0-90BF-3DF328D9B260}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA575C86-7AD3-42F0-90BF-3DF328D9B260}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7AF3891-084B-4E42-9111-E20435AD4589}
+	EndGlobalSection
+EndGlobal
