@@ -2,3 +2,14 @@
     margin: 1rem;
     font-family: Arial, Helvetica, sans-serif;
   }
+
+button.staffingButton {
+    color: whitesmoke;
+    border-radius: 10px;
+    background: #373a47;
+    padding: 5px 10px 5px 10px;
+  }
+
+main {
+  padding: 10px 10px 10px 50px
+}

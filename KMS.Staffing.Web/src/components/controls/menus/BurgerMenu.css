@@ -1,10 +1,10 @@
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
-  width: 36px;
-  height: 30px;
-  left: 36px;
-  top: 36px;
+  width: 24px;
+  height: 20px;
+  left: 24px;
+  top: 24px;
 }
 
 /* Color/shape of burger icon bars */
@@ -44,6 +44,21 @@
 /* Individual item */
 .bm-item {
   display: inline-block;
+  text-decoration:none;
+  height: 50px;
+  color: white;
+  vertical-align: middle;
+}
+
+a.bm-item svg {
+  padding-right: 10%;
+  height: 50px;
+  vertical-align: middle;
+}
+
+/* Individual item */
+.bm-item:hover {
+  color: #14B1E7;
 }
 
 /* Styling of overlay */

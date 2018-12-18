@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import ReactTable from "react-table";
-import projectShortInformation from '../../models/ProjectModel';
+import projectShortInformation from '../../../models/ProjectModel';
 
-class ProjectList extends Component {
-
-
+class ProjectView extends Component {
   render() {
-    const projectList = [{
+    const projectList = {
       name: 'Izenda',
       description: 'BI Platform',
       teamSize: 20,
-      status: 'Dang hoat dong'
-    }]
+      status: 0
+    }
 
     return (
     
@@ -23,4 +21,4 @@ class ProjectList extends Component {
   }
 }
 
-export default ProjectList
+export default ProjectView
