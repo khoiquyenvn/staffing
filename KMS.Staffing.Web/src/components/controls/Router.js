@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import NotFound from './NotFound';
+import ProjectList from '../screens/Project/ProjectList';
+import ProjectDetail from '../screens/Project/ProjectDetail';
 import EmployeePage from '../employee/EmployeePage';
-import ProjectList from '../screens/ProjectList';
 
 export default class MainRouter extends Component {
   render() {
@@ -11,6 +12,7 @@ export default class MainRouter extends Component {
       <Switch>
         <Route path='/employeelist' component={EmployeePage} />
         <Route path='/projectlist' component={ProjectList} />
+        <Route path='/projectlist/:id' component={ProjectDetail} />
         <Route path='*' component={NotFound} />
       </Switch>
     )

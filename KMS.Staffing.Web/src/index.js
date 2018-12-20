@@ -5,6 +5,8 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import configureStore from './store/configureStore';
 import App from './App'
+import rootReducer from './reducers'
+import 'react-table/react-table.css'
 import {loadEmployees} from './actions/employeeActions';
 
 const store = configureStore();
