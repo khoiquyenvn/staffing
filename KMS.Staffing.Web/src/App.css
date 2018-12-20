@@ -13,3 +13,8 @@ button.staffingButton {
 main {
   padding: 10px 10px 10px 50px
 }
+
+.menu-container {
+  position: absolute;
+  overflow-y: auto;
+}

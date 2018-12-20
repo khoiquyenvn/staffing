@@ -12,7 +12,7 @@ export default class App extends Component {
     render() {
         return (
             <BrowserRouter >
-                <div  id="outer-container" >
+                <div id="outer-container" >
                     <MainMenu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container"}/>
                     <main id="page-wrap"  >
                         <MainRouter />
