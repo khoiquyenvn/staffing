@@ -2,3 +2,10 @@ KMS.Staffing.WebAPI/Bin/
 SolutionFiles/Staffing/packages/
 KMS.Staffing.Logic/bin/
 KMS.Staffing.Logic/obj/
+/KMS.Staffing.Contracts/obj/Debug
+KMS.Staffing.Core/bin/
+KMS.Staffing.Core/obj/
+KMS.Staffing.Repository.Test/bin/
+KMS.Staffing.Repository.Test/obj/
+KMS.Staffing.Repository/bin/
+KMS.Staffing.Repository/obj/

@@ -6,7 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KMS.Staffing.WebAPI(1)", "..\..\KMS.Staffing.WebAPI\", "{DA575C86-7AD3-42F0-90BF-3DF328D9B260}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
-		ProjectReferences = "{7ecc1ba6-fe6e-4ee7-9bf2-b24a56fb9ae1}|KMS.Staffing.Logic.dll;"
+		ProjectReferences = "{7ecc1ba6-fe6e-4ee7-9bf2-b24a56fb9ae1}|KMS.Staffing.Logic.dll;{F312A2C0-B381-4D2A-B412-67986DAA785D}|KMS.Staffing.Core.dll;{8C2015E5-B296-480B-983F-06F88C87D672}|KMS.Staffing.Repository.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_58955"
 		Debug.AspNetCompiler.PhysicalPath = "..\..\KMS.Staffing.WebAPI\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58955\"
@@ -28,6 +28,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "KMS.Staffing.WebAPI(1)", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMS.Staffing.Logic", "..\..\KMS.Staffing.Logic\KMS.Staffing.Logic.csproj", "{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMS.Staffing.Repository", "..\..\KMS.Staffing.Repository\KMS.Staffing.Repository.csproj", "{8C2015E5-B296-480B-983F-06F88C87D672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMS.Staffing.Core", "..\..\KMS.Staffing.Core\KMS.Staffing.Core.csproj", "{F312A2C0-B381-4D2A-B412-67986DAA785D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMS.Staffing.Repository.Test", "..\..\KMS.Staffing.Repository.Test\KMS.Staffing.Repository.Test.csproj", "{EB54CAB3-54FA-4B38-9395-A223FBB59C47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +48,18 @@ Global
 		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ECC1BA6-FE6E-4EE7-9BF2-B24A56FB9AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C2015E5-B296-480B-983F-06F88C87D672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C2015E5-B296-480B-983F-06F88C87D672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C2015E5-B296-480B-983F-06F88C87D672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C2015E5-B296-480B-983F-06F88C87D672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F312A2C0-B381-4D2A-B412-67986DAA785D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F312A2C0-B381-4D2A-B412-67986DAA785D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F312A2C0-B381-4D2A-B412-67986DAA785D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F312A2C0-B381-4D2A-B412-67986DAA785D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB54CAB3-54FA-4B38-9395-A223FBB59C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB54CAB3-54FA-4B38-9395-A223FBB59C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB54CAB3-54FA-4B38-9395-A223FBB59C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB54CAB3-54FA-4B38-9395-A223FBB59C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
