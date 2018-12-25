@@ -10,7 +10,7 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class BaseRepository
     {
-        protected readonly string AppConfigConnectionString = "server=(local);database=KmsStaffPlan;user id=sa;password=1234Qwer";// ConfigurationManager.ConnectionStrings[StaffingKey.ConnectionString].ConnectionString;
+        protected readonly string AppConfigConnectionString = ConfigurationManager.ConnectionStrings[StaffingKey.ConnectionString].ConnectionString;
 
         protected string GetConnectionString(string connectionString)
         {
