@@ -20,6 +20,11 @@ namespace KMS.Staffing.WebAPI
             {
                 return projectLogic.test(Request.Query.Name);
             };
+
+            Get["/count"] = _ =>
+            {
+                return $"There are {projectLogic.CountProjects()} projects";
+            };
         }
     }
 }
