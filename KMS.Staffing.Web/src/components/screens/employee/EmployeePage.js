@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as employeeActions from '../../actions/employeeActions';
+import * as employeeActions from '../../../actions/employeeActions';
 import EmployeeList from './EmployeeList';
 
 class EmployeePage extends React.Component {
