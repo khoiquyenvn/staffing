@@ -3,7 +3,10 @@ import React from "react";
 import "react-table/react-table.css";
 import { FaBookReader } from 'react-icons/fa';
 
-const projectShortInformation = [{
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+
+const projectShortInformation = ( {redirectTo} ) => [{
     Header: 'Name',
     accessor: 'name'
   }, {
@@ -22,7 +25,7 @@ const projectShortInformation = [{
     Header: '',
     accessor: '',
     Cell: row => (
-      <button className="staffingButton"><FaBookReader/> View </button>
+      <button className="staffingButton" onClick={() => redirectTo('/nextRoute')}><FaBookReader/> View </button>
         )
   }]
 
@@ -78,4 +81,8 @@ const projectShortInformation = [{
     }
   }
 
-export {projectShortInformation, projectModel, projectStatusEnum}
+export { projectModel, projectStatusEnum }
+export default connect(
+  undefined,
+  { redirectTo: push }
+)(projectShortInformation)
