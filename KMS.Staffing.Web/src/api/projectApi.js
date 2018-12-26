@@ -1,6 +1,10 @@
+import * as apiConfig from './apiConfiguration';
+
 class ProjectApi {  
     static getAllProjects() {
-      return fetch('http://localhost:58955/api/projects/').then(response => {
+      return fetch(apiConfig.API_URL + apiConfig.PROJECT_MODULE, {
+        method: 'GET'
+      }).then(response => {
         return response.json();
       }).catch(error => {
         return error;

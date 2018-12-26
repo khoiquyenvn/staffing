@@ -1,27 +1,37 @@
 import React, { Component } from 'react'
 import ReactTable from "react-table";
-import { projectShortInformation } from '../../../models/ProjectModel';
+import projectShortInformation from './ProjectShortInformation';
 
-class ProjectList extends Component {
+// const ProjectList = (projectList) =>
+// {
+//     return (
+//       <frameElement>
+//         <h1>Project List</h1>
+//         <ReactTable
+//           data={projectList}
+//           columns={ProjectShortInformation}
+//           defaultPageSize={10}
+//         />
+//       </frameElement>
+//       )
+// }
+
+export default class ProjectList extends Component {
+  constructor(props) {
+      super(props);
+  }
+
   render() {
-    const projectList = [{
-      name: 'Izenda',
-      description: 'BI Platform',
-      teamSize: 20,
-      status: 0
-    }]
+      const { projects } = this.props;
 
-    return (
-      <frameElement>
-        <h1>Project List</h1>
-        <ReactTable
-          data={projectList}
-          columns={projectShortInformation}
-          defaultPageSize={10}
-        />
-      </frameElement>
-      )
+      return (
+          <frameElement>
+              <ReactTable
+                  data={projects}
+                  columns={projectShortInformation}
+                  defaultPageSize={10}
+              />
+          </frameElement>
+      );
   }
 }
-
-export default ProjectList
