@@ -8,9 +8,11 @@ import App from './App'
 import rootReducer from './reducers'
 import 'react-table/react-table.css'
 import {loadEmployees} from './actions/employeeActions';
+import {loadTitles} from './actions/TitleActions';
 
 const store = configureStore();
 store.dispatch(loadEmployees());
+store.dispatch(loadTitles());
 
 render(
   <Provider store={store}>

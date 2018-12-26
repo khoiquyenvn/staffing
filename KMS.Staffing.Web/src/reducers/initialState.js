@@ -1,3 +1,4 @@
 export default {  
-    employees: []
+    employees: [],
+    titles: []
   }

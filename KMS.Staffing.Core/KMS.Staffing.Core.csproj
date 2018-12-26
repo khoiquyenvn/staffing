@@ -41,7 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IEmployeeRepository.cs" />
+    <Compile Include="Contracts\ITitleRepository.cs" />
     <Compile Include="Contracts\IProjectRepository.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\Title.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import ReactTable from "react-table";
+import { employeeShortInformation } from '../../../models/EmployeeModel';
 
 export default class EmployeeList extends Component {
     constructor(props) {
@@ -9,19 +11,17 @@ export default class EmployeeList extends Component {
     render() {
         const { employees } = this.props;
 
-        if (employees.data) {
-            return (
-                <ul>
-                    {employees.data.children.map(emp =>
-                        <li key={emp.data.created_utc}>
-                            {emp.data.title}
-                        </li>
-                    )}
-                </ul>
-            );
-        }
-        else {
+        if (employees.length <= 0) {
             return <span>No employee was found</span>;
         }
+        return (
+            <frameElement>
+                <ReactTable
+                    data={employees}
+                    columns={employeeShortInformation}
+                    defaultPageSize={10}
+                />
+            </frameElement>
+        );
     }
 }

@@ -18,5 +18,7 @@ namespace KMS.Staffing.Repository.DBContexts
         
         public DbSet<Project> Projects { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Title> Titles { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }    
 }
