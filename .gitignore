@@ -9,3 +9,10 @@ KMS.Staffing.Repository.Test/bin/
 KMS.Staffing.Repository.Test/obj/
 KMS.Staffing.Repository/bin/
 KMS.Staffing.Repository/obj/
+SolutionFiles/Staffing/.vs/config/applicationhost.config
+SolutionFiles/Staffing/.vs/Staffing/v15/Server/sqlite3/storage.ide-wal
+SolutionFiles/Staffing/.vs/Staffing/v15/Server/sqlite3/storage.ide-shm
+SolutionFiles/Staffing/.vs/Staffing/v15/Server/sqlite3/storage.ide
+KMS.Staffing.WebAPI/Web.config
+KMS.Staffing.Repository/App.config
+KMS.Staffing.Repository.Test/App.config
