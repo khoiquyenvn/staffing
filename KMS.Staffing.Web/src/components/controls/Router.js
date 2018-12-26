@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import NotFound from './NotFound';
-import ProjectList from '../screens/Project/ProjectList';
-import ProjectDetail from '../screens/Project/ProjectDetail';
+import ProjectList from '../screens/project/ProjectList';
+import ProjectDetail from '../screens/project/ProjectDetail';
 import EmployeePage from '../employee/EmployeePage';
 
 export default class MainRouter extends Component {
