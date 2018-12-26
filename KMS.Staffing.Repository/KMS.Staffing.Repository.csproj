@@ -52,6 +52,8 @@
     <Compile Include="DBContexts\StaffingContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\BaseRepository.cs" />
+    <Compile Include="Repos\EmployeeRepository.cs" />
+    <Compile Include="Repos\TitleRepository.cs" />
     <Compile Include="Repos\ProjectRepository.cs" />
   </ItemGroup>
   <ItemGroup>

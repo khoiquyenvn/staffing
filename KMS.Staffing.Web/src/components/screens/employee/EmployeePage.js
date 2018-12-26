@@ -16,9 +16,28 @@ class EmployeePage extends React.Component {
     }
 }
 
+function updateEmployeeTitle(employees, tiltes) {  
+    let emps = employees.map(emp => {
+        var title = tiltes.filter(tit => tit.Id == emp.TitleId);
+        return {
+            Id: emp.Id,
+            Name: emp.Name,
+            Photo: emp.Photo,
+            PhotoURL: emp.PhotoURL,
+            Email: emp.Email,
+            Phone: emp.Phone,
+            Address: emp.Address,
+            Title: title[0] ? title[0].Name : ''
+        };
+    })
+
+    return emps.filter(emp => emp != undefined)
+  }
+
 function mapStateToProps(state, ownProps) {
     return {
-        employees: state.employees
+        employees: updateEmployeeTitle(state.employees, state.titles),
+        titles: state.titles
     };
 }
 
