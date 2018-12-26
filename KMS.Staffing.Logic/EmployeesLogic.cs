@@ -2,6 +2,7 @@
 using KMS.Staffing.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace KMS.Staffing.Logic
     public class EmployeesLogic : IEmployeesLogic
     {
         readonly IEmployeeRepository employeeRepository;
-        private readonly string avatarPath = "http://localhost:58955/resources/photo/employees/";
+        private readonly string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
 
         public EmployeesLogic(IEmployeeRepository employeeRepository)
         {
