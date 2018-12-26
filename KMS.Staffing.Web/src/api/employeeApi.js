@@ -1,11 +1,15 @@
-class EmployeeApi {  
-    static getAllEmployees() {
-      return fetch('https://www.reddit.com/r/reactjs.json').then(response => {
-        return response.json();
-      }).catch(error => {
-        return error;
-      });
-    }
+import * as apiConfig from './apiConfiguration';
+
+class EmployeeApi {
+  static getAllEmployees() {
+    return fetch(apiConfig.API_URL + apiConfig.EMPLOYEE_MODULE, {
+      method: 'GET'
+    }).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
 }
 
 export default EmployeeApi; 

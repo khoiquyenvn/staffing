@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\KMS.Staffing.WebAPI\Bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,9 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IEmployeesLogic.cs" />
+    <Compile Include="Contracts\ITitlesLogic.cs" />
     <Compile Include="Contracts\IProjectsLogic.cs" />
+    <Compile Include="EmployeesLogic.cs" />
+    <Compile Include="TitlesLogic.cs" />
     <Compile Include="ProjectsLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KMS.Staffing.Core\KMS.Staffing.Core.csproj">
+      <Project>{f312a2c0-b381-4d2a-b412-67986daa785d}</Project>
+      <Name>KMS.Staffing.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KMS.Staffing.Repository\KMS.Staffing.Repository.csproj">
+      <Project>{8c2015e5-b296-480b-983f-06f88c87d672}</Project>
+      <Name>KMS.Staffing.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
