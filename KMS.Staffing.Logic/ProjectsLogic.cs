@@ -1,4 +1,5 @@
 ﻿using KMS.Staffing.Core.Contracts;
+using KMS.Staffing.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace KMS.Staffing.Logic
         public int CountProjects()
         {
             return projectRepository.GetProjects().Count();            
+        }
+
+        public List<Project> GetProjects()
+        { 
+            return projectRepository.GetProjects().ToList();
         }
     }
 }

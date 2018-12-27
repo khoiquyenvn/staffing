@@ -47,6 +47,7 @@
   display: inline-block;
   text-decoration:none;
   height: 50px;
+  width: 100%;
   color: white;
   vertical-align: middle;
   padding: 5px;
@@ -68,7 +69,7 @@ a.bm-item svg {
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
-  
-#page-wrap {
-  text-align: center;
+
+.active {
+  background: black;
 }

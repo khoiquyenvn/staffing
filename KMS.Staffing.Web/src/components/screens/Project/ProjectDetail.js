@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ReactTable from "react-table";
 import ProjectHeader from '../../controls/projectHeader/ProjectHeader';
-
+import Frame from 'react-frame-component';
 class ProjectDetail extends Component {
   render() {
     const initialProjectDetail = {
@@ -14,7 +14,7 @@ class ProjectDetail extends Component {
     }
 
     return (
-      <frameElement>
+      <Fragment>
         <ProjectHeader projectName={initialProjectDetail.name} projectImage={initialProjectDetail.image}/>
         {/* <table style="width:100%">
           <theader>
@@ -26,7 +26,7 @@ class ProjectDetail extends Component {
             <th><ProjectDetail/></th>
           </tbody>
         </table>   */}
-      </frameElement>
+      </Fragment>
       )
   }
 }

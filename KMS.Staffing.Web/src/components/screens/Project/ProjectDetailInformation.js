@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component , Fragment} from 'react'
 import ReactTable from "react-table";
-
 class ProjectDetailInformation extends Component {
   render() {
     const initialProjectDetail = {
@@ -12,7 +11,7 @@ class ProjectDetailInformation extends Component {
     }
 
     return (
-      <frameElement>
+      <Fragment>
         <ProjectHeader/>
         {/* <img src="data:image/jpeg;base64,{projectDetail.image}" /> */}
         {/* <table style="width:100%">
@@ -25,7 +24,7 @@ class ProjectDetailInformation extends Component {
             <th><ProjectDetail/></th>
           </tbody>
         </table> */}
-      </frameElement>
+      </Fragment>
       )
   }
 }
