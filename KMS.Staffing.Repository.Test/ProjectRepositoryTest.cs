@@ -64,5 +64,35 @@ namespace KMS.Staffing.Repository.Test
 
             Assert.True(result.Count > 0);
         }
+
+        [Fact]
+        public void JoinManyToMany_LazyLoad()
+        {
+            var sut = new StaffingContext(conn);
+
+            var emps = sut.Employees.ToList();
+            var skills = sut.Skills.ToList();
+
+            Assert.NotNull(emps);
+            Assert.NotNull(skills);
+        }
+
+        [Fact]
+        public void JoinManyToMany_EagerLoad()
+        {
+            var sut = new StaffingContext(conn);
+
+            var emps = 
+                sut.Employees
+                .Include("EmployeeSkill.Skill")
+                .Include("EmployeeSkill.Employee")
+                .Include("EmployeeSkill.Skill.SkillCategory")
+                .ToList();
+
+            var skills = sut.Skills.ToList();
+
+            Assert.NotNull(emps);
+            Assert.NotNull(skills);
+        }
     }
 }

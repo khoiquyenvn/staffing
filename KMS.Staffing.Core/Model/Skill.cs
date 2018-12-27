@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 
 namespace KMS.Staffing.Core.Model
 {
-    [Table("Employee")]
-    public class Employee
-    {
+    [Table("Skill")]
+    public class Skill
+    {        
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Photo { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public Guid TitleId { get; set; }
+        public Guid CategoryId { get; set; }
 
-        [NotMapped]
-        public string PhotoURL { get; set; }
         public virtual ICollection<EmployeeSkill> EmployeeSkill { get; set; }
+
+        [ForeignKey(nameof(CategoryId))]
+        public virtual SkillCategory SkillCategory { get; set; }
     }
 }

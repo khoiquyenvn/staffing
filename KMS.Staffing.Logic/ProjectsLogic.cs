@@ -18,7 +18,7 @@ namespace KMS.Staffing.Logic
 
         public string test(string name)
         {
-            return $"Hello {name}";
+            return $"Hello {name} at";
         }
 
         public int CountProjects()
