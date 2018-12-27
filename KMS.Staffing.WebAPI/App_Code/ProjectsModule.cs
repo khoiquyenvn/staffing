@@ -14,7 +14,11 @@ namespace KMS.Staffing.WebAPI
     {
         public ProjectsModule(IProjectsLogic projectLogic) : base("projects")
         {
-            Get["/"] = _ => "Hello World!";
+            Get["/"] = parameters =>
+            {
+                var result = projectLogic.GetProjects();
+                return CreateResponse(result);
+            };
 
             Get["/test"] = _ =>
             {

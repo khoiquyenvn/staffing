@@ -11,7 +11,8 @@ button.staffingButton {
   }
 
 main {
-  padding: 10px 10px 10px 50px
+  padding: 10px 10px 10px 50px;
+  max-width: auto;
 }
 
 .menu-container {

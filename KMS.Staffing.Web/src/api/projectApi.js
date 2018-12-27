@@ -1,0 +1,15 @@
+import * as apiConfig from './apiConfiguration';
+
+class ProjectApi {  
+    static getAllProjects() {
+      return fetch(apiConfig.API_URL + apiConfig.PROJECT_MODULE, {
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+    }
+}
+
+export default ProjectApi; 

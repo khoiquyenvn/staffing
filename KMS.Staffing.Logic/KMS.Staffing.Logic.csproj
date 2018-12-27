@@ -45,6 +45,7 @@
     <Compile Include="Contracts\ITitlesLogic.cs" />
     <Compile Include="Contracts\IProjectsLogic.cs" />
     <Compile Include="EmployeesLogic.cs" />
+    <Compile Include="Enum\ProjectStatus.cs" />
     <Compile Include="TitlesLogic.cs" />
     <Compile Include="ProjectsLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
