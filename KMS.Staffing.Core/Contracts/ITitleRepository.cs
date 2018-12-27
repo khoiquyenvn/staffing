@@ -10,6 +10,6 @@ namespace KMS.Staffing.Core.Contracts
 {
     public interface ITitleRepository
     {
-        IEnumerable<Title> GetTitles();
+        List<Title> GetTitles();
     }
 }

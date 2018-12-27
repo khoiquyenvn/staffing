@@ -1,5 +1,6 @@
 ﻿using KMS.Staffing.Core.Contracts;
 using KMS.Staffing.Core.Model;
+using KMS.Staffing.Core.Model.ApiRequest;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,23 +12,16 @@ namespace KMS.Staffing.Logic
 {
     public class EmployeesLogic : IEmployeesLogic
     {
-        readonly IEmployeeRepository employeeRepository;
-        private readonly string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
+        readonly IEmployeeRepository employeeRepository;        
 
         public EmployeesLogic(IEmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
 
-        public List<Employee> GetEmployees()
+        public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
         {
-            var employees = employeeRepository.GetEmployees().ToList();
-            employees.ForEach(e=>
-            {
-                e.PhotoURL = $"{avatarPath}{e.Photo}";
-            });
-
-            return employeeRepository.GetEmployees().ToList();
+            return employeeRepository.GetEmployees(pageRequest);
         }
     }
 }

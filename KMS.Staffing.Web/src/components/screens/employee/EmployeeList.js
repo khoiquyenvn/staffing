@@ -14,12 +14,13 @@ export default class EmployeeList extends Component {
         if (employees.length <= 0) {
             return <span>No employee was found</span>;
         }
+        
         return (
             <frameElement>
                 <ReactTable
                     data={employees}
                     columns={employeeShortInformation}
-                    defaultPageSize={10}
+                    defaultPageSize={5}
                 />
             </frameElement>
         );

@@ -20,9 +20,9 @@ namespace KMS.Staffing.Repository.Repos
             context = new StaffingContext(GetConnectionString(""));
         }
 
-        public IEnumerable<Title> GetTitles()
+        public List<Title> GetTitles()
         {
-            return context.Titles;
+            return context.Titles.ToList();
         }
     }
 }
