@@ -1,5 +1,7 @@
-﻿using KMS.Staffing.Logic;
+﻿using KMS.Staffing.Core.Model.ApiRequest;
+using KMS.Staffing.Logic;
 using Nancy;
+using Nancy.ModelBinding;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,9 +19,10 @@ namespace KMS.Staffing.WebAPI
     {
         public EmployeeModule(IEmployeesLogic employeeLogic) : base("employees")
         {
-            Get["/"] = parameters =>
+            Post["/"] = parameters =>
             {
-                var result = employeeLogic.GetEmployees();
+                var pagedRequest = this.Bind<EmployeePageRequest>();
+                var result = employeeLogic.GetEmployees(pagedRequest);
                 return CreateResponse(result);
             };
         }

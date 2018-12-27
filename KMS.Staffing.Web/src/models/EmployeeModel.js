@@ -4,6 +4,9 @@ import "react-table/react-table.css";
 import { FaBookReader } from 'react-icons/fa';
 
 const employeeShortInformation = [{
+  Header: 'Id',
+  accessor: 'DisplayId'
+}, {
   Header: '',
   accessor: 'PhotoURL',
   Cell: row => (
@@ -14,7 +17,7 @@ const employeeShortInformation = [{
   accessor: 'Name'
 }, {
   Header: 'Title',
-  accessor: 'Title'
+  accessor: 'Title.Name'
 }, {
   Header: 'Email',
   accessor: 'Email'
