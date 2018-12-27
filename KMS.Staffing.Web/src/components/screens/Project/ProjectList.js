@@ -23,7 +23,6 @@ export default class ProjectList extends Component {
 
   render() {
       const { projects } = this.props;
-
       return (
           <frameElement>
               <ReactTable

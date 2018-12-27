@@ -1,28 +1,8 @@
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import React from "react";
+import "react-table/react-table.css";
+import { FaBookReader } from 'react-icons/fa';
+import { projectStatusEnum } from "../../../models/ProjectModel";
 
-const projectShortInformation = [{
-    Header: 'Name',
-    accessor: 'name'
-  }, {
-    Header: 'Description',
-    accessor: 'description'
-  }, {
-    Header: 'Team Size',
-    accessor: 'teamSize'
-  }, {
-    Header: 'Status',
-    accessor: 'status',
-    Cell: row => (
-      <label className='statusLable' style={{...renderStyle(row.value), ...statusLabel}}>{renderName(row.value)}</label>  // label change with value
-        )
-  }, {
-    Header: '',
-    accessor: '',
-    Cell: row => (
-      <button className="staffingButton"><FaBookReader/> View </button>
-        )
-  }]
 
 var statusLabel = {
   padding: '5px',
@@ -48,19 +28,42 @@ var doneStatusLabelStyle = {
 }
 
 function renderStyle(projectModelStatus) {
-  switch(projectModelStatus) {
-    case projectStatusEnum.working: return workingStatusLabelStyle;
-    case projectStatusEnum.kickoff: return kickoffStatusLabelStyle;
-    case projectStatusEnum.done: return doneStatusLabelStyle;
-  }
+    switch(projectModelStatus) {
+      case projectStatusEnum.working: return workingStatusLabelStyle;
+      case projectStatusEnum.kickoff: return kickoffStatusLabelStyle;
+      case projectStatusEnum.done: return doneStatusLabelStyle;
+    }
 }
 
 function renderName(projectModelStatus) {
-  switch(projectModelStatus) {
-    case projectStatusEnum.working: return 'Working';
-    case projectStatusEnum.kickoff: return 'Preparing';
-    case projectStatusEnum.done: return 'End';
-  }
+    switch(projectModelStatus) {
+      case projectStatusEnum.working: return 'Working';
+      case projectStatusEnum.kickoff: return 'Preparing';
+      case projectStatusEnum.done: return 'End';
+    }
 }
+
+const projectShortInformation = [{
+    Header: 'Name',
+    accessor: 'Name'
+  }, {
+    Header: 'Description',
+    accessor: 'Description'
+  }, {
+    Header: 'Team Size',
+    accessor: 'TeamSize'
+  }, {
+    Header: 'Status',
+    accessor: 'Status',
+    Cell: row => (
+      <label style={{...renderStyle(row.value), ...statusLabel}}>{renderName(row.value)}</label>  // label change with value
+        )
+  }, {
+    Header: '',
+    accessor: '',
+    Cell: row => (
+      <button className="staffingButton"><FaBookReader/> View </button>
+        )
+  }];
 
 export default projectShortInformation
