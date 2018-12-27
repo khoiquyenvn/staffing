@@ -11,9 +11,26 @@ namespace KMS.Staffing.Repository.DBContexts
 {
     public class StaffingContext : DbContext
     {
-        public StaffingContext(string connectionString = "") : base(connectionString)
+        private StaffingContext(string connectionString = "") : base(connectionString)
         {
-            //Database.Initialize(true);
+
+        }
+
+        private static StaffingContext _context;
+        public static StaffingContext Instance
+        {
+            get
+            {
+                return _context;
+            }
+        }
+
+        public static void Init(string connectionString = "")
+        {
+            if (_context == null)
+            {
+                _context = new StaffingContext(connectionString);
+            }
         }
         
         public DbSet<Project> Projects { get; set; }

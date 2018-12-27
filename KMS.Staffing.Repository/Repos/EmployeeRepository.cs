@@ -17,23 +17,22 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class EmployeeRepository : BaseRepository, IEmployeeRepository
     {
-        readonly StaffingContext context;
         private readonly string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
 
         public EmployeeRepository()
         {
-            context = new StaffingContext(GetConnectionString(""));
+
         }
 
         public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
         {
-            var employees = context.Employees.ToList();
+            var employees = Context.Employees.ToList();
 
             employees.ForEach(e =>
             {
                 e.DisplayId = e.Id.ToString("D" + 4); // Display ID as 4 digits
                 e.PhotoURL = $"{avatarPath}{e.Photo}";
-                e.Title = context.Titles.FirstOrDefault(t => t.Id.Equals(e.TitleId));
+                e.Title = Context.Titles.FirstOrDefault(t => t.Id.Equals(e.TitleId));
             });
 
 
