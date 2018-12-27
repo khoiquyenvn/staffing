@@ -10,6 +10,6 @@ namespace KMS.Staffing.Core.Contracts
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetEmployees();
+        List<Employee> GetEmployees();
     }
 }
