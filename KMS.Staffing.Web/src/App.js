@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router'
 import MainRouter from './components/controls/Router';
 import MainMenu from './components/controls/menus/MainMenu';
 import "./App.css";
@@ -11,14 +11,14 @@ export default class App extends Component {
 
     render() {
         return (
-            <BrowserRouter >
+            <Router history={this.props.history} >
                 <div id="outer-container" >
                     <MainMenu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container"}/>
                     <main id="page-wrap"  >
                         <MainRouter />
                     </main>
                 </div>
-            </BrowserRouter>
+            </Router>
         );
     }
 }

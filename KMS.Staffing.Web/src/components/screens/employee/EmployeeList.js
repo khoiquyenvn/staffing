@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from "react-table";
 import { employeeShortInformation } from '../../../models/EmployeeModel';
@@ -15,13 +15,13 @@ export default class EmployeeList extends Component {
             return <span>No employee was found</span>;
         }
         return (
-            <frameElement>
+            <Fragment>
                 <ReactTable
                     data={employees}
                     columns={employeeShortInformation}
                     defaultPageSize={10}
                 />
-            </frameElement>
+            </Fragment>
         );
     }
 }

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ReactTable from "react-table";
-import projectShortInformation from './ProjectShortInformation';
+import { projectShortInformation } from '../../../models/ProjectModel';
 
 // const ProjectList = (projectList) =>
 // {
@@ -24,13 +24,13 @@ export default class ProjectList extends Component {
   render() {
       const { projects } = this.props;
       return (
-          <frameElement>
+          <Fragment>
               <ReactTable
                   data={projects}
                   columns={projectShortInformation}
                   defaultPageSize={10}
               />
-          </frameElement>
+          </Fragment>
       );
   }
 }
