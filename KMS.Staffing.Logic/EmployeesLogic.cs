@@ -1,5 +1,6 @@
 ﻿using KMS.Staffing.Core.Contracts;
 using KMS.Staffing.Core.Model;
+using KMS.Staffing.Core.Model.ApiRequest;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,9 +19,9 @@ namespace KMS.Staffing.Logic
             this.employeeRepository = employeeRepository;
         }
 
-        public List<Employee> GetEmployees()
+        public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
         {
-            return employeeRepository.GetEmployees();
+            return employeeRepository.GetEmployees(pageRequest);
         }
     }
 }

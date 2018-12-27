@@ -44,10 +44,15 @@
     <Compile Include="Contracts\IEmployeeRepository.cs" />
     <Compile Include="Contracts\ITitleRepository.cs" />
     <Compile Include="Contracts\IProjectRepository.cs" />
+    <Compile Include="Model\ApiRequest\EmployeePageRequest.cs" />
+    <Compile Include="Model\ApiRequest\PageRequest.cs" />
+    <Compile Include="Model\Constant\EmployeeFilterKey.cs" />
     <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\ApiRequest\SearchCriteria.cs" />
     <Compile Include="Model\Title.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Utility\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
