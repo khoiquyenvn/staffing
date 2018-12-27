@@ -1,4 +1,5 @@
 ﻿using KMS.Staffing.Repository.Contants;
+using KMS.Staffing.Repository.DBContexts;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,7 +11,20 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class BaseRepository
     {
-        protected readonly string AppConfigConnectionString = ConfigurationManager.ConnectionStrings[StaffingKey.ConnectionString].ConnectionString;
+        protected static readonly string AppConfigConnectionString = ConfigurationManager.ConnectionStrings[StaffingKey.ConnectionString].ConnectionString;
+
+        static BaseRepository()
+        {
+            StaffingContext.Init(AppConfigConnectionString);
+        }
+
+        public StaffingContext Context
+        {
+            get
+            {
+                return StaffingContext.Instance;
+            }
+        }
 
         protected string GetConnectionString(string connectionString)
         {

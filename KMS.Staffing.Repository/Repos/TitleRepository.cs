@@ -13,16 +13,13 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class TitleRepository : BaseRepository, ITitleRepository
     {
-        readonly StaffingContext context;
-
         public TitleRepository()
         {
-            context = new StaffingContext(GetConnectionString(""));
         }
 
         public List<Title> GetTitles()
         {
-            return context.Titles.ToList();
+            return Context.Titles.ToList();
         }
     }
 }

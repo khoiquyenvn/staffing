@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace KMS.Staffing.Core.Model
     [Table("Employee")]
     public class Employee
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
@@ -24,17 +26,6 @@ namespace KMS.Staffing.Core.Model
 
         [NotMapped]
         public string PhotoURL { get; set; }
-
-        public Employee() { }
-        public Employee(Employee emp, Title tit)
-        {
-            Id = emp.Id;
-            Name = emp.Name;
-            Photo = emp.Email;
-            Email = emp.Email;
-            Phone = emp.Phone;
-            Address = emp.Address;
-            Title = tit;
-        }
+        public virtual ICollection<EmployeeSkill> EmployeeSkill { get; set; }
     }
 }

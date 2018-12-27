@@ -48,6 +48,9 @@
     <Compile Include="Model\ApiRequest\PageRequest.cs" />
     <Compile Include="Model\Constant\EmployeeFilterKey.cs" />
     <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\EmployeeSkill.cs" />
+    <Compile Include="Model\Skill.cs" />
+    <Compile Include="Model\SkillCategory.cs" />
     <Compile Include="Model\ApiRequest\SearchCriteria.cs" />
     <Compile Include="Model\Title.cs" />
     <Compile Include="Model\Department.cs" />

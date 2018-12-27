@@ -13,41 +13,38 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class ProjectRepository : BaseRepository, IProjectRepository
     {
-        readonly StaffingContext context;
-
         public ProjectRepository()
         {
-            context = new StaffingContext(GetConnectionString(""));
         }
 
         public int Add(Project project)
         {            
-            context.Projects.Add(project);            
-            return context.SaveChanges();
+            Context.Projects.Add(project);            
+            return Context.SaveChanges();
         }
 
         public int Delete(Guid id)
         {
             var deleteProject = FindById(id);
-            context.Projects.Remove(deleteProject);
-            return context.SaveChanges();
+            Context.Projects.Remove(deleteProject);
+            return Context.SaveChanges();
         }
 
         public Project FindById(Guid id)
         {
-            var result = context.Projects.Where(x => x.Id == id).SingleOrDefault();
+            var result = Context.Projects.Where(x => x.Id == id).SingleOrDefault();
             return result;
         }
 
         public IEnumerable<Project> GetProjects()
         {
-            return context.Projects;
+            return Context.Projects;
         }
 
         public int Update(Project project)
         {
-            context.Entry(project).State = System.Data.Entity.EntityState.Modified;
-            return context.SaveChanges();
+            Context.Entry(project).State = System.Data.Entity.EntityState.Modified;
+            return Context.SaveChanges();
         }
     }
 }
