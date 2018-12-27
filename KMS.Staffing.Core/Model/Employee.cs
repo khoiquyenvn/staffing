@@ -17,10 +17,24 @@ namespace KMS.Staffing.Core.Model
         public string Phone { get; set; }
         public string Address { get; set; }
         public Guid TitleId { get; set; }
+        public Title Title { get; set; }
+
+        [NotMapped]
+        public string DisplayId { get; set; }
 
         [NotMapped]
         public string PhotoURL { get; set; }
 
-
+        public Employee() { }
+        public Employee(Employee emp, Title tit)
+        {
+            Id = emp.Id;
+            Name = emp.Name;
+            Photo = emp.Email;
+            Email = emp.Email;
+            Phone = emp.Phone;
+            Address = emp.Address;
+            Title = tit;
+        }
     }
 }

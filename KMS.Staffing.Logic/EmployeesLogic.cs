@@ -11,8 +11,7 @@ namespace KMS.Staffing.Logic
 {
     public class EmployeesLogic : IEmployeesLogic
     {
-        readonly IEmployeeRepository employeeRepository;
-        private readonly string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
+        readonly IEmployeeRepository employeeRepository;        
 
         public EmployeesLogic(IEmployeeRepository employeeRepository)
         {
@@ -21,13 +20,7 @@ namespace KMS.Staffing.Logic
 
         public List<Employee> GetEmployees()
         {
-            var employees = employeeRepository.GetEmployees().ToList();
-            employees.ForEach(e=>
-            {
-                e.PhotoURL = $"{avatarPath}{e.Photo}";
-            });
-
-            return employeeRepository.GetEmployees().ToList();
+            return employeeRepository.GetEmployees();
         }
     }
 }
