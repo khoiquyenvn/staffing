@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as employeeActions from '../../../actions/employeeActions';
 import EmployeeList from './EmployeeList';
-
-import '../../../styles/common/common.css';
+import SearchControl from '../../controls/search/SearchControl';
 
 class EmployeePage extends React.Component {
     constructor(props) {
@@ -15,7 +14,6 @@ class EmployeePage extends React.Component {
 
         this.changeSearchValue = this.changeSearchValue.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
-        this.handlePressEnter = this.handlePressEnter.bind(this);
     }
 
     changeSearchValue(e) {
@@ -49,27 +47,15 @@ class EmployeePage extends React.Component {
         });
     }
 
-    handlePressEnter(e) {
-        if (e.charCode === 13 || e.key === 'Enter') {
-            this.handleSearch();
-        }
-    }
-
     render() {
         return (
             <div>
                 <h1>Employees</h1>
                 <div>
-                    <div className='search-container'>
-                        <input className='search-box'
-                            type='text'
-                            name='searchBox'
-                            placeholder='Search by Id, Name, Title, Email, Address'
-                            value={this.state.searchValue}
-                            onChange={this.changeSearchValue}
-                            onKeyPress={this.handlePressEnter} />
-                        <button className='search-button' onClick={this.handleSearch}>Search</button>
-                    </div>
+                    <SearchControl placeHolder='Search by Id, Name, Title, Email, Address'
+                        searchValue={this.state.searchValue}
+                        changeSearchValue={this.changeSearchValue}
+                        handleSearch={this.handleSearch} />
                     <EmployeeList employees={this.props.employees} />
                 </div>
             </div>
