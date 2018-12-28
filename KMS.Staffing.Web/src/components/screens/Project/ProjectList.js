@@ -25,11 +25,7 @@ export default class ProjectList extends Component {
       const { projects } = this.props;
       return (
           <Fragment>
-              <ReactTable
-                  data={projects}
-                  columns={projectShortInformation}
-                  defaultPageSize={10}
-              />
+
           </Fragment>
       );
   }
