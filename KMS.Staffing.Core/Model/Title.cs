@@ -13,5 +13,7 @@ namespace KMS.Staffing.Core.Model
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
+
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

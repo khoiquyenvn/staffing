@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import ReactTable from "react-table";
 import ProjectHeader from '../../controls/projectHeader/ProjectHeader';
-import Frame from 'react-frame-component';
+
 class ProjectDetail extends Component {
   render() {
     const initialProjectDetail = {

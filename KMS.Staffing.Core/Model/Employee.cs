@@ -19,7 +19,9 @@ namespace KMS.Staffing.Core.Model
         public string Phone { get; set; }
         public string Address { get; set; }
         public Guid TitleId { get; set; }
-        public Title Title { get; set; }
+
+        [ForeignKey(nameof(TitleId))]
+        public virtual Title Title { get; set; }
 
         [NotMapped]
         public string DisplayId { get; set; }

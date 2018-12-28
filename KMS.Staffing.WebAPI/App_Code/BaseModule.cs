@@ -38,7 +38,11 @@ namespace KMS.Staffing.WebAPI
                 using (var streamWriter = new StreamWriter(stream))
                 using (var jsonWriter = new JsonTextWriter(streamWriter))
                 {
-                    JsonSerializer ser = new JsonSerializer();
+                    JsonSerializer ser = new JsonSerializer
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    };
+
                     ser.Serialize(jsonWriter, result);
                     jsonWriter.Flush();
                 }
