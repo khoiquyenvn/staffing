@@ -45,6 +45,21 @@ namespace KMS.Staffing.Repository.Test
 
             var savedProject = sut.FindById(newProjectId);
             Assert.Equal("KMS Staffing", savedProject.Name);
+
+            sut.Delete(newProjectId);
+        }
+
+        [Fact]
+        public void GetProjects_Success()
+        {
+            var sut = StaffingContext.Instance;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var list = sut.Projects.ToList();
+            }
+
+            Assert.NotNull(sut);
         }
 
         [Fact]
