@@ -26,15 +26,13 @@ namespace KMS.Staffing.Repository.Repos
 
         public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
         {
-            var employees = Context.Employees.ToList();
+            var employees = Context.Employees.Include("Title").ToList();
 
             employees.ForEach(e =>
             {
                 e.DisplayId = e.Id.ToString("D" + 4); // Display ID as 4 digits
                 e.PhotoURL = $"{avatarPath}{e.Photo}";
-                e.Title = Context.Titles.FirstOrDefault(t => t.Id.Equals(e.TitleId));
             });
-
 
             return FilterEmployeesByCriteria(employees, pageRequest);
         }
