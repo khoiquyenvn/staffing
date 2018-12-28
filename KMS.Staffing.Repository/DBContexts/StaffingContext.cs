@@ -11,7 +11,7 @@ namespace KMS.Staffing.Repository.DBContexts
 {
     public class StaffingContext : DbContext
     {
-        private StaffingContext(string connectionString = "") : base(connectionString)
+        public StaffingContext(string connectionString = "") : base(connectionString)
         {
 
         }
@@ -31,7 +31,7 @@ namespace KMS.Staffing.Repository.DBContexts
             {
                 _context = new StaffingContext(connectionString);
             }
-        }
+        }        
         
         public DbSet<Project> Projects { get; set; }
         public DbSet<Department> Departments { get; set; }

@@ -13,16 +13,18 @@ namespace KMS.Staffing.Repository.Repos
     {
         protected static readonly string AppConfigConnectionString = ConfigurationManager.ConnectionStrings[StaffingKey.ConnectionString].ConnectionString;
 
+        protected StaffingContext staffingContext = new StaffingContext(AppConfigConnectionString);
+
         static BaseRepository()
         {
-            StaffingContext.Init(AppConfigConnectionString);
+            //StaffingContext.Init(AppConfigConnectionString);
         }
 
         public StaffingContext Context
         {
             get
             {
-                return StaffingContext.Instance;
+                return staffingContext;
             }
         }
 
