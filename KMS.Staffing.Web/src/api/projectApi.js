@@ -10,6 +10,16 @@ class ProjectApi {
         return error;
       });
     }
+
+    static getProjectDetail(id) {
+      return fetch(apiConfig.API_URL + apiConfig.PROJECT_MODULE + '/' + id, {
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+    }
 }
 
 export default ProjectApi; 

@@ -12,7 +12,7 @@ import { createBrowserHistory } from 'history';
 const store = configureStore();
 
 const browserHistory = createBrowserHistory();
-const history = syncHistoryWithStore(browserHistory, store);
+export const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>

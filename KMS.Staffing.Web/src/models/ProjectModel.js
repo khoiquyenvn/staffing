@@ -54,28 +54,5 @@ import { FaBookReader } from 'react-icons/fa';
         case projectStatusEnum.done: return 'End';
       }
   }
-  
-  const projectShortInformation = [{
-      Header: 'Name',
-      accessor: 'Name'
-    }, {
-      Header: 'Description',
-      accessor: 'Description'
-    }, {
-      Header: 'Team Size',
-      accessor: 'TeamSize'
-    }, {
-      Header: 'Status',
-      accessor: 'Status',
-      Cell: row => (
-        <label style={{...renderStyle(row.value), ...statusLabel}}>{renderName(row.value)}</label>  // label change with value
-          )
-    }, {
-      Header: '',
-      accessor: '',
-      Cell: row => (
-        <button className="staffingButton"><FaBookReader/> View </button>
-          )
-    }];
     
-export { projectModel, projectStatusEnum, projectShortInformation }
+export { projectModel, projectStatusEnum, projectShortInformation, renderStyle, renderName, statusLabel }

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ReactTable from "react-table";
-import { projectShortInformation } from '../../../models/ProjectModel';
-import {loadProjects} from '../../../actions/projectActions';
+import { bindActionCreators } from 'redux';
+import { renderName, renderStyle,statusLabel  } from '../../../models/ProjectModel';
+
+import * as projectActions from '../../../actions/projectActions';
+import { FaBookReader } from 'react-icons/fa';
 
 class ProjectList extends Component {
     constructor(props) {
@@ -11,11 +14,35 @@ class ProjectList extends Component {
     }
   
     componentDidMount() {
-        this.props.loadData();
+        this.props.projectActions.loadProjects();
     }
 
     render() {
         const { projects } = this.props;
+        
+  
+        const projectShortInformation = [{
+            Header: 'Name',
+            accessor: 'Name'
+        }, {
+            Header: 'Description',
+            accessor: 'Description'
+        }, {
+            Header: 'Team Size',
+            accessor: 'TeamSize'
+        }, {
+            Header: 'Status',
+            accessor: 'Status',
+            Cell: row => (
+            <label style={{...renderStyle(row.value), ...statusLabel}}>{renderName(row.value)}</label>  // label change with value
+                )
+        }, {
+            Header: '',
+            accessor: '',
+            Cell: cellInfo => (
+            <button className="staffingButton" onClick={()=>this.props.projectActions.enterProjectDetail(cellInfo.original.id)} ><FaBookReader/> View </button>
+                )
+        }];
         return (
             <div>
                 <h1>Projects</h1>
@@ -35,8 +62,10 @@ const mapStateToProps = (state) => ({
     projects: state.projects
 })
 
-const mapDispatchToProps = (dispatch) => ({
-      loadData: () => { dispatch(loadProjects())}
-})
+function mapDispatchToProps(dispatch) {
+    return {
+        projectActions: bindActionCreators(projectActions, dispatch)
+    };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectList)
