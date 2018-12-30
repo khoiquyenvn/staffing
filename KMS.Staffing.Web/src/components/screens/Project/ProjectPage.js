@@ -1,8 +1,18 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as projectActions from '../../../actions/projectActions';
 import ProjectList from './ProjectList';
 
 class ProjectPage extends React.Component {
+    constructor(props) {
+        super(props);        
+    }
+
+    componentDidMount() {
+        this.props.projectActions.loadProjects();
+    }
+
     render() {
         return (
             <div>
@@ -21,4 +31,10 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(ProjectPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        projectActions: bindActionCreators(projectActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage);

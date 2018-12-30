@@ -32,6 +32,7 @@ namespace KMS.Staffing.Repository.Repos
             {
                 e.DisplayId = e.Id.ToString("D" + 4); // Display ID as 4 digits
                 e.PhotoURL = $"{avatarPath}{e.Photo}";
+                e.EmployeeSkill = null;
             });
 
             return FilterEmployeesByCriteria(employees, pageRequest);

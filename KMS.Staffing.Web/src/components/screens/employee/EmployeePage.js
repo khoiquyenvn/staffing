@@ -16,6 +16,10 @@ class EmployeePage extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
+    componentDidMount() {
+        this.props.employeeActions.loadEmployees({});
+    }
+
     changeSearchValue(e) {
         this.setState({
             searchValue: e.target.value
@@ -40,7 +44,7 @@ class EmployeePage extends React.Component {
             };
         }
 
-        this.props.actions.loadEmployees(criteria);
+        this.props.employeeActions.loadEmployees(criteria);
 
         this.setState({
             searchValue: ''
@@ -72,7 +76,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(employeeActions, dispatch)
+        employeeActions: bindActionCreators(employeeActions, dispatch)
     };
 }
 
