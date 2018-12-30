@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class MenuItem extends React.Component {
-    CheckActive() {
-        if (this.props.href === '/employeelist')
+import { withRouter } from "react-router-dom";
+
+class MenuItem extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    CheckActive() { 
+        if (this.props.history.location.pathname === this.props.href)
         {
             return 'active';
         }
+        return '';
     }
-    
-    render () {
+
+    render() {
         return (
-            <a className={`menu-item bm-item ${this.CheckActive()}`} href={this.props.href} >{this.props.icon} {this.props.menuValue}</a>
+            <a className= {'menu-item bm-item ' + this.CheckActive()} href={this.props.href} >{this.props.icon} {this.props.menuValue}</a>
         );
     }
 }
 
-export default MenuItem;
+const mapStateToProps = (state) => ({
+    currentHref: state.routing
+})
+
+export default withRouter(connect(mapStateToProps)(MenuItem));

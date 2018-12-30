@@ -8,15 +8,16 @@ import App from './App'
 import 'react-table/react-table.css'
 import {loadEmployees} from './actions/employeeActions';
 import {loadTitles} from './actions/TitleActions';
-import {loadProjects} from './actions/ProjectActions';
-import { createBrowserHistory } from 'history';
+import { syncHistoryWithStore} from 'react-router-redux';
 
 const store = configureStore();
 store.dispatch(loadEmployees());
 store.dispatch(loadTitles());
-store.dispatch(loadProjects());
+import { createBrowserHistory } from 'history';
 
-const history = createBrowserHistory();
+const browserHistory = createBrowserHistory();
+const history = syncHistoryWithStore(browserHistory, store);
+
 render(
   <Provider store={store}>
     <App history={history} />
