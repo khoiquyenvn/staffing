@@ -1,4 +1,5 @@
-﻿using KMS.Staffing.Core.Model.ApiRequest;
+﻿using KMS.Staffing.Core.Model;
+using KMS.Staffing.Core.Model.ApiRequest;
 using KMS.Staffing.Logic;
 using Nancy;
 using Nancy.ModelBinding;
@@ -19,7 +20,7 @@ namespace KMS.Staffing.WebAPI
     {
         public EmployeeModule(IEmployeeLogic employeeLogic) : base("employees")
         {
-            Post["/"] = parameters =>
+            Post["/getEmployees"] = parameters =>
             {
                 var pagedRequest = this.Bind<EmployeePageRequest>();
                 var result = employeeLogic.LoadEmployees(pagedRequest);
@@ -31,6 +32,13 @@ namespace KMS.Staffing.WebAPI
                 string id = parameters.id;
                 int? empId = Convert.ToInt32(id);
                 var result = employeeLogic.GetEmployee(empId);
+                return CreateResponse(result);
+            };
+
+            Post["/"] = parameters =>
+            {
+                var employee = this.Bind<Employee>();
+                var result = employeeLogic.UpdateEmployee(employee);
                 return CreateResponse(result);
             };
         }

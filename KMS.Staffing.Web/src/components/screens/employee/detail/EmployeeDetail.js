@@ -23,6 +23,7 @@ class EmployeeDetail extends Component {
 
         this.updateEmployeeInformation = this.updateEmployeeInformation.bind(this);
         this.toggleEditting = this.toggleEditting.bind(this);
+        this.saveEmployeeInformation = this.saveEmployeeInformation.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +50,11 @@ class EmployeeDetail extends Component {
                 isEditting: !currentEditState
             };
         });
+    }
+
+    saveEmployeeInformation() {
+        let updatedEmployee = Object.assign({}, this.state.employee);
+        this.props.selectedEmployeeActions.updateEmployee(updatedEmployee);
     }
 
     render() {
@@ -79,7 +85,7 @@ class EmployeeDetail extends Component {
                     </div>
                     <div className="employee-detail-btn-container">
                         <button className="w3-btn w3-blue employee-handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
-                        <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} >Save</button>
+                        <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}>Save</button>
                         <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
                     </div>
                 </div>

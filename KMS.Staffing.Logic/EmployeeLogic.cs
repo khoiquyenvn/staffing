@@ -28,5 +28,12 @@ namespace KMS.Staffing.Logic
         {
             return employeeRepository.GetEmployee(employeeId);
         }
+
+        public Employee UpdateEmployee(Employee emp)
+        {
+            var result = employeeRepository.Update(emp);
+
+            return result > 0 ? emp : new Employee();
+        }
     }
 }

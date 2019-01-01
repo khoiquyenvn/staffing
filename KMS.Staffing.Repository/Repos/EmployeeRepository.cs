@@ -47,6 +47,18 @@ namespace KMS.Staffing.Repository.Repos
             return result;
         }
 
+        public int Update(Employee emp)
+        {
+            var updatedEmployee = Context.Employees.FirstOrDefault(e => e.Id.Equals(emp.Id));
+            if (updatedEmployee == null)
+            {
+                return 0;
+            }
+
+            UpdateEmployeeInformation(updatedEmployee, emp);            
+            return Context.SaveChanges();
+        }
+
         #region Private methods
 
         private List<Employee> FilterEmployeesByCriteria(List<Employee> employees, EmployeePageRequest pageRequest)
@@ -99,6 +111,16 @@ namespace KMS.Staffing.Repository.Repos
                 e.DisplayId = e.Id.ToString("D" + 4); // Display ID as 4 digits
                 e.PhotoURL = $"{avatarPath}{e.Photo}";
             });
+        }
+
+        private void UpdateEmployeeInformation(Employee updatedEmployee, Employee emp)
+        {
+            var title = Context.Titles.FirstOrDefault(t => t.Id.Equals(emp.TitleId));
+            updatedEmployee.Name = emp.Name;
+            updatedEmployee.Email = emp.Email;
+            updatedEmployee.Phone = emp.Phone;
+            updatedEmployee.Address = emp.Address;
+            updatedEmployee.Title = title;
         }
 
         #endregion

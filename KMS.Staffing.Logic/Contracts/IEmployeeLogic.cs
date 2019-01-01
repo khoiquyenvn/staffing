@@ -9,5 +9,6 @@ namespace KMS.Staffing.Logic
     {
         List<Employee> LoadEmployees(EmployeePageRequest pageRequest);
         Employee GetEmployee(int? employeeId);
+        Employee UpdateEmployee(Employee emp);
     }
 }
