@@ -20,6 +20,7 @@ class EmployeeDetail extends Component {
         };
 
         this.updateEmployeeInformation = this.updateEmployeeInformation.bind(this);
+        this.toggleEditting = this.toggleEditting.bind(this);
     }
 
     componentDidMount() {
@@ -35,13 +36,24 @@ class EmployeeDetail extends Component {
         const field = event.target.name;
         const emp = this.state.employee;
         emp[field] = event.target.value;
-        return this.setState({ employee: emp });
+        this.setState({ employee: emp });
     }
 
+    toggleEditting(event) {            
+        this.setState((currentState) => {            
+            let currentEditState = currentState.isEditting;
+            
+            return {
+                isEditting: !currentEditState                
+            };
+        });
+    }    
+
     render() {
+        
         if (this.state.employee.Id) {
             return (
-                <Fragment>
+                <div>
                     <EmployeeAvatar image={this.state.employee.PhotoURL} />
                     <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
                         <TabList>
@@ -50,16 +62,21 @@ class EmployeeDetail extends Component {
                         </TabList>
                         <TabPanel>
                             <EmployeeInformation onChangeInformation={this.updateEmployeeInformation}
-                                                 employee={this.state.employee}
-                                                 isEditting={this.state.isEditting}
-                                                 titles={this.props.titles} />
+                                employee={this.state.employee}
+                                isEditting={this.state.isEditting}
+                                titles={this.props.titles} />
                         </TabPanel>
                         <TabPanel>
                             <EmployeeSkillset employee={this.state.employee}
-                                              isEditting={this.state.isEditting} />
+                                isEditting={this.state.isEditting} />
                         </TabPanel>
                     </Tabs>
-                </Fragment>
+                    <div className="w3-container">
+                        <button className="w3-btn w3-blue" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
+                        <button className="w3-btn w3-blue" hidden={!this.state.isEditting} >Save</button>
+                        <button className="w3-btn w3-blue" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
+                    </div>                    
+                </div>
             )
         }
         return <div>Loading ...</div>
