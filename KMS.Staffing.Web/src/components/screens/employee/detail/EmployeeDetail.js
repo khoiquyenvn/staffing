@@ -10,6 +10,8 @@ import EmployeeInformation from './EmployeeDetail.Information';
 import EmployeeSkillset from './EmployeeDetail.Skillset';
 import 'react-tabs/style/react-tabs.css';
 
+import '../../../../styles/employee/employeeDetail.css'; 
+
 class EmployeeDetail extends Component {
     constructor(props) {
         super(props);
@@ -39,43 +41,47 @@ class EmployeeDetail extends Component {
         this.setState({ employee: emp });
     }
 
-    toggleEditting(event) {            
-        this.setState((currentState) => {            
+    toggleEditting(event) {
+        this.setState((currentState) => {
             let currentEditState = currentState.isEditting;
-            
+
             return {
-                isEditting: !currentEditState                
+                isEditting: !currentEditState
             };
         });
-    }    
+    }
 
     render() {
-        
+
         if (this.state.employee.Id) {
             return (
-                <div>
-                    <EmployeeAvatar image={this.state.employee.PhotoURL} />
-                    <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
-                        <TabList>
-                            <Tab>Information</Tab>
-                            <Tab>Skillset</Tab>
-                        </TabList>
-                        <TabPanel>
-                            <EmployeeInformation onChangeInformation={this.updateEmployeeInformation}
-                                employee={this.state.employee}
-                                isEditting={this.state.isEditting}
-                                titles={this.props.titles} />
-                        </TabPanel>
-                        <TabPanel>
-                            <EmployeeSkillset employee={this.state.employee}
-                                isEditting={this.state.isEditting} />
-                        </TabPanel>
-                    </Tabs>
-                    <div className="w3-container">
-                        <button className="w3-btn w3-blue" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
-                        <button className="w3-btn w3-blue" hidden={!this.state.isEditting} >Save</button>
-                        <button className="w3-btn w3-blue" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
-                    </div>                    
+                <div className='employee-detail-containter'>
+                    <div className='employee-avatar-container'>
+                        <EmployeeAvatar image={this.state.employee.PhotoURL} />
+                    </div>
+                    <div className='employee-information-container'>
+                        <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+                            <TabList>
+                                <Tab>Information</Tab>
+                                <Tab>Skillset</Tab>
+                            </TabList>
+                            <TabPanel>
+                                <EmployeeInformation onChangeInformation={this.updateEmployeeInformation}
+                                    employee={this.state.employee}
+                                    isEditting={this.state.isEditting}
+                                    titles={this.props.titles} />
+                            </TabPanel>
+                            <TabPanel>
+                                <EmployeeSkillset employee={this.state.employee}
+                                    isEditting={this.state.isEditting} />
+                            </TabPanel>
+                        </Tabs>
+                    </div>
+                    <div className="employee-detail-btn-container">
+                        <button className="w3-btn w3-blue employee-handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
+                        <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} >Save</button>
+                        <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
+                    </div>
                 </div>
             )
         }

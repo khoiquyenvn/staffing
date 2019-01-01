@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../../../controls/common/TextInput';
 import SelectDropdownInput from '../../../controls/common/SelectDropdownInput';
+
 import '../../../../styles/employee/employee.css';
 
 export default class EmployeeInformation extends Component {
