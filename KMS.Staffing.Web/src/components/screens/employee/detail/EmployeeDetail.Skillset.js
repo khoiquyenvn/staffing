@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReactTable from "react-table";
-import { skillsetModel } from '../../../../models/SKillsetModel';
+import * as SkillsetModel from '../../../../models/SkillsetModel';
 
 import '../../../../styles/employee/employee.css';
 
@@ -28,7 +28,7 @@ export default class EmployeeSkillset extends Component {
             <Fragment>
                 <ReactTable
                     data={skills}
-                    columns={skillsetModel}
+                    columns={SkillsetModel.getSkillsetModel(this.props.isEditting)}
                     defaultPageSize={skills.length}
                 />
             </Fragment>

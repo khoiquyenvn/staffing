@@ -16,7 +16,7 @@ class EmployeeDetail extends Component {
         this.state = {
             employee: {},
             tabIndex: 0,
-            isEditting: true
+            isEditting: false
         };
 
         this.updateEmployeeInformation = this.updateEmployeeInformation.bind(this);
