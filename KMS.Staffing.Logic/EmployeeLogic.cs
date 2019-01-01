@@ -10,18 +10,23 @@ using System.Threading.Tasks;
 
 namespace KMS.Staffing.Logic
 {
-    public class EmployeesLogic : IEmployeesLogic
+    public class EmployeeLogic : IEmployeeLogic
     {
         readonly IEmployeeRepository employeeRepository;        
 
-        public EmployeesLogic(IEmployeeRepository employeeRepository)
+        public EmployeeLogic(IEmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
 
-        public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
+        public List<Employee> LoadEmployees(EmployeePageRequest pageRequest)
         {
-            return employeeRepository.GetEmployees(pageRequest);
+            return employeeRepository.LoadEmployees(pageRequest);
+        }
+
+        public Employee GetEmployee(int? employeeId)
+        {
+            return employeeRepository.GetEmployee(employeeId);
         }
     }
 }

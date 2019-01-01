@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace KMS.Staffing.Logic
 {
-    public class TitlesLogic : ITitlesLogic
+    public class TitleLogic : ITitleLogic
     {
         readonly ITitleRepository titleRepository;
 
-        public TitlesLogic(ITitleRepository titleRepository)
+        public TitleLogic(ITitleRepository titleRepository)
         {
             this.titleRepository = titleRepository;
         }

@@ -41,13 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IEmployeesLogic.cs" />
-    <Compile Include="Contracts\ITitlesLogic.cs" />
-    <Compile Include="Contracts\IProjectsLogic.cs" />
-    <Compile Include="EmployeesLogic.cs" />
+    <Compile Include="Contracts\IEmployeeLogic.cs" />
+    <Compile Include="Contracts\IExperienceLogic.cs" />
+    <Compile Include="Contracts\ICompetentLevelLogic.cs" />
+    <Compile Include="Contracts\ISkillCategoryLogic.cs" />
+    <Compile Include="Contracts\ITitleLogic.cs" />
+    <Compile Include="Contracts\IProjectLogic.cs" />
+    <Compile Include="EmployeeLogic.cs" />
     <Compile Include="Enum\ProjectStatus.cs" />
-    <Compile Include="TitlesLogic.cs" />
-    <Compile Include="ProjectsLogic.cs" />
+    <Compile Include="ExperienceLogic.cs" />
+    <Compile Include="CompetentLevelLogic.cs" />
+    <Compile Include="SkillCategoryLogic.cs" />
+    <Compile Include="TitleLogic.cs" />
+    <Compile Include="ProjectLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

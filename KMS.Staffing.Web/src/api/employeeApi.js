@@ -16,6 +16,18 @@ class EmployeeApi {
       return error;
     });
   }
+
+  static getEmployeeById() {
+    const request = new Request(apiConfig.API_URL + apiConfig.EMPLOYEE_MODULE +'/795', {
+      method: 'GET',
+    });
+
+    return fetch(request).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
 }
 
 export default EmployeeApi; 

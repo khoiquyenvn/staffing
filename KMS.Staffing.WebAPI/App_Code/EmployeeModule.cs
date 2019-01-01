@@ -13,16 +13,24 @@ using System.Web;
 namespace KMS.Staffing.WebAPI
 { 
     /// <summary>
-    /// Summary description for ProjectsModule
+    /// Summary description for EmployeesModule
     /// </summary>
     public class EmployeeModule : BaseModule
     {
-        public EmployeeModule(IEmployeesLogic employeeLogic) : base("employees")
+        public EmployeeModule(IEmployeeLogic employeeLogic) : base("employees")
         {
             Post["/"] = parameters =>
             {
                 var pagedRequest = this.Bind<EmployeePageRequest>();
-                var result = employeeLogic.GetEmployees(pagedRequest);
+                var result = employeeLogic.LoadEmployees(pagedRequest);
+                return CreateResponse(result);
+            };
+
+            Get["/{id?}"] = parameters =>
+            {
+                string id = parameters.id;
+                int? empId = Convert.ToInt32(id);
+                var result = employeeLogic.GetEmployee(empId);
                 return CreateResponse(result);
             };
         }

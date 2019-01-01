@@ -12,7 +12,7 @@ export default class EmployeeList extends Component {
         const { employees } = this.props;
 
         if (employees.length <= 0) {
-            return <span>No employee was found</span>;
+            return <span>No employee was found. Loading ...</span>;
         }
         
         return (

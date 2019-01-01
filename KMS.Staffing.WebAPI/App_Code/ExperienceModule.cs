@@ -11,15 +11,15 @@ using System.Web;
 namespace KMS.Staffing.WebAPI
 { 
     /// <summary>
-    /// Summary description for TitlesModule
+    /// Summary description for ExperiencesModule
     /// </summary>
-    public class TitleModule : BaseModule
+    public class ExperienceModule : BaseModule
     {
-        public TitleModule(ITitleLogic titleLogic) : base("titles")
+        public ExperienceModule(IExperienceLogic experienceLogic) : base("experiences")
         {
             Get["/"] = parameters =>
             {
-                var result = titleLogic.GetTitles();
+                var result = experienceLogic.GetExperiences();
                 return CreateResponse(result);
             };
         }

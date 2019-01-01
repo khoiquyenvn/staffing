@@ -1,5 +1,4 @@
 ﻿using KMS.Staffing.Core.Model;
-using KMS.Staffing.Core.Model.ApiRequest;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace KMS.Staffing.Core.Contracts
 {
-    public interface IEmployeeRepository
+    public interface IExperienceRepository
     {
-        List<Employee> LoadEmployees(EmployeePageRequest pageRequest);
-        Employee GetEmployee(int? empId);
+        List<Experience> GetExperiences();
     }
 }

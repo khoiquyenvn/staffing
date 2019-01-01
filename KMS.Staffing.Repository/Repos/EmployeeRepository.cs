@@ -24,19 +24,30 @@ namespace KMS.Staffing.Repository.Repos
 
         }
 
-        public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
+        public List<Employee> LoadEmployees(EmployeePageRequest pageRequest)
         {
             var employees = Context.Employees.Include("Title").ToList();
 
-            employees.ForEach(e =>
-            {
-                e.DisplayId = e.Id.ToString("D" + 4); // Display ID as 4 digits
-                e.PhotoURL = $"{avatarPath}{e.Photo}";
-                e.EmployeeSkill = null;
-            });
+            UpdateAdditionalDetail(employees);
 
             return FilterEmployeesByCriteria(employees, pageRequest);
         }
+
+        public Employee GetEmployee(int? empId)
+        {
+            var employees = Context.Employees.Include("Title")
+                                             .Include("EmployeeSkill.Skill")
+                                             .Include("EmployeeSkill.Employee")
+                                             .Include("EmployeeSkill.Skill.SkillCategory")
+                                             .ToList();
+
+            UpdateAdditionalDetail(employees);
+
+            var result = employees.FirstOrDefault(e => e.Id.Equals(empId.Value));
+            return result;
+        }
+
+        #region Private methods
 
         private List<Employee> FilterEmployeesByCriteria(List<Employee> employees, EmployeePageRequest pageRequest)
         {
@@ -80,5 +91,16 @@ namespace KMS.Staffing.Repository.Repos
 
             return employees;
         }
+
+        private void UpdateAdditionalDetail(List<Employee> employees)
+        {
+            employees.ForEach(e =>
+            {
+                e.DisplayId = e.Id.ToString("D" + 4); // Display ID as 4 digits
+                e.PhotoURL = $"{avatarPath}{e.Photo}";
+            });
+        }
+
+        #endregion
     }
 }

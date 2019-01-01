@@ -9,17 +9,17 @@ using System.Threading;
 using System.Web;
 
 namespace KMS.Staffing.WebAPI
-{ 
+{
     /// <summary>
-    /// Summary description for TitlesModule
+    /// Summary description for SkillCategoryModule
     /// </summary>
-    public class TitleModule : BaseModule
+    public class SkillCategoryModule : BaseModule
     {
-        public TitleModule(ITitleLogic titleLogic) : base("titles")
+        public SkillCategoryModule(ISkillCategoryLogic skillCategoryLogic) : base("skillCategories")
         {
             Get["/"] = parameters =>
             {
-                var result = titleLogic.GetTitles();
+                var result = skillCategoryLogic.GetSkillCategories();
                 return CreateResponse(result);
             };
         }
