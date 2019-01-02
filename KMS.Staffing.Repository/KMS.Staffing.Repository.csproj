@@ -63,6 +63,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\BaseRepository.cs" />
     <Compile Include="Repos\EmployeeRepository.cs" />
+    <Compile Include="Repos\ExperienceRepository.cs" />
+    <Compile Include="Repos\CompetentLevelRepository.cs" />
+    <Compile Include="Repos\SkillCategoryRepository.cs" />
     <Compile Include="Repos\TitleRepository.cs" />
     <Compile Include="Repos\ProjectRepository.cs" />
   </ItemGroup>
@@ -73,7 +76,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

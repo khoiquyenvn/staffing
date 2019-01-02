@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from "react-table";
-import { employeeShortInformation } from '../../../models/EmployeeModel';
+import * as EmployeeModel from '../../../models/EmployeeModel';
 
 export default class EmployeeList extends Component {
     constructor(props) {
@@ -12,14 +12,14 @@ export default class EmployeeList extends Component {
         const { employees } = this.props;
 
         if (employees.length <= 0) {
-            return <span>No employee was found</span>;
+            return <span>No employee was found. Loading ...</span>;
         }
         
         return (
             <Fragment>
                 <ReactTable
                     data={employees}
-                    columns={employeeShortInformation}
+                    columns={EmployeeModel.getEmployeeModel()}
                     defaultPageSize={5}
                 />
             </Fragment>

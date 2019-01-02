@@ -11,11 +11,11 @@ using System.Web;
 namespace KMS.Staffing.WebAPI
 { 
     /// <summary>
-    /// Summary description for ProjectsModule
+    /// Summary description for TitlesModule
     /// </summary>
     public class TitleModule : BaseModule
     {
-        public TitleModule(ITitlesLogic titleLogic) : base("titles")
+        public TitleModule(ITitleLogic titleLogic) : base("titles")
         {
             Get["/"] = parameters =>
             {

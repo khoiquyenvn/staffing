@@ -10,7 +10,7 @@ class EmployeePage extends React.Component {
         super(props);
         this.state = {
             searchValue: ''
-        }
+        };
 
         this.changeSearchValue = this.changeSearchValue.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
@@ -69,8 +69,7 @@ class EmployeePage extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        employees: state.employees,
-        titles: state.titles
+        employees: state.employees
     };
 }
 

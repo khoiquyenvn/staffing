@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace KMS.Staffing.Logic
 {
-    public class ProjectsLogic : IProjectsLogic
+    public class ProjectLogic : IProjectLogic
     {
         readonly IProjectRepository projectRepository;
         readonly IEmployeeRepository employeeRepository;

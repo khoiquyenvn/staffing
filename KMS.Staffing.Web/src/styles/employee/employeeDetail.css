@@ -1,0 +1,28 @@
+.employee-detail-btn-container
+.employee-information-container,
+.employee-avatar-container {  
+  display: grid;  
+}
+
+.employee-detail-containter {
+  display: grid;  
+  grid-template-columns: 20em 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "avatar   info-container" 
+    "avatar   btn-container";
+}
+
+.employee-detail-btn-container {
+    grid-area: btn-container;
+    margin-top: 50px;
+}
+.employee-information-container {
+    grid-area: info-container;
+}
+.employee-avatar-container {
+    grid-area: avatar;
+}
+.employee-handle-btn{
+    margin: 10px;
+}
