@@ -62,7 +62,7 @@ class EmployeePage extends React.Component {
                         searchValue={this.state.searchValue}
                         changeSearchValue={this.changeSearchValue}
                         handleSearch={this.handleSearch} />
-                    <EmployeeList employees={this.props.employees} />
+                    <EmployeeList accessEmployeeDetailAction={this.props.employeeActions.accessEmployeeDetail} employees={this.props.employees} />
                 </div>
             </div>
         )

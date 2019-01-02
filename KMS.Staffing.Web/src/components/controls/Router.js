@@ -12,11 +12,11 @@ class MainRouter extends Component {
       
     return (
       <Switch>
-          <Route path='/employeelist' component={EmployeePage} />
+          <Route exact path='/employeelist' component={EmployeePage} />
           <Route exact path='/projectlist' component={ProjectList} />
           <Route path='/projectlist/:id' component={ProjectDetail} />
-          <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} />    
-          <Route path='/employeedetail' component={EmployeeDetail} />
+          <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} /> 
+          <Route path='/employeelist/:id' component={EmployeeDetail} />   
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>

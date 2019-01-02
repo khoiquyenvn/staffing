@@ -19,7 +19,7 @@ export default class EmployeeList extends Component {
             <Fragment>
                 <ReactTable
                     data={employees}
-                    columns={EmployeeModel.getEmployeeModel()}
+                    columns={EmployeeModel.getEmployeeModel(false, this.props.accessEmployeeDetailAction)}
                     defaultPageSize={5}
                 />
             </Fragment>
