@@ -47,11 +47,17 @@
     <Compile Include="Contracts\ISkillCategoryRepository.cs" />
     <Compile Include="Contracts\ITitleRepository.cs" />
     <Compile Include="Contracts\IProjectRepository.cs" />
+    <Compile Include="Enums\PlanStatus.cs" />
+    <Compile Include="Enums\RequestStatus.cs" />
+    <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Model\ApiRequest\EmployeePageRequest.cs" />
     <Compile Include="Model\ApiRequest\PageRequest.cs" />
     <Compile Include="Model\Constant\EmployeeFilterKey.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\EmployeeSkill.cs" />
+    <Compile Include="Model\Request.cs" />
+    <Compile Include="Model\RequestDetail.cs" />
+    <Compile Include="Model\SessionPlan.cs" />
     <Compile Include="Model\Skill.cs" />
     <Compile Include="Model\SkillCategory.cs" />
     <Compile Include="Model\ApiRequest\SearchCriteria.cs" />

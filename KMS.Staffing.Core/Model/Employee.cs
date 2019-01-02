@@ -29,5 +29,42 @@ namespace KMS.Staffing.Core.Model
         [NotMapped]
         public string PhotoURL { get; set; }
         public virtual ICollection<EmployeeSkill> EmployeeSkill { get; set; }
+        
+        public int CalScore(List<Request> titles, List<Request> titleAndSkills)
+        {
+            var score = 0;
+
+            // just title
+            if (titles.Any(x => x.RequestDetails.FirstOrDefault()?.TitleId == TitleId))
+            {
+                score++;
+            }
+
+            // title and skill
+            if (titleAndSkills?.Any() == true)
+            {
+                var matchedTitles = titleAndSkills.Where(x => x.RequestDetails.Any(y => y.TitleId == TitleId)).ToList();
+
+                if (matchedTitles.Any())
+                {
+                    matchedTitles.ForEach(x => {
+
+                        // score for title
+                        //score++;
+
+                        x.RequestDetails.ForEach(skill =>
+                        {
+                            if (EmployeeSkill.Any(y => y.SkillId.Equals(skill.SkillId)))
+                            {
+                                // score for each matched skill
+                                score++;
+                            }
+                        });
+                    });
+                }
+            }            
+
+            return score;
+        }
     }
 }

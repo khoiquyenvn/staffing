@@ -44,7 +44,6 @@ namespace KMS.Staffing.Logic
 
             var employees = employeeRepository.GetEmployees();
 
-
             var sampleController = new EqualitySampleController();
 
             var selection = sampleController.CreateSelection();

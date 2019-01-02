@@ -1,4 +1,5 @@
-﻿using KMS.Staffing.Core.Model;
+﻿using KMS.Staffing.Core.Enums;
+using KMS.Staffing.Core.Model;
 using KMS.Staffing.Repository.Contants;
 using KMS.Staffing.Repository.DBContexts;
 using KMS.Staffing.Repository.Repos;
@@ -79,7 +80,7 @@ namespace KMS.Staffing.Repository.Test
             var sut = StaffingContext.Instance;
             var storedNameWithParam = "usp_SP1 @p1";
             var param = new SqlParameter("@p1", 1);
-            
+
             var result = sut.Database.SqlQuery<Project>(storedNameWithParam, param).ToList();
 
             Assert.True(result.Count > 0);
@@ -100,9 +101,9 @@ namespace KMS.Staffing.Repository.Test
         [Fact]
         public void JoinManyToMany_EagerLoad()
         {
-            var sut = StaffingContext.Instance; 
+            var sut = StaffingContext.Instance;
 
-            var emps = 
+            var emps =
                 sut.Employees
                 .Include("EmployeeSkill.Skill")
                 .Include("EmployeeSkill.Employee")
@@ -119,11 +120,60 @@ namespace KMS.Staffing.Repository.Test
         public void ProjectNeedToStaff()
         {
             var sut = StaffingContext.Instance;
-                        
 
-            var skills = sut.Skills.ToList();
-            
-            Assert.NotNull(skills);
+            var sessionPlans = sut
+                .SessionPlans
+                .Include("Requests.RequestDetails")
+                .Where(x => x.Status == (int)PlanStatus.Active)
+                .ToList();
+
+            var activeRequests = sessionPlans
+                .First()
+                .Requests
+                .Where(x => x.Status == (int)RequestStatus.Active)
+                .ToList();
+
+            var titleNeeds = activeRequests.Where(x => x.Type == (int)RequestType.Title).ToList();
+            var bothNeeds = activeRequests.Where(x => x.Type == (int)RequestType.Both).ToList();
+
+            var requestTitlesInOrder = activeRequests
+                .SelectMany(x =>  x.RequestDetails)
+                .Select(x => new { x.Title.Name, x.TitleId, x.Title.Level, x.Request.Number })
+                .OrderBy(x => x.Level)
+                .Distinct()
+                .ToList();
+
+            var neededScore = CalNeededScore(titleNeeds, bothNeeds);
+
+            var employees = sut.Employees.Include(nameof(Employee.EmployeeSkill)).ToList();
+
+            var dic = new Dictionary<int, int>();
+
+            employees.ForEach(x =>
+            {
+                dic.Add(x.Id, x.CalScore(titleNeeds, bothNeeds));
+            });
+
+            Assert.NotNull(sessionPlans);
         }
+
+        public int CalNeededScore(List<Request> titles, List<Request> titleAndSkills)
+        {
+            var scores = 0;
+
+            scores += titles.Sum(x => x.Number);
+
+            titleAndSkills.ForEach(x => {
+
+                // add one score for title
+                //scores += x.Number;
+
+                // and one for each required skill
+                scores += x.RequestDetails.Count * x.Number;
+            });
+
+            return scores;
+        }
+
     }
 }

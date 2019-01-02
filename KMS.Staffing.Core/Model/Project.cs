@@ -25,5 +25,7 @@ namespace KMS.Staffing.Core.Model
         public Guid DepartmentId { get; set; }
 
         public int Status { get; set; }
+
+        public virtual List<SessionPlan> SessionPlans { get; set; }
     }
 }
