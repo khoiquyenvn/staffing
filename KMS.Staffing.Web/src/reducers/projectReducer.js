@@ -6,7 +6,9 @@ export default function projectReducer(state = initialState.projects, action) {
     switch(action.type) {
       case actionTypes.LOAD_PROJECTS_SUCCESS:
         return _.concat([], action.projects)      
-      default: 
+      case actionTypes.LOAD_PROJECTS_DETAIL: 
+          return action.projectDetail     
+      default:
         return state;
     }
   }

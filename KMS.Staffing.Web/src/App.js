@@ -4,6 +4,7 @@ import MainRouter from './components/controls/Router';
 import MainMenu from './components/controls/menus/MainMenu';
 import "./App.css";
 
+import { withRouter } from "react-router-dom";
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -22,4 +23,3 @@ export default class App extends Component {
         );
     }
 }
-

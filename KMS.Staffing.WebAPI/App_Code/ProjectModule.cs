@@ -20,6 +20,13 @@ namespace KMS.Staffing.WebAPI
                 return CreateResponse(result);
             };
 
+            Get["/{projectId}"] = parameters =>
+            {
+                var projectId = Guid.Parse(parameters.projectId);
+                var result = projectLogic.GetProjectDetail(projectId);
+                return CreateResponse(result);
+            };
+
             Get["/test"] = _ =>
             {
                 return projectLogic.test(Request.Query.Name);

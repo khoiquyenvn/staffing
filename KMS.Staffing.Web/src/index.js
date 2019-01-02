@@ -10,7 +10,8 @@ import { createBrowserHistory } from 'history';
 
 const store = configureStore();
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
+
 render(
   <Provider store={store}>
     <App history={history} />

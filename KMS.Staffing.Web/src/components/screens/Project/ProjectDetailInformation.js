@@ -1,32 +1,35 @@
 import React, { Component , Fragment} from 'react'
-import ReactTable from "react-table";
-class ProjectDetailInformation extends Component {
-  render() {
-    const initialProjectDetail = {
-      name: 'Izenda',
-      description: 'BI Platform',
-      teamSize: 20,
-      status: 0,
-      member: []
-    }
+import * as projectDetailActions from '../../../actions/projectDetailAction';
+import { connect } from 'react-redux';
+import { renderStatusLabel } from '../../../models/ProjectModel';
+import { bindActionCreators } from 'redux';
 
+class ProjectDetailInformation extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    
+    const { projectDetail } = this.props;
     return (
       <Fragment>
-        <ProjectHeader/>
-        {/* <img src="data:image/jpeg;base64,{projectDetail.image}" /> */}
-        {/* <table style="width:100%">
-          <theader>
-            <th>Description</th>
-            <th>Detail</th>
-          </theader>
-          <tbody>
-            <th>{projectDetail.description}</th>
-            <th><ProjectDetail/></th>
-          </tbody>
-        </table> */}
+        <div>Description: {projectDetail.Description}</div>
+        <div>Team Size: {projectDetail.TeamSize}</div>
+        <div> Status: {renderStatusLabel(projectDetail.Status)}</div>
       </Fragment>
       )
   }
 }
 
-export default ProjectDetailInformation
+const mapStateToProps = (state) => ({
+  projectDetail: state.projectDetail
+})
+
+function mapDispatchToProps(dispatch) {
+  return {
+    projectDetailActions: bindActionCreators(projectDetailActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetailInformation)

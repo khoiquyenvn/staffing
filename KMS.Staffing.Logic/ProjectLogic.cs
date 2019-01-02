@@ -31,5 +31,10 @@ namespace KMS.Staffing.Logic
         { 
             return projectRepository.GetProjects().ToList();
         }
+
+        public Project GetProjectDetail(Guid projectId)
+        {
+            return projectRepository.FindById(projectId);
+        }
     }
 }
