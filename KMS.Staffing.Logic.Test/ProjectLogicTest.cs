@@ -16,7 +16,7 @@ namespace KMS.Staffing.Logic.Test
         {
             var projectRepo = new ProjectRepository();
             var employeeRepo = new EmployeeRepository();
-            var sut = new ProjectsLogic(projectRepo, employeeRepo);
+            var sut = new ProjectLogic(projectRepo, employeeRepo);
 
             Guid projectId = Guid.NewGuid();
             var result = sut.FillEmp(projectId);

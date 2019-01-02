@@ -16,7 +16,7 @@ namespace KMS.Staffing.Logic
         readonly IProjectRepository projectRepository;
         readonly IEmployeeRepository employeeRepository;
 
-        public ProjectsLogic(IProjectRepository projectRepository, IEmployeeRepository employeeRepository)
+        public ProjectLogic(IProjectRepository projectRepository, IEmployeeRepository employeeRepository)
         {
             this.projectRepository = projectRepository;
             this.employeeRepository = employeeRepository;

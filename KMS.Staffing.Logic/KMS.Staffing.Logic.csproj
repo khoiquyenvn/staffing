@@ -65,10 +65,7 @@
     <Compile Include="Bussiness\EqualitySampleController.cs" />
     <Compile Include="Bussiness\ISampleController.cs" />
     <Compile Include="Bussiness\SampleControllerBase.cs" />
-    <Compile Include="Contracts\IEmployeesLogic.cs" />
-    <Compile Include="Contracts\ITitlesLogic.cs" />
-    <Compile Include="Contracts\IProjectsLogic.cs" />
-    <Compile Include="EmployeesLogic.cs" />
+    <Compile Include="EmployeeLogic.cs" />
     <Compile Include="Contracts\IEmployeeLogic.cs" />
     <Compile Include="Contracts\IExperienceLogic.cs" />
     <Compile Include="Contracts\ICompetentLevelLogic.cs" />
