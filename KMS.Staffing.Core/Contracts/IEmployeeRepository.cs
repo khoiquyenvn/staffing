@@ -11,6 +11,8 @@ namespace KMS.Staffing.Core.Contracts
 {
     public interface IEmployeeRepository
     {
-        List<Employee> GetEmployees(EmployeePageRequest pageRequest);
+        List<Employee> LoadEmployees(EmployeePageRequest pageRequest);
+        Employee GetEmployee(int? empId);
+        int Update(Employee emp);
     }
 }

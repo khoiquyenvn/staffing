@@ -36,6 +36,8 @@ namespace KMS.Staffing.Repository.DBContexts
         public DbSet<Project> Projects { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Title> Titles { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+        public DbSet<CompetentLevel> CompetentLevels { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillCategory> SkillCategory { get; set; }

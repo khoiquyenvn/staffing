@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IEmployeeRepository.cs" />
+    <Compile Include="Contracts\IExperienceRepository.cs" />
+    <Compile Include="Contracts\ICompetentLevelRepository.cs" />
+    <Compile Include="Contracts\ISkillCategoryRepository.cs" />
     <Compile Include="Contracts\ITitleRepository.cs" />
     <Compile Include="Contracts\IProjectRepository.cs" />
     <Compile Include="Model\ApiRequest\EmployeePageRequest.cs" />
@@ -52,6 +55,8 @@
     <Compile Include="Model\Skill.cs" />
     <Compile Include="Model\SkillCategory.cs" />
     <Compile Include="Model\ApiRequest\SearchCriteria.cs" />
+    <Compile Include="Model\Experience.cs" />
+    <Compile Include="Model\CompetentLevel.cs" />
     <Compile Include="Model\Title.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Project.cs" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KMS.Staffing.Logic
 {
-    public interface ITitlesLogic
+    public interface ITitleLogic
     {
         List<Title> GetTitles();
     }

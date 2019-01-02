@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace KMS.Staffing.Logic
 {
-    public interface IProjectsLogic
+    public interface IProjectLogic
     {
         string test(string name);
 

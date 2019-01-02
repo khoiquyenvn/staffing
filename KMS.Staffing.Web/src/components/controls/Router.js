@@ -4,8 +4,9 @@ import NotFound from './NotFound';
 import ProjectDetail from '../screens/project/ProjectDetail';
 import ProjectList from '../screens/project/ProjectList';
 import EmployeePage from '../screens/employee/EmployeePage';
-
 import { withRouter } from "react-router-dom";
+import EmployeeDetail from '../screens/employee//detail/EmployeeDetail';
+import App from '../../App';
 class MainRouter extends Component {
   render() {
       
@@ -15,6 +16,7 @@ class MainRouter extends Component {
           <Route path='/projectlist' component={ProjectList} />
           <Route path='/projectdetail/:id' component={ProjectDetail} />
           <Route path="/" render={() => (<Redirect to="/employeelist" />)} />    
+          <Route path='/employeedetail' component={EmployeeDetail} />
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>
