@@ -1,9 +1,9 @@
 import employeeApi from '../api/employeeApi';
 import * as actionTypes from './actionTypes';
 
-export function loadEmployeeById() {
+export function loadEmployeeById(id) {
   return function (dispatch) {
-    return employeeApi.getEmployeeById().then(emp => {
+    return employeeApi.getEmployeeById(id).then(emp => {
       dispatch(loadEmployeeByIdSuccess(emp));
     }).catch(error => {
       throw (error);

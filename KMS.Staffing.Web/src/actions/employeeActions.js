@@ -1,5 +1,6 @@
 import employeeApi from '../api/employeeApi';
 import * as actionTypes from './actionTypes';
+import { history } from '../index';
 
 export function loadEmployees(criteria) {
   return function (dispatch) {
@@ -13,4 +14,10 @@ export function loadEmployees(criteria) {
 
 export function loadEmployeesSuccess(employees) {
   return { type: actionTypes.LOAD_EMPLOYEES_SUCCESS, employees };
+}
+
+export function accessEmployeeDetail(id) {  
+  return function(dispatch) {
+    return history.push('/employeelist/' + id);
+  };
 }
