@@ -54,5 +54,10 @@ import { FaBookReader } from 'react-icons/fa';
         case projectStatusEnum.done: return 'End';
       }
   }
-    
-export { projectModel, projectStatusEnum, projectShortInformation, renderStyle, renderName, statusLabel }
+  
+  function renderStatusLabel (status) {
+    return (
+      <label style={{...renderStyle(status), ...statusLabel}}>{renderName(status)}</label>  
+    )
+  }
+export { projectModel, projectStatusEnum, projectShortInformation, renderStyle, renderName, statusLabel, renderStatusLabel }

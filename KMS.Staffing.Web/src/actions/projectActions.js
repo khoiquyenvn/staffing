@@ -14,16 +14,6 @@ export function loadProjects() {
   
 export function enterProjectDetail(id) {  
   return function(dispatch) {
-    return history.push('/projectdetail'+ '/' + id);
-  };
-}
-
-export function loadProjectDetail(id) {  
-  return function(dispatch) {
-    return projectApi.loadProjectDetail(id).then(projectDetail => {
-      dispatch({type: actionTypes.LOAD_PROJECTS_DETAIL, projectDetail});
-    }).catch(error => {
-      throw(error);
-    });
+    return history.push('/projectlist/' + id);
   };
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ReactTable from "react-table";
 import { bindActionCreators } from 'redux';
-import { renderName, renderStyle,statusLabel  } from '../../../models/ProjectModel';
+import { renderStatusLabel } from '../../../models/ProjectModel';
 
 import * as projectActions from '../../../actions/projectActions';
 import { FaBookReader } from 'react-icons/fa';
@@ -34,9 +34,7 @@ class ProjectList extends Component {
         }, {
             Header: 'Status',
             accessor: 'Status',
-            Cell: row => (
-            <label style={{...renderStyle(row.value), ...statusLabel}}>{renderName(row.value)}</label>  // label change with value
-                )
+            Cell: row => renderStatusLabel(row.value)
         }, {
             Header: '',
             accessor: '',
@@ -44,6 +42,7 @@ class ProjectList extends Component {
             <button className="staffingButton" onClick={()=>this.props.projectActions.enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
                 )
         }];
+
         return (
             <div>
                 <h1>Projects</h1>

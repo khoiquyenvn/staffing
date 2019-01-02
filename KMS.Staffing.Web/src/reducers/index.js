@@ -5,6 +5,7 @@ import { routerReducer } from 'react-router-redux'
 import employees from './employeeReducer';
 import selectedEmployee from './selectedEmployeeReducer';
 import projects from './projectReducer';
+import projectDetail from './projectDetailReducer';
 import titles from './titleReducer';
 import experiences from './experienceReducer';
 import competentLevels from './competentLevelReducer';
@@ -19,6 +20,7 @@ const reducers = {
   competentLevels,
   skillCategories,
   projects,
+  projectDetail,
   burgerMenu, // Must be mounted at 'burgerMenu'
   routing: routerReducer
 };
