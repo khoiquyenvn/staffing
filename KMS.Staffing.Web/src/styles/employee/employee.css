@@ -1,0 +1,9 @@
+.employee-avatar{
+    max-height: 220px;
+    max-width: 170px;
+    min-width: 170px;
+    min-height: 220px;
+    border-width: 10px;
+    border-color: black;
+    border-style: solid double;
+}

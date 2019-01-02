@@ -12,7 +12,7 @@ namespace KMS.Staffing.WebAPI
     /// </summary>
     public class ProjectsModule : BaseModule
     {
-        public ProjectsModule(IProjectsLogic projectLogic) : base("projects")
+        public ProjectsModule(IProjectLogic projectLogic) : base("projects")
         {
             Get["/"] = parameters =>
             {
