@@ -114,5 +114,16 @@ namespace KMS.Staffing.Repository.Test
             Assert.NotNull(emps);
             Assert.NotNull(skills);
         }
+
+        [Fact]
+        public void ProjectNeedToStaff()
+        {
+            var sut = StaffingContext.Instance;
+                        
+
+            var skills = sut.Skills.ToList();
+            
+            Assert.NotNull(skills);
+        }
     }
 }

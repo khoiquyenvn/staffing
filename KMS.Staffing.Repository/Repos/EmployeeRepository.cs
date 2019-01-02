@@ -24,6 +24,18 @@ namespace KMS.Staffing.Repository.Repos
 
         }
 
+        public List<Employee> GetEmployees()
+        {
+            var employees = 
+                Context
+                    .Employees
+                    .Include("Title")
+                    .Include("EmployeeSkill.Skill")
+                    .ToList();
+
+            return employees;
+        }
+
         public List<Employee> GetEmployees(EmployeePageRequest pageRequest)
         {
             var employees = Context.Employees.Include("Title").ToList();
