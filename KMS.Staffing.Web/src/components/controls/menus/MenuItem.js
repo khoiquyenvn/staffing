@@ -9,7 +9,7 @@ class MenuItem extends Component {
     }
 
     CheckActive() { 
-        if (this.props.history.location.pathname === this.props.href)
+        if (this.props.history.location.pathname.includes(this.props.href))
         {
             return 'active';
         }

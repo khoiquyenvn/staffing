@@ -6,13 +6,11 @@ import { Provider } from 'react-redux'
 import configureStore from './store/configureStore';
 import App from './App'
 import 'react-table/react-table.css'
-import { syncHistoryWithStore} from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 
 const store = configureStore();
 
-const browserHistory = createBrowserHistory();
-export const history = syncHistoryWithStore(browserHistory, store);
+export const history = createBrowserHistory();
 
 render(
   <Provider store={store}>

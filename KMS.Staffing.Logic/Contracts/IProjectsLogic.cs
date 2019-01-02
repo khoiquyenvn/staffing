@@ -1,4 +1,5 @@
 ﻿using KMS.Staffing.Core.Model;
+using System;
 using System.Collections.Generic;
 
 namespace KMS.Staffing.Logic
@@ -10,5 +11,7 @@ namespace KMS.Staffing.Logic
         int CountProjects();
 
         List<Project> GetProjects();
+
+        Project GetProjectDetail(Guid projectId);
     }
 }

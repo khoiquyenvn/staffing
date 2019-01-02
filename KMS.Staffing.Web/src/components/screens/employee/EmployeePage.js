@@ -5,6 +5,8 @@ import * as employeeActions from '../../../actions/employeeActions';
 import EmployeeList from './EmployeeList';
 import SearchControl from '../../controls/search/SearchControl';
 
+import { withRouter } from "react-router-dom";
+
 class EmployeePage extends React.Component {
     constructor(props) {
         super(props);
@@ -80,4 +82,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmployeePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EmployeePage));

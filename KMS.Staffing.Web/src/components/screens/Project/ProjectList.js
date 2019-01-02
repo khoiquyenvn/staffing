@@ -7,6 +7,7 @@ import { renderName, renderStyle,statusLabel  } from '../../../models/ProjectMod
 
 import * as projectActions from '../../../actions/projectActions';
 import { FaBookReader } from 'react-icons/fa';
+import { withRouter } from "react-router-dom";
 
 class ProjectList extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class ProjectList extends Component {
             Header: '',
             accessor: '',
             Cell: cellInfo => (
-            <button className="staffingButton" onClick={()=>this.props.projectActions.enterProjectDetail(cellInfo.original.id)} ><FaBookReader/> View </button>
+            <button className="staffingButton" onClick={()=>this.props.projectActions.enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
                 )
         }];
         return (
@@ -68,4 +69,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectList)
+export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(ProjectList))

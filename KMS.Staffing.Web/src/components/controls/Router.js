@@ -5,18 +5,21 @@ import ProjectDetail from '../screens/project/ProjectDetail';
 import ProjectList from '../screens/project/ProjectList';
 import EmployeePage from '../screens/employee/EmployeePage';
 
-export default class MainRouter extends Component {
+import { withRouter } from "react-router-dom";
+class MainRouter extends Component {
   render() {
       
     return (
       <Switch>
           <Route path='/employeelist' component={EmployeePage} />
           <Route path='/projectlist' component={ProjectList} />
-          <Route path='/projectlist/:id' component={ProjectDetail} />
-          <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} />    
+          <Route path='/projectdetail/:id' component={ProjectDetail} />
+          <Route path="/" render={() => (<Redirect to="/employeelist" />)} />    
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>
     )
   }
 }
+
+export default withRouter(MainRouter)
