@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import ReactTable from "react-table";
 import { bindActionCreators } from 'redux';
-import { renderStatusLabel } from '../../../models/ProjectModel';
+import { renderStatusLabel, renderProjectColumn } from '../../../models/ProjectModel';
 
 import * as projectActions from '../../../actions/projectActions';
 import { FaBookReader } from 'react-icons/fa';
@@ -22,26 +22,7 @@ class ProjectList extends Component {
         const { projects } = this.props;
         
   
-        const projectShortInformation = [{
-            Header: 'Name',
-            accessor: 'Name'
-        }, {
-            Header: 'Description',
-            accessor: 'Description'
-        }, {
-            Header: 'Team Size',
-            accessor: 'TeamSize'
-        }, {
-            Header: 'Status',
-            accessor: 'Status',
-            Cell: row => renderStatusLabel(row.value)
-        }, {
-            Header: '',
-            accessor: '',
-            Cell: cellInfo => (
-            <button className="staffingButton" onClick={()=>this.props.projectActions.enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
-                )
-        }];
+        const projectShortInformation = renderProjectColumn(this.props.projectActions.enterProjectDetail);
 
         return (
             <div>

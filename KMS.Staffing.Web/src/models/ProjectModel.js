@@ -8,13 +8,6 @@ import { FaBookReader } from 'react-icons/fa';
     kickoff: 1,
     done: 2
   }
-
-  const projectModel = {
-    name : '',
-    description : '',
-    teamSize : 0,
-    status : projectStatusEnum.working
-  }
   
   var statusLabel = {
     padding: '5px',
@@ -60,4 +53,28 @@ import { FaBookReader } from 'react-icons/fa';
       <label style={{...renderStyle(status), ...statusLabel}}>{renderName(status)}</label>  
     )
   }
-export { projectModel, projectStatusEnum, projectShortInformation, renderStyle, renderName, statusLabel, renderStatusLabel }
+
+  function renderProjectColumn(enterProjectDetail) {
+    let projectShortInformation = [{
+      Header: 'Name',
+      accessor: 'Name'
+    }, {
+        Header: 'Description',
+        accessor: 'Description'
+    }, {
+        Header: 'Team Size',
+        accessor: 'TeamSize'
+    }, {
+        Header: 'Status',
+        accessor: 'Status',
+        Cell: row => renderStatusLabel(row.value)
+    }, {
+        Header: '',
+        accessor: '',
+        Cell: cellInfo => (
+        <button className="staffingButton" onClick={()=>enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
+            )
+    }];
+     return projectShortInformation;
+  }
+export { projectStatusEnum, renderStatusLabel , renderProjectColumn}
