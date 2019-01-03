@@ -10,7 +10,7 @@ export default {
         TeamSize: 20,
         Status: 0,
         Member: [],
-        Image: ''
+        PhotoURL:''
     },
     tabProjectIndex: 0,
     experiences: [],    

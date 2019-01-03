@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 
 import ReactTable from "react-table";
 import { bindActionCreators } from 'redux';
-import { renderStatusLabel, renderProjectColumn } from '../../../models/ProjectModel';
+import { renderProjectColumn } from '../../../models/ProjectModel';
 
 import * as projectActions from '../../../actions/projectActions';
-import { FaBookReader } from 'react-icons/fa';
 import { withRouter } from "react-router-dom";
 
 class ProjectList extends Component {

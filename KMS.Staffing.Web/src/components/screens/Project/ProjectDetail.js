@@ -21,7 +21,7 @@ class ProjectDetail extends Component {
     const { projectDetail } = this.props;
     return (
       <Fragment>
-        <ProjectHeader projectName={projectDetail.Name} projectImage={projectDetail.Image}/>
+        <ProjectHeader projectName={projectDetail.Name} projectImage={projectDetail.PhotoURL}/>
         <ProjectContent/>
       </Fragment>
       )
