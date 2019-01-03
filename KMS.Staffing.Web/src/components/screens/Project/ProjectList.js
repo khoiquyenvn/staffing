@@ -19,7 +19,6 @@ class ProjectList extends Component {
 
     render() {
         const { projects } = this.props;
-        
   
         const projectShortInformation = renderProjectColumn(this.props.projectActions.enterProjectDetail);
 
@@ -27,7 +26,7 @@ class ProjectList extends Component {
             <div>
                 <h1>Projects</h1>
                 <div>
-                    <ReactTable
+                    <ReactTable className='-highlight'
                         data={projects}
                         columns={projectShortInformation}
                         defaultPageSize={10}

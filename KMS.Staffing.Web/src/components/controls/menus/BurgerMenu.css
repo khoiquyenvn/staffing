@@ -62,7 +62,8 @@ a.bm-item svg {
 /* Individual item */
 .bm-item:hover {
   color: #14B1E7;
-  background: #4F4F50
+  background: #4F4F50;
+  text-decoration: none;
 }
 
 /* Styling of overlay */

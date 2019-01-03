@@ -17,7 +17,7 @@ export default class EmployeeList extends Component {
         
         return (
             <Fragment>
-                <ReactTable
+                <ReactTable className='-highlight'
                     data={employees}
                     columns={EmployeeModel.getEmployeeModel(false, this.props.accessEmployeeDetailAction)}
                     defaultPageSize={5}
