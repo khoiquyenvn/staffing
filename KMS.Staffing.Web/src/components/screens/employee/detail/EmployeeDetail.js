@@ -27,7 +27,8 @@ class EmployeeDetail extends Component {
     }
 
     componentDidMount() {
-        this.props.selectedEmployeeActions.loadEmployeeById();
+        const id = this.props.match.params.id;
+        this.props.selectedEmployeeActions.loadEmployeeById(id);
         this.props.titleActions.loadTitles();
     }
 

@@ -17,8 +17,8 @@ class EmployeeApi {
     });
   }
 
-  static getEmployeeById() {
-    const request = new Request(apiConfig.API_URL + apiConfig.EMPLOYEE_MODULE + '/795', {
+  static getEmployeeById(id) {
+    const request = new Request(apiConfig.API_URL + apiConfig.EMPLOYEE_MODULE + '/' + id, {
       method: 'GET',
     });
 
