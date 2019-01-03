@@ -72,9 +72,10 @@ import { FaBookReader } from 'react-icons/fa';
         Header: '',
         accessor: '',
         Cell: cellInfo => (
-        <button className="staffingButton" onClick={()=>enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
+        <button className="w3-btn w3-blue w3-round" onClick={()=>enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
             )
     }];
-     return projectShortInformation;
+
+    return projectShortInformation;
   }
 export { projectStatusEnum, renderStatusLabel , renderProjectColumn}
