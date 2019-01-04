@@ -50,19 +50,21 @@
   width: 100%;
   color: white;
   vertical-align: middle;
-  padding: 5px;
 }
 
 a.bm-item svg {
-  padding-right: 10%;
+  margin-left: 10%;
+  margin-right: 10px;
   height: 50px;
   vertical-align: middle;
+  margin-top: -5px;
 }
 
 /* Individual item */
 .bm-item:hover {
   color: #14B1E7;
-  background: #4F4F50
+  background: #4F4F50;
+  text-decoration: none;
 }
 
 /* Styling of overlay */

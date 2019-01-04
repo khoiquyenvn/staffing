@@ -1,4 +1,3 @@
-import { defaultProjectImage } from "../const";
 
 export default {  
     employees: [],
@@ -11,7 +10,7 @@ export default {
         TeamSize: 20,
         Status: 0,
         Member: [],
-        Image: defaultProjectImage
+        PhotoURL:''
     },
     tabProjectIndex: 0,
     experiences: [],    
