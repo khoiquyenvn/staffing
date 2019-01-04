@@ -50,13 +50,14 @@
   width: 100%;
   color: white;
   vertical-align: middle;
-  padding: 5px;
 }
 
 a.bm-item svg {
-  padding-right: 10%;
+  margin-left: 10%;
+  margin-right: 10px;
   height: 50px;
   vertical-align: middle;
+  margin-top: -5px;
 }
 
 /* Individual item */
