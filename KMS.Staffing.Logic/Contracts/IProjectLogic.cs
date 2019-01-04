@@ -6,12 +6,9 @@ namespace KMS.Staffing.Logic
 {
     public interface IProjectLogic
     {
-        string test(string name);
-
         int CountProjects();
-
         List<Project> GetProjects();
-
         Project GetProjectDetail(Guid projectId);
+        List<ProjectStaff> GetAllEmployeeInProject(Guid projectId);
     }
 }

@@ -11,15 +11,12 @@ namespace KMS.Staffing.Logic
     public class ProjectLogic : IProjectLogic
     {
         readonly IProjectRepository projectRepository;
+        readonly IProjectStaffRepository projectStaffRepsitory;
 
-        public ProjectLogic(IProjectRepository projectRepository)
+        public ProjectLogic(IProjectRepository projectRepository, IProjectStaffRepository projectStaffRepsitory)
         {
             this.projectRepository = projectRepository;
-        }
-
-        public string test(string name)
-        {
-            return $"Hello {name} at";
+            this.projectStaffRepsitory = projectStaffRepsitory;
         }
 
         public int CountProjects()
@@ -35,6 +32,11 @@ namespace KMS.Staffing.Logic
         public Project GetProjectDetail(Guid projectId)
         {
             return projectRepository.FindById(projectId);
+        }
+
+        public List<ProjectStaff> GetAllEmployeeInProject(Guid projectId)
+        {
+            return projectStaffRepsitory.FindAllEmployee(projectId).ToList();
         }
     }
 }
