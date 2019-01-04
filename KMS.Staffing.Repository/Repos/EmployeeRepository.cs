@@ -101,7 +101,7 @@ namespace KMS.Staffing.Repository.Repos
             return employees;
         }
 
-        private void UpdateAdditionalDetail(List<Employee> employees)
+        public void UpdateAdditionalDetail(List<Employee> employees)
         {
             employees.ForEach(e =>
             {

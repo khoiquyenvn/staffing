@@ -9,6 +9,6 @@ namespace KMS.Staffing.Logic
         int CountProjects();
         List<Project> GetProjects();
         Project GetProjectDetail(Guid projectId);
-        List<ProjectStaff> GetAllEmployeeInProject(Guid projectId);
+        List<List<ProjectStaff>> GetAllEmployeeInProject(Guid projectId);
     }
 }

@@ -19,3 +19,23 @@ main {
   position: absolute;
   overflow-y: auto;
 }
+
+/**/
+.member-in-list {
+  padding: 0 40px;
+  margin: 5px 10px;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+}
+
+.menu-item-wrapper.active {
+  border: 1px blue solid;
+}
+.member-in-list.active {
+  border: 1px green solid;
+}
+
+.scroll-menu-arrow {
+  cursor: pointer;
+}

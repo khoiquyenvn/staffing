@@ -9,6 +9,9 @@ export default class EmployeeAvatar extends Component {
     }
 
     render() {
+        if (this.props.image === undefined) {
+            return (<div></div>);
+        }
         return (
             <div>
                 <img className='employee-avatar' src={this.props.image} alt='Avatar' border="5"/>

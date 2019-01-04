@@ -27,7 +27,7 @@ namespace KMS.Staffing.WebAPI
                 return CreateResponse(result);
             };
 
-            Get["GetAllEmployee/{projectId}"] = parameters =>
+            Get["getMemberList/{projectId}"] = parameters =>
             {
                 var projectId = Guid.Parse(parameters.projectId);
                 var result = projectLogic.GetAllEmployeeInProject(projectId);
