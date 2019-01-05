@@ -17,5 +17,6 @@ export default {
     experiences: [],    
     competentLevels: [],
     skillCategories: [],
+    skills:[],
     projects: []
 }

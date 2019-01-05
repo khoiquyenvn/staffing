@@ -6,7 +6,10 @@ import ProjectList from '../screens/project/ProjectList';
 import EmployeePage from '../screens/employee/EmployeePage';
 import { withRouter } from "react-router-dom";
 import EmployeeDetail from '../screens/employee//detail/EmployeeDetail';
+import SessionPlanDetail from '../screens/staffing/SessionPlanDetail';
 import App from '../../App';
+import TestDropdown from '../screens/TestDropdown';
+
 class MainRouter extends Component {
   render() {
       
@@ -16,7 +19,9 @@ class MainRouter extends Component {
           <Route exact path='/projectlist' component={ProjectList} />
           <Route path='/projectlist/:id' component={ProjectDetail} />
           <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} /> 
-          <Route path='/employeelist/:id' component={EmployeeDetail} />   
+          <Route path='/employeelist/:id' component={EmployeeDetail} />
+          <Route path='/sessionPlan' component={SessionPlanDetail} />
+          <Route path='/test' component={TestDropdown} />  
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>
