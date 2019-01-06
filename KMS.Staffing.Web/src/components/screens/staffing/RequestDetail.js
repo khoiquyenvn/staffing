@@ -69,8 +69,7 @@ export default class RequestDetail extends Component {
 
     render() {
         return (
-            <div className="request-card" style={this.state.style} onClick={this.handleSelect}>
-                <h3>Request</h3>
+            <div className="request-card" style={this.state.style} onClick={this.handleSelect}>                
                 <table className="request-detail-container">
                     <tbody>
                         <tr>

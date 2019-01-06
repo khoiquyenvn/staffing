@@ -206,15 +206,15 @@ export default class SessionPlanDetail extends Component {
         const result = Array.from(list);
         const [removed] = result.splice(startIndex, 1);
         result.splice(endIndex, 0, removed);
-    
+
         return result;
     }
 
-    getListItemsByStateId(stateId){
-        if (stateId =="resultStaffing") {
+    getListItemsByStateId(stateId) {
+        if (stateId == "resultStaffing") {
             return _.concat([], this.state.employeeResults);
         }
-        if (stateId =="suggestEmployee") {
+        if (stateId == "suggestEmployee") {
             return _.concat([], this.state.employeesByRequest);
         }
         return [];
@@ -224,19 +224,19 @@ export default class SessionPlanDetail extends Component {
         const sourceClone = Array.from(source);
         const destClone = Array.from(destination);
         const [removed] = sourceClone.splice(droppableSource.index, 1);
-    
+
         destClone.splice(droppableDestination.index, 0, removed);
-    
+
         const result = {};
         result[droppableSource.droppableId] = sourceClone;
         result[droppableDestination.droppableId] = destClone;
-    
+
         return result;
     }
 
     handleDragAndDrop(result) {
         const { source, destination } = result;
-        
+
         if (!destination) {
             return;
         }
@@ -247,23 +247,23 @@ export default class SessionPlanDetail extends Component {
                 this.getListItemsByStateId(source.droppableId),
                 source.index,
                 destination.index
-            );            
+            );
 
             if (source.droppableId === 'resultStaffing') {
-                this.setState((currentState) => {                    
+                this.setState((currentState) => {
                     return {
                         employeeResults: items
                     }
                 });
             }
             if (source.droppableId === 'suggestEmployee') {
-                this.setState((currentState) => {                    
+                this.setState((currentState) => {
                     return {
                         employeesByRequest: items
                     }
                 });
             }
-        } 
+        }
         else {
             const result = this.moveItemsAmongList(
                 this.getListItemsByStateId(source.droppableId),
@@ -272,7 +272,7 @@ export default class SessionPlanDetail extends Component {
                 destination
             );
 
-            this.setState((currentState) => {                    
+            this.setState((currentState) => {
                 return {
                     employeeResults: result.resultStaffing,
                     employeesByRequest: result.suggestEmployee
@@ -285,6 +285,7 @@ export default class SessionPlanDetail extends Component {
         return (
             <div className='session-plan-detail-containter'>
                 <div className='request-container'>
+                    <h3>Requests</h3>
                     <Scrollbars style={{ height: 1200 }}>
                         <RequestDetailList requestDetails={this.state.session.requests}
                             onChangeTitle={this.handleChangeTitle}
@@ -299,6 +300,7 @@ export default class SessionPlanDetail extends Component {
 
                 <DragDropContext onDragEnd={this.handleDragAndDrop}>
                     <div className='request-result-container'>
+                        <h3>Selected Employees</h3>
                         <Scrollbars style={{ height: 1200 }}>
                             <Droppable droppableId="resultStaffing">
                                 {(provided, snapshot) => (
@@ -328,6 +330,7 @@ export default class SessionPlanDetail extends Component {
                         </Scrollbars>
                     </div>
                     <div className='suggest-container'>
+                        <h3>Suggestion Employees</h3>
                         <Scrollbars style={{ height: 1200 }}>
                             <Droppable droppableId="suggestEmployee">
                                 {(provided, snapshot) => (
