@@ -5,9 +5,10 @@ import { renderStatusLabel } from '../../../models/ProjectModel';
 import * as ModelUtility from '../../../models/ModelUtility';
 import * as utility from '../../../utility/uuidUtility';
 import RequestDetailList from './RequestDetailList';
-import RequestDetailResultList from './RequestDetailResultList';
-import SuggestEmployeeList from './SuggestEmployeeList';
+import RequestDetailResult from './RequestDetailResult';
+import SuggestEmployee from './SuggestEmployee';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import _ from 'lodash/fp';
 
 import '../../../styles/staffing/sessionPlanDetail.css';
@@ -48,6 +49,10 @@ export default class SessionPlanDetail extends Component {
         this.handleSelectRequest = this.handleSelectRequest.bind(this);
         this.handleViewSuggestion = this.handleViewSuggestion.bind(this);
         this.removeEmployeeByRequestId = this.removeEmployeeByRequestId.bind(this);
+        this.handleDragAndDrop = this.handleDragAndDrop.bind(this);
+        this.reorderItemsInList = this.reorderItemsInList.bind(this);
+        this.getListItemsByStateId = this.getListItemsByStateId.bind(this);
+        this.moveItemsAmongList = this.moveItemsAmongList.bind(this);
     }
 
     componentDidMount() {
@@ -150,9 +155,9 @@ export default class SessionPlanDetail extends Component {
 
             let nextSession = currentState.session;
             nextSession.requests = nextRequests;
-           
+
             return {
-                session: nextSession,                
+                session: nextSession,
             };
         });
     }
@@ -197,6 +202,85 @@ export default class SessionPlanDetail extends Component {
         });
     }
 
+    reorderItemsInList(list, startIndex, endIndex) {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+    
+        return result;
+    }
+
+    getListItemsByStateId(stateId){
+        if (stateId =="resultStaffing") {
+            return _.concat([], this.state.employeeResults);
+        }
+        if (stateId =="suggestEmployee") {
+            return _.concat([], this.state.employeesByRequest);
+        }
+        return [];
+    }
+
+    moveItemsAmongList(source, destination, droppableSource, droppableDestination) {
+        const sourceClone = Array.from(source);
+        const destClone = Array.from(destination);
+        const [removed] = sourceClone.splice(droppableSource.index, 1);
+    
+        destClone.splice(droppableDestination.index, 0, removed);
+    
+        const result = {};
+        result[droppableSource.droppableId] = sourceClone;
+        result[droppableDestination.droppableId] = destClone;
+    
+        return result;
+    }
+
+    handleDragAndDrop(result) {
+        const { source, destination } = result;
+        
+        if (!destination) {
+            return;
+        }
+
+        // drag and drop inside 1 list
+        if (source.droppableId == destination.droppableId) {
+            const items = this.reorderItemsInList(
+                this.getListItemsByStateId(source.droppableId),
+                source.index,
+                destination.index
+            );            
+
+            if (source.droppableId === 'resultStaffing') {
+                this.setState((currentState) => {                    
+                    return {
+                        employeeResults: items
+                    }
+                });
+            }
+            if (source.droppableId === 'suggestEmployee') {
+                this.setState((currentState) => {                    
+                    return {
+                        employeesByRequest: items
+                    }
+                });
+            }
+        } 
+        else {
+            const result = this.moveItemsAmongList(
+                this.getListItemsByStateId(source.droppableId),
+                this.getListItemsByStateId(destination.droppableId),
+                source,
+                destination
+            );
+
+            this.setState((currentState) => {                    
+                return {
+                    employeeResults: result.resultStaffing,
+                    employeesByRequest: result.suggestEmployee
+                }
+            });
+        }
+    }
+
     render() {
         return (
             <div className='session-plan-detail-containter'>
@@ -212,21 +296,70 @@ export default class SessionPlanDetail extends Component {
                         <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}>View suggestion</button>
                     </Scrollbars>
                 </div>
-                <div className='request-result-container'>
-                    <Scrollbars style={{ height: 1200 }}>
-                        <RequestDetailResultList
-                            employeeResults={this.state.employeeResults}
-                        />
-                    </Scrollbars>
-                </div>
-                <div className='suggest-container'>
-                    <Scrollbars style={{ height: 1200 }}>
-                        <SuggestEmployeeList
-                            suggestEmployees={this.state.employeesByRequest}
-                        />
-                    </Scrollbars>
-                </div>
+
+                <DragDropContext onDragEnd={this.handleDragAndDrop}>
+                    <div className='request-result-container'>
+                        <Scrollbars style={{ height: 1200 }}>
+                            <Droppable droppableId="resultStaffing">
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef}>
+                                        {
+                                            this.state.employeeResults.map((result, index) => {
+                                                if (result) {
+                                                    return <Draggable key={result.Id}
+                                                        draggableId={result.Id}
+                                                        index={index}>
+                                                        {(provided, snapshot) => (
+                                                            <div ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}>
+                                                                <RequestDetailResult key={result.Id}
+                                                                    employeeResult={result} />
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                }
+                                            })
+                                        }
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </Scrollbars>
+                    </div>
+                    <div className='suggest-container'>
+                        <Scrollbars style={{ height: 1200 }}>
+                            <Droppable droppableId="suggestEmployee">
+                                {(provided, snapshot) => (
+                                    <div ref={provided.innerRef}>
+                                        {
+                                            this.state.employeesByRequest.map((result, index) => {
+                                                if (result) {
+                                                    return <Draggable key={result.Id}
+                                                        draggableId={result.Id}
+                                                        index={index}>
+                                                        {(provided, snapshot) => (
+                                                            <div ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}>
+                                                                <SuggestEmployee key={result.Id}
+                                                                    suggestEmployee={result} />
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                }
+                                            })
+                                        }
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </Scrollbars>
+                    </div>
+                </DragDropContext>
+
             </div>
         )
     }
 }
+

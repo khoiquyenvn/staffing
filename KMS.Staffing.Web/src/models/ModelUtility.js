@@ -126,34 +126,12 @@ export function getStaffingResults() {
 }
 
 export function getSuggestedEmployeeByRequest(requestId) {
-  let employeeResults = [
-    {
-      Id: 731,
-      DisplayId: '0731',
-      Name: 'Vi Hanh Phung',
-      PhotoURL: 'http://localhost:58955/resources/photo/employees/viphung.jpg',
-      Title: {
-        Id: '82e8f005-00db-4954-a1de-d6e43b037005',
-        Name: 'Senior QA Engineer'
-      },
-      RequestId:'82e8f005-00db-4954-a1de-d6e43baaa002'
-    },
+  let employeeResults = [    
     {
       Id: 795,
       DisplayId: '0795',
       Name: 'An Tran Truong Le',
       PhotoURL: 'http://localhost:58955/resources/photo/employees/anle.jpg',
-      Title: {
-        Id: '82e8f005-00db-4954-a1de-d6e43b037002',
-        Name: 'Senior Sofware Engineer'
-      },
-      RequestId:'82e8f005-00db-4954-a1de-d6e43baaa002'
-    },
-    {
-      Id: 861,
-      DisplayId: '0861',
-      Name: 'Khoi Minh Nguyen',
-      PhotoURL: 'http://localhost:58955/resources/photo/employees/khoinguyen.jpg',
       Title: {
         Id: '82e8f005-00db-4954-a1de-d6e43b037002',
         Name: 'Senior Sofware Engineer'
@@ -187,6 +165,17 @@ export function getSuggestedEmployeeByRequest(requestId) {
       Id: 2000,
       DisplayId: '2000',
       Name: 'New Employee',
+      PhotoURL: 'http://localhost:58955/resources/photo/employees/default.png',
+      Title: {
+        Id: '82e8f005-00db-4954-a1de-d6e43b037005',
+        Name: 'Senior QA Engineer'
+      },
+      RequestId:'82e8f005-00db-4954-a1de-d6e43baaa002',
+    },
+    {
+      Id: 2001,
+      DisplayId: '2000',
+      Name: 'New Employee 2',
       PhotoURL: 'http://localhost:58955/resources/photo/employees/default.png',
       Title: {
         Id: '82e8f005-00db-4954-a1de-d6e43b037005',
