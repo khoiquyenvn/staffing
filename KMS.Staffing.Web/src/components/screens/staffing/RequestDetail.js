@@ -112,7 +112,7 @@ export default class RequestDetail extends Component {
                         </tr>
                     </tbody>
                 </table>                
-                <img src={deleteIcon} className="icon-delete-btn" onClick={this.handleOnDeleteRequest}/>
+                <div className="handle-btn-container"><img src={deleteIcon} className="icon-delete-btn" onClick={this.handleOnDeleteRequest}/></div>
             </div>
         )
     }

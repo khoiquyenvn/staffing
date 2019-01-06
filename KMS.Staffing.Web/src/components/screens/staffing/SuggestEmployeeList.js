@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import RequestDetailResult from './RequestDetailResult';
+import SuggestEmployee from './SuggestEmployee';
 import _ from 'lodash/fp';
 
-export default class RequestDetailResultList extends Component {
+export default class SuggestEmployeeList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            employeeResults: [],
+            suggestEmployees: [],
         };
     }
 
@@ -14,14 +14,14 @@ export default class RequestDetailResultList extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        return ({ employeeResults: nextProps.employeeResults })
+        return ({ suggestEmployees: nextProps.suggestEmployees })
     }
 
     render() {
-        const details = this.state.employeeResults.map(result => {
+        const details = this.state.suggestEmployees.map(result => {
             if (result) {
-                return <RequestDetailResult key={result.Id}
-                    employeeResult={result} />
+                return <SuggestEmployee key={result.Id}
+                                        suggestEmployee={result} />
             }
         });
         return (

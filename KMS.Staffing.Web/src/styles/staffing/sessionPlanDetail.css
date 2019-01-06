@@ -7,7 +7,7 @@
 .session-plan-detail-containter {
   display: grid; 
   margin-left: 50px;
-  grid-template-columns: 35em 1fr 1fr;
+  grid-template-columns: 28em 35em 35em;
   grid-template-rows: auto auto auto;
   grid-template-areas: 
     "request   request-result    suggest";
@@ -56,7 +56,7 @@
 .request-result-card {
     box-shadow: 0 4px 8px 0 rgba(3, 41, 212, 0.2);
     transition: 0.5s;
-    width: 60%;
+    width: 80%;
     margin-bottom: 30px;
 }
   
@@ -97,4 +97,9 @@
 .request-result-containter .emp-info {
     margin: 0px;
     padding: 0px;
+}
+
+.handle-btn-container {
+    display: flex;
+    justify-content: flex-end;
 }

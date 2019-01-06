@@ -39,6 +39,8 @@ export default class RequestDetailList extends Component {
                 }
             });
         }
+
+        this.props.onSelectRequest(requestId);
     }
 
     render() {
