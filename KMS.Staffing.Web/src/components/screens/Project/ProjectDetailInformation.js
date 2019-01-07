@@ -1,8 +1,9 @@
 import React, { Component , Fragment} from 'react'
 import * as projectDetailActions from '../../../actions/projectDetailAction';
 import { connect } from 'react-redux';
-import { renderStatusLabel } from '../../../models/ProjectModel';
+import { renderName } from '../../../models/ProjectModel';
 import { bindActionCreators } from 'redux';
+import TextInput from '../../controls/common/TextInput';
 
 class ProjectDetailInformation extends Component {
   constructor(props) {
@@ -14,9 +15,21 @@ class ProjectDetailInformation extends Component {
     const { projectDetail } = this.props;
     return (
       <Fragment>
-        <div>Description: {projectDetail.Description}</div>
-        <div>Team Size: {projectDetail.TeamSize}</div>
-        <div> Status: {renderStatusLabel(projectDetail.Status)}</div>
+        <TextInput
+                    name="Description"
+                    label="Description"
+                    value={projectDetail.Description}
+                    isEditting={false} />
+        <TextInput
+                    name="TeamSize"
+                    label="Team Size"
+                    value={projectDetail.TeamSize}
+                    isEditting={false} />
+        <TextInput
+                    name="Status"
+                    label="Status"
+                    value={renderName(projectDetail.Status)}
+                    isEditting={false} />
       </Fragment>
       )
   }

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 
 import ReactTable from "react-table";
 import { bindActionCreators } from 'redux';
-import { renderStatusLabel } from '../../../models/ProjectModel';
+import { renderProjectColumn } from '../../../models/ProjectModel';
 
 import * as projectActions from '../../../actions/projectActions';
-import { FaBookReader } from 'react-icons/fa';
 import { withRouter } from "react-router-dom";
 
 class ProjectList extends Component {
@@ -20,34 +19,14 @@ class ProjectList extends Component {
 
     render() {
         const { projects } = this.props;
-        
   
-        const projectShortInformation = [{
-            Header: 'Name',
-            accessor: 'Name'
-        }, {
-            Header: 'Description',
-            accessor: 'Description'
-        }, {
-            Header: 'Team Size',
-            accessor: 'TeamSize'
-        }, {
-            Header: 'Status',
-            accessor: 'Status',
-            Cell: row => renderStatusLabel(row.value)
-        }, {
-            Header: '',
-            accessor: '',
-            Cell: cellInfo => (
-            <button className="staffingButton" onClick={()=>this.props.projectActions.enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
-                )
-        }];
+        const projectShortInformation = renderProjectColumn(this.props.projectActions.enterProjectDetail);
 
         return (
             <div>
                 <h1>Projects</h1>
                 <div>
-                    <ReactTable
+                    <ReactTable className='-highlight'
                         data={projects}
                         columns={projectShortInformation}
                         defaultPageSize={10}

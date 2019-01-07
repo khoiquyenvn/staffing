@@ -44,6 +44,8 @@
     <Compile Include="Contracts\IEmployeeRepository.cs" />
     <Compile Include="Contracts\IExperienceRepository.cs" />
     <Compile Include="Contracts\ICompetentLevelRepository.cs" />
+    <Compile Include="Contracts\IProjectStaffRepository.cs" />
+    <Compile Include="Contracts\ISessionPlanRepository.cs" />
     <Compile Include="Contracts\ISkillRepository.cs" />
     <Compile Include="Contracts\ISkillCategoryRepository.cs" />
     <Compile Include="Contracts\ITitleRepository.cs" />
@@ -53,6 +55,9 @@
     <Compile Include="Model\Constant\EmployeeFilterKey.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\EmployeeSkill.cs" />
+    <Compile Include="Model\ProjectStaff.cs" />
+    <Compile Include="Model\ProjectStaffPosition.cs" />
+    <Compile Include="Model\SessionPlan.cs" />
     <Compile Include="Model\Skill.cs" />
     <Compile Include="Model\SkillCategory.cs" />
     <Compile Include="Model\ApiRequest\SearchCriteria.cs" />

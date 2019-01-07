@@ -5,6 +5,7 @@ using KMS.Staffing.Repository.DBContexts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,10 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class ProjectRepository : BaseRepository, IProjectRepository
     {
+        private readonly string teamAvatarPath = ConfigurationManager.AppSettings["teamAvatarPath"];
+
+        public const string DefaultProjectImage = "DefaultProjectImage.jpg";
+
         public ProjectRepository()
         {
         }
@@ -33,6 +38,7 @@ namespace KMS.Staffing.Repository.Repos
         public Project FindById(Guid id)
         {
             var result = Context.Projects.Where(x => x.Id == id).SingleOrDefault();
+            this.UpdateAdditionalDetail(result);
             return result;
         }
 
@@ -45,6 +51,16 @@ namespace KMS.Staffing.Repository.Repos
         {
             Context.Entry(project).State = System.Data.Entity.EntityState.Modified;
             return Context.SaveChanges();
+        }
+
+        private void UpdateAdditionalDetail(Project project)
+        {
+            var originalPhoto = project.Photo;
+            if (String.IsNullOrWhiteSpace(originalPhoto))
+            {
+                originalPhoto = DefaultProjectImage;
+            }
+            project.PhotoURL = $"{teamAvatarPath}{originalPhoto}";
         }
     }
 }
