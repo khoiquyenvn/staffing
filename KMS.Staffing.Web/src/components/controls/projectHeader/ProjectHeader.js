@@ -7,7 +7,7 @@ class ProjectHeader extends Component {
     return (
       <div className='ph-container'>
         <img className='ph-image' src={this.props.projectImage} />
-        <div class="ph-content">
+        <div className="ph-content">
           <h1>{this.props.projectName}</h1>
         </div>
       </div>

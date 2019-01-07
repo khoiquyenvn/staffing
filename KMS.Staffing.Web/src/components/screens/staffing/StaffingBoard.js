@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 
 import ReactTable from "react-table";
 import { bindActionCreators } from 'redux';
-import { renderStatusLabel } from '../../../models/ProjectModel';
 
-import * as projectActions from '../../../actions/projectActions';
-import { FaBookReader } from 'react-icons/fa';
+
+import * as projectDetailActions from '../../../actions/projectDetailAction';
 import { withRouter } from "react-router-dom";
+import { renderSessionPlanInfoColumn } from '../../../models/SessionPlanModel';
 
 class StaffingBoard extends Component {
     constructor(props) {
@@ -15,20 +15,31 @@ class StaffingBoard extends Component {
     }
   
     componentDidMount() {
+        this.props.projectDetailActions.loadSessionPlanList(this.props.projectDetail.Id);
     }
 
     render() {
-        return (<div></div>)
+        var sessionPlanInfoColumn = renderSessionPlanInfoColumn(this.props.projectDetailActions.enterSessionPlanDetail,
+                                                                this.props.projectDetail.Id);
+        var sessionPlans = this.props.projectDetail.SessionPlans;
+        return (
+        <Fragment>
+            <ReactTable className='-highlight'
+                data={sessionPlans}
+                columns={sessionPlanInfoColumn}
+                defaultPageSize={10}
+                    />
+        </Fragment>)
     }
   }
 
 const mapStateToProps = (state) => ({
-    projects: state.projects
+    projectDetail: state.projectDetail
 })
 
 function mapDispatchToProps(dispatch) {
     return {
-        projectActions: bindActionCreators(projectActions, dispatch)
+        projectDetailActions: bindActionCreators(projectDetailActions, dispatch)
     };
 }
 

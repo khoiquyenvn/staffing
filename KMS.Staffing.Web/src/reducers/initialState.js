@@ -10,6 +10,7 @@ export default {
         TeamSize: 20,
         Status: 0,
         Member: [],
+        SessionPlans: [],
         PhotoURL:''
     },
     tabProjectIndex: 0,

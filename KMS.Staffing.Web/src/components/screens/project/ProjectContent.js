@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import 'react-tabs/style/react-tabs.css';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
+import ProjectMemberList from './ProjectMemberList';
 
 class ProjectContent extends Component {
   
@@ -20,10 +21,14 @@ class ProjectContent extends Component {
         <Tabs selectedIndex={tabProjectIndex} onSelect={tabProjectIndex => this.setState({ tabProjectIndex })}>
             <TabList>
                 <Tab>Information</Tab>
+                <Tab>Member List</Tab>
                 <Tab>Staffing</Tab>
             </TabList>
             <TabPanel>
                 <ProjectDetailInformation />
+            </TabPanel>
+            <TabPanel>
+                <ProjectMemberList />
             </TabPanel>
             <TabPanel>
                 <StaffingBoard/>
