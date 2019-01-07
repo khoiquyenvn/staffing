@@ -18,8 +18,8 @@ namespace KMS.Staffing.Repository.Repos
         }
 
         public int Add(Project project)
-        {            
-            Context.Projects.Add(project);            
+        {
+            Context.Projects.Add(project);
             return Context.SaveChanges();
         }
 
@@ -41,12 +41,21 @@ namespace KMS.Staffing.Repository.Repos
             return Context.Projects;
         }
 
-
-
         public int Update(Project project)
         {
             Context.Entry(project).State = System.Data.Entity.EntityState.Modified;
             return Context.SaveChanges();
+        }
+        
+        public IEnumerable<SessionPlan> GetSessionPlans(Guid? projectId)
+        {
+            var sessionPlans = Context
+                .SessionPlans
+                .Include("Requests.RequestDetails")                    
+                .Where(x => projectId == null || x.ProjectId == projectId)
+                .ToList();
+
+            return sessionPlans;
         }
     }
 }

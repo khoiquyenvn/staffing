@@ -60,11 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bussiness\SpecialEquationChromosome.cs" />
-    <Compile Include="Bussiness\EmpScore.cs" />
-    <Compile Include="Bussiness\EqualitySampleController.cs" />
-    <Compile Include="Bussiness\ISampleController.cs" />
-    <Compile Include="Bussiness\SampleControllerBase.cs" />
+    <Compile Include="Bussiness\Filler\EmployeeFiller.cs" />
+    <Compile Include="Bussiness\Filler\StaffingFitness.cs" />
+    <Compile Include="Bussiness\Filler\StaffingChromosome.cs" />
+    <Compile Include="Bussiness\Filler\StaffingController.cs" />
+    <Compile Include="Bussiness\Filler\ISampleController.cs" />
+    <Compile Include="Bussiness\Filler\SampleControllerBase.cs" />
+    <Compile Include="Bussiness\Filler\UniqueUniformCrossOver.cs" />
     <Compile Include="EmployeeLogic.cs" />
     <Compile Include="Contracts\IEmployeeLogic.cs" />
     <Compile Include="Contracts\IExperienceLogic.cs" />

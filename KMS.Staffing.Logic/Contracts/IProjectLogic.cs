@@ -1,4 +1,6 @@
 ﻿using KMS.Staffing.Core.Model;
+using KMS.Staffing.Core.Model.ApiResponse;
+using System;
 using System.Collections.Generic;
 
 namespace KMS.Staffing.Logic
@@ -10,5 +12,7 @@ namespace KMS.Staffing.Logic
         int CountProjects();
 
         List<Project> GetProjects();
+
+        StaffingResult Arrange(Guid sessionPlanId);
     }
 }

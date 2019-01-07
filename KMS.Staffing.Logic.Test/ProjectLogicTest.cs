@@ -1,4 +1,5 @@
-﻿using KMS.Staffing.Logic.Bussiness;
+﻿using KMS.Staffing.Core.Model;
+using KMS.Staffing.Repository.DBContexts;
 using KMS.Staffing.Repository.Repos;
 using System;
 using System.Collections.Generic;
@@ -18,20 +19,21 @@ namespace KMS.Staffing.Logic.Test
             var employeeRepo = new EmployeeRepository();
             var sut = new ProjectLogic(projectRepo, employeeRepo);
 
-            Guid projectId = Guid.NewGuid();
-            var result = sut.FillEmp(projectId);
+            Guid projectId = Guid.Parse("46E90FD9-7FDA-494E-891F-03EE5EBF8BCE");
+            Guid sessionPlanId = Guid.Parse("4E46C7F1-C9E1-4B4F-99C9-1C4BE2AECF51");
+            var result = sut.Arrange(sessionPlanId);
 
-            Assert.Equal(1, result);
+            Assert.NotNull(result);
         }
 
         [Fact]
         public void CompareEmpScore()
         {
-            var es1 = new EmpScore { EmpId = Guid.NewGuid(), Score = 1 };
+            var es1 = new EmpScore { EmpId = 1, Score = 1 };
 
-            var es2 = new EmpScore { EmpId = Guid.NewGuid(), Score = 1 };
+            var es2 = new EmpScore { EmpId = 2, Score = 1 };
 
-            var es3 = new EmpScore { EmpId = Guid.NewGuid(), Score = 2 };
+            var es3 = new EmpScore { EmpId = 3, Score = 2 };
 
             Assert.True(es1.Equals(es2));
             Assert.False(es1.Equals(es3));

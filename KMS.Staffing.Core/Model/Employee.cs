@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KMS.Staffing.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,7 @@ namespace KMS.Staffing.Core.Model
     [Table("Employee")]
     public class Employee
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
@@ -29,40 +30,45 @@ namespace KMS.Staffing.Core.Model
         [NotMapped]
         public string PhotoURL { get; set; }
         public virtual ICollection<EmployeeSkill> EmployeeSkill { get; set; }
+
+        [NotMapped]
+        public MatchedResult MatchedResult { get; set; }
         
-        public int CalScore(List<Request> titles, List<Request> titleAndSkills)
+        public int CalScore(Request request)
         {
             var score = 0;
 
             // just title
-            if (titles.Any(x => x.RequestDetails.FirstOrDefault()?.TitleId == TitleId))
+            if (request.Type == (int)RequestType.Title)
             {
-                score++;
-            }
-
-            // title and skill
-            if (titleAndSkills?.Any() == true)
-            {
-                var matchedTitles = titleAndSkills.Where(x => x.RequestDetails.Any(y => y.TitleId == TitleId)).ToList();
-
-                if (matchedTitles.Any())
+                if (request.RequestDetails.FirstOrDefault()?.TitleId == TitleId)
                 {
-                    matchedTitles.ForEach(x => {
+                    score++;
+                }
+            }
+            else if (request.Type == (int)RequestType.Both && request.RequestDetails.Any())
+            {
+                bool matchedTitle = request.RequestDetails.First().TitleId == TitleId;
 
+                if (matchedTitle)
+                {
+                    // title and skill                
+                    request
+                        .RequestDetails
+                        .ForEach(skill =>
+                        {
                         // score for title
                         //score++;
 
-                        x.RequestDetails.ForEach(skill =>
-                        {
-                            if (EmployeeSkill.Any(y => y.SkillId.Equals(skill.SkillId)))
+                        if (EmployeeSkill.Any(y => y.SkillId.Equals(skill.SkillId)))
                             {
-                                // score for each matched skill
-                                score++;
+                            // score for each matched skill
+                            score++;
                             }
                         });
-                    });
                 }
-            }            
+                
+            }
 
             return score;
         }

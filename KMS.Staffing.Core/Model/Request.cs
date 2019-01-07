@@ -21,6 +21,9 @@ namespace KMS.Staffing.Core.Model
         [ForeignKey(nameof(SessionPlanId))]
         public virtual SessionPlan SessionPlan { get; set; }
 
-        public virtual List<RequestDetail> RequestDetails { get; set; }        
+        public virtual List<RequestDetail> RequestDetails { get; set; }
+
+        [NotMapped]
+        public List<EmpScore> Candidates { get; set; }
     }
 }

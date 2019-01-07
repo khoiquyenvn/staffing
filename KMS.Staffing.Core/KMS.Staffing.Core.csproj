@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KMS.Staffing.WebAPI\Bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,9 +56,12 @@
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Model\ApiRequest\EmployeePageRequest.cs" />
     <Compile Include="Model\ApiRequest\PageRequest.cs" />
+    <Compile Include="Model\ApiResponse\StaffingResult.cs" />
     <Compile Include="Model\Constant\EmployeeFilterKey.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\EmployeeSkill.cs" />
+    <Compile Include="Model\EmpScore.cs" />
+    <Compile Include="Model\MatchedResult.cs" />
     <Compile Include="Model\Request.cs" />
     <Compile Include="Model\RequestDetail.cs" />
     <Compile Include="Model\SessionPlan.cs" />
@@ -66,6 +73,7 @@
     <Compile Include="Model\Title.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Utility\ListExtension.cs" />
     <Compile Include="Model\Utility\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -29,6 +29,11 @@ namespace KMS.Staffing.WebAPI
             {
                 return $"There are {projectLogic.CountProjects()} projects";
             };
+
+            Get["/arrage"] = _ =>
+            {
+                return CreateResponse(projectLogic.Arrange(Guid.Parse(Request.Query.PlanId)).Result != null ? "Yes" : "No");
+            };
         }
     }
 }
