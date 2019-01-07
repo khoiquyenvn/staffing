@@ -42,16 +42,16 @@ export default class RequestDetail extends Component {
         this.props.onSelectRequest(this.props.id);
     }
 
-    handleOnChangeTitle(even) {
-        let newTitleId = even.value;
+    handleOnChangeTitle(event) {
+        let newTitleId = event.value;
         this.props.onChangeTitle(this.props.id, newTitleId);
     }
 
-    handleOnChangeSkill(even) {
+    handleOnChangeSkill(event) {
         let selectedSkills = "";
 
-        for (let i = 0; i < even.length; i++) {
-            selectedSkills = selectedSkills + even[i].value + ";#";
+        for (let i = 0; i < event.length; i++) {
+            selectedSkills = selectedSkills + event[i].value + ";#";
         }
 
         selectedSkills = selectedSkills.substr(0, selectedSkills.length-2);
@@ -59,12 +59,13 @@ export default class RequestDetail extends Component {
         this.props.onChangeSkill(this.props.id, selectedSkills);
     }
 
-    handleOnChangeNumber(even) {
-        this.props.onChangeNumber(this.props.id, even.target.value);
+    handleOnChangeNumber(event) {
+        this.props.onChangeNumber(this.props.id, event.target.value);
     }
 
-    handleOnDeleteRequest() {
-        this.props.onDeleteRequest(this.props.id);
+    handleOnDeleteRequest(event) {
+        this.props.onDeleteRequest(this.props.id);    
+        event.stopPropagation();
     }
 
     render() {

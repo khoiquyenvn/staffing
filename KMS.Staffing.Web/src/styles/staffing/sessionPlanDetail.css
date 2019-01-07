@@ -103,3 +103,7 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.droppable-container {
+    height: 100%;
+}
