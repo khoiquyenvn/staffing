@@ -215,10 +215,17 @@ namespace KMS.Staffing.Repository.Test
             var feSkills = skills.Where(x => feSkillIds.Contains(x.Id)).ToList();
             var beSkills = skills.Where(x => beSkillIds.Contains(x.Id)).ToList();
 
-            var empId = 2211;
-            var index = 204;
+            var empId = 3111;
+            var index = 1;
 
-            var titleIdSE = titles.FirstOrDefault(x => x.Name.Equals("Software Engineer")).Id;            
+            var titleIdSSE = titles.FirstOrDefault(x => x.Name.Equals("Senior Software Engineer")).Id;
+            var titleIdQA = titles.FirstOrDefault(x => x.Name.Equals("QA Engineer")).Id;
+            var titleIdSQA = titles.FirstOrDefault(x => x.Name.Equals("Senior QA Engineer")).Id;
+            var titleIdBA = titles.FirstOrDefault(x => x.Name.Equals("Business Analyst")).Id;
+            var titleIdSBA = titles.FirstOrDefault(x => x.Name.Equals("Senior Business Analyst")).Id;
+            var titleIdEM = titles.FirstOrDefault(x => x.Name.Equals("Engineer Manager")).Id;
+            var titleIdSEM = titles.FirstOrDefault(x => x.Name.Equals("Senior Engineer Manager")).Id;
+
 
             var random = new Random();
 
@@ -227,7 +234,8 @@ namespace KMS.Staffing.Repository.Test
             for (int i = 0; i < 100; i++)
             {
                 lstEmp.Add(
-                    AddNew(titleIdSE, skills, empId, index, random.Next(1,feSkillIds.Count + 1), "SE", "SE FS")
+                    //AddNew(titleIdQA, skills, empId, index, random.Next(1,feSkillIds.Count + 1), "SSE", "SSE FS")
+                    AddNew(titleIdSEM, skills, empId, index, 0, "SEM", "SEM")
                 );
 
                 // increase counter
