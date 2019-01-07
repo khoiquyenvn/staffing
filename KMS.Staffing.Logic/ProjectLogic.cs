@@ -12,13 +12,17 @@ namespace KMS.Staffing.Logic
     {
         readonly IProjectRepository projectRepository;
         readonly IProjectStaffRepository projectStaffRepsitory;
+        readonly ISessionPlanRepository sessionPlanRepository;
+
         readonly IEmployeeRepository employeeRepository;
 
-        public ProjectLogic(IProjectRepository projectRepository, IProjectStaffRepository projectStaffRepsitory, IEmployeeRepository employeeRepository)
+        public ProjectLogic(IProjectRepository projectRepository, IProjectStaffRepository projectStaffRepsitory,
+                            IEmployeeRepository employeeRepository, ISessionPlanRepository sessionPlanRepository)
         {
             this.projectRepository = projectRepository;
             this.projectStaffRepsitory = projectStaffRepsitory;
             this.employeeRepository = employeeRepository;
+            this.sessionPlanRepository = sessionPlanRepository;
         }
 
         public int CountProjects()
@@ -44,6 +48,11 @@ namespace KMS.Staffing.Logic
             employeeRepository.UpdateAdditionalDetail(employeeList);
 
             return projectStaff.GroupBy(x => x.PositionId).Select(gr=> gr.ToList()).ToList();
+        }
+
+        public List<SessionPlan> GetAllSessionPlanList(Guid projectId)
+        {
+            return sessionPlanRepository.FindAllSessionPlan(projectId).ToList();
         }
     }
 }

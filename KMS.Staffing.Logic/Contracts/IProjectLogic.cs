@@ -10,5 +10,6 @@ namespace KMS.Staffing.Logic
         List<Project> GetProjects();
         Project GetProjectDetail(Guid projectId);
         List<List<ProjectStaff>> GetAllEmployeeInProject(Guid projectId);
+        List<SessionPlan> GetAllSessionPlanList(Guid projectId);
     }
 }

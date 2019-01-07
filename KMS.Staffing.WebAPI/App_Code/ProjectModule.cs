@@ -34,6 +34,13 @@ namespace KMS.Staffing.WebAPI
                 return CreateResponse(result);
             };
 
+            Get["getSessionPlanList/{projectId}"] = parameters =>
+            {
+                var projectId = Guid.Parse(parameters.projectId);
+                var result = projectLogic.GetAllSessionPlanList(projectId);
+                return CreateResponse(result);
+            };
+
             Get["/count"] = _ =>
             {
                 return $"There are {projectLogic.CountProjects()} projects";

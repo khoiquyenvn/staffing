@@ -56,6 +56,7 @@
     <Compile Include="Repos\ExperienceRepository.cs" />
     <Compile Include="Repos\CompetentLevelRepository.cs" />
     <Compile Include="Repos\ProjectStaffRepository.cs" />
+    <Compile Include="Repos\SessionPlanRepository.cs" />
     <Compile Include="Repos\SkillCategoryRepository.cs" />
     <Compile Include="Repos\TitleRepository.cs" />
     <Compile Include="Repos\ProjectRepository.cs" />
