@@ -3,56 +3,56 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Select from 'react-select';
-import * as experienceActions from '../../../actions/experienceActions';
+import * as titleActions from '../../../actions/titleActions';
 import * as ModelUtility from '../../../models/ModelUtility'
 import _ from 'lodash/fp';
 
-class SkillExperienceDropdown extends Component {
+class TitleDropdown extends Component {
     constructor(props) {
         super(props);
         this.state={
-            skillExperiences:[]
+            titles:[]
         }
 
-        this.getSelectedExperiences=this.getSelectedExperiences.bind(this);
+        this.getSelectedTitles=this.getSelectedTitles.bind(this);
     }
 
     componentDidMount() {        
-        this.props.experienceActions.loadExperiences();
+        this.props.titleActions.loadTitles();
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        return ({ skillExperiences: ModelUtility.getOptionsForDropdown(nextProps.experiences, 'ExperienceId') })
+        return ({ titles: ModelUtility.getOptionsForDropdown(nextProps.titles, 'TitleId') })
     }
 
-    getSelectedExperiences() {
-        let selectedSkillExperiences = [];
+    getSelectedTitles() {
+        let selectedTitles = [];
         if (this.props.selectedValue) {
             let selectedStringValues = this.props.selectedValue.split(";#");
 
             for (let i = 0; i < selectedStringValues.length; i++) {
-                let selectedSkillExperience = this.props.experiences.find(t => t.Id == selectedStringValues[i]);
+                let selectedTitle = this.props.titles.find(t => t.Id == selectedStringValues[i]);
 
-                if (selectedSkillExperience) {
-                    selectedSkillExperiences.push({
-                        value: selectedSkillExperience.Id,
-                        label: selectedSkillExperience.Name
+                if (selectedTitle) {
+                    selectedTitles.push({
+                        value: selectedTitle.Id,
+                        label: selectedTitle.Name
                     });
                 }
             }
 
-            return selectedSkillExperiences;
+            return selectedTitles;
         }
     }
 
     render() {
-        let selectedExperiences = this.getSelectedExperiences();
+        let selectedTitles = this.getSelectedTitles();
 
         return (
             <Select
                     name={this.props.name}
-                    options={this.state.skillExperiences}
-                    value={selectedExperiences}
+                    options={this.state.titles}
+                    value={selectedTitles}
                     isDisabled={!this.props.isEditting}
                     isSearchable ={this.props.isSearchable}
                     isMulti ={this.props.isMulti}
@@ -63,14 +63,14 @@ class SkillExperienceDropdown extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {        
-        experiences: state.experiences
+        titles: state.titles
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {        
-        experienceActions: bindActionCreators(experienceActions, dispatch)
+        titleActions: bindActionCreators(titleActions, dispatch)
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SkillExperienceDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(TitleDropdown);

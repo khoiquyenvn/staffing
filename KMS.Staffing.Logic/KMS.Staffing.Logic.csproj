@@ -45,12 +45,14 @@
     <Compile Include="Contracts\IExperienceLogic.cs" />
     <Compile Include="Contracts\ICompetentLevelLogic.cs" />
     <Compile Include="Contracts\ISkillCategoryLogic.cs" />
+    <Compile Include="Contracts\ISkillLogic.cs" />
     <Compile Include="Contracts\ITitleLogic.cs" />
     <Compile Include="Contracts\IProjectLogic.cs" />
     <Compile Include="EmployeeLogic.cs" />
     <Compile Include="Enum\ProjectStatus.cs" />
     <Compile Include="ExperienceLogic.cs" />
     <Compile Include="CompetentLevelLogic.cs" />
+    <Compile Include="SkillLogic.cs" />
     <Compile Include="SkillCategoryLogic.cs" />
     <Compile Include="TitleLogic.cs" />
     <Compile Include="ProjectLogic.cs" />

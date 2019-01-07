@@ -1,0 +1,105 @@
+.request-container
+.request-result-container,
+.suggest-container {  
+  display: grid;  
+}
+
+.session-plan-detail-containter {
+  display: grid; 
+  margin-left: 50px;
+  grid-template-columns: 28em 35em 35em;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: 
+    "request   request-result    suggest";
+}
+
+.request-container {
+    grid-area: request;    
+}
+.request-result-container {
+    grid-area: request-result;
+}
+.suggest-container {
+    grid-area: suggest;
+}
+
+.request-card {
+    box-shadow: 0 4px 8px 0 rgba(158, 5, 5, 0.2);
+    transition: 0.5s;
+    width: 90%;
+    margin-bottom: 30px;  
+}
+  
+.request-card:hover {
+    box-shadow: 0 15px 25px 0 rgba(158, 5, 5, 0.2);
+}
+  
+.request-card-container {
+    padding: 2px 16px;
+}
+
+.request-card table {
+    margin: 10px;
+}
+
+.request-detail-container td {
+    padding: 5px;
+}
+
+
+/*Styles for employee result in request*/
+.emp-avatar-card {
+    width: 60px;
+    height: 80px;
+}
+
+.request-result-card {
+    box-shadow: 0 4px 8px 0 rgba(3, 41, 212, 0.2);
+    transition: 0.5s;
+    width: 80%;
+    margin-bottom: 30px;
+}
+  
+.request-result-card:hover {
+    box-shadow: 0 15px 25px 0 rgba(3, 41, 212, 0.2);
+}
+  
+.request-result-card-container {
+    padding: 2px 16px;
+}
+
+.request-result-card table {
+    margin: 10px;
+}
+
+.result-container-ava,
+.result-container-info {  
+  display: grid;  
+}
+
+.request-result-containter {
+  display: grid;
+  padding: 2px 16px;
+  margin-left: 50px;
+  grid-template-columns: 12em auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "ava  info";
+}
+
+.result-container-ava {
+    grid-area: ava;
+    margin-right: 15px;
+}
+.result-container-info {
+    grid-area: info;
+}
+.request-result-containter .emp-info {
+    margin: 0px;
+    padding: 0px;
+}
+
+.handle-btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
