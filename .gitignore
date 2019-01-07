@@ -17,3 +17,5 @@ KMS.Staffing.WebAPI/Web.config
 KMS.Staffing.Repository/App.config
 KMS.Staffing.Repository.Test/App.config
 SolutionFiles/Staffing/.vs/Staffing/DesignTimeBuild/.dtbcache
+KMS.Staffing.Logic.Test/bin/
+KMS.Staffing.Logic.Test/obj/

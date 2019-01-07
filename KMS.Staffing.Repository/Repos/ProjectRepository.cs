@@ -23,8 +23,8 @@ namespace KMS.Staffing.Repository.Repos
         }
 
         public int Add(Project project)
-        {            
-            Context.Projects.Add(project);            
+        {
+            Context.Projects.Add(project);
             return Context.SaveChanges();
         }
 
@@ -61,6 +61,17 @@ namespace KMS.Staffing.Repository.Repos
                 originalPhoto = DefaultProjectImage;
             }
             project.PhotoURL = $"{teamAvatarPath}{originalPhoto}";
+        }
+        
+        public IEnumerable<SessionPlan> GetSessionPlans(Guid? projectId)
+        {
+            var sessionPlans = Context
+                .SessionPlans
+                .Include("Requests.RequestDetails")                    
+                .Where(x => projectId == null || x.ProjectId == projectId)
+                .ToList();
+
+            return sessionPlans;
         }
     }
 }

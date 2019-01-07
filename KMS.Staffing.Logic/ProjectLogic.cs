@@ -1,10 +1,15 @@
-﻿using KMS.Staffing.Core.Contracts;
+﻿using GeneticSharp.Domain;
+using GeneticSharp.Domain.Populations;
+using GeneticSharp.Extensions.Mathematic;
+using GeneticSharp.Runner.ConsoleApp.Samples;
+using KMS.Staffing.Core.Contracts;
+using KMS.Staffing.Core.Enums;
 using KMS.Staffing.Core.Model;
+using KMS.Staffing.Core.Model.ApiResponse;
+using KMS.Staffing.Logic.Bussiness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KMS.Staffing.Logic
 {
@@ -27,11 +32,11 @@ namespace KMS.Staffing.Logic
 
         public int CountProjects()
         {
-            return projectRepository.GetProjects().Count();            
+            return projectRepository.GetProjects().Count();
         }
 
         public List<Project> GetProjects()
-        { 
+        {
             return projectRepository.GetProjects().ToList();
         }
 
@@ -53,6 +58,20 @@ namespace KMS.Staffing.Logic
         public List<SessionPlan> GetAllSessionPlanList(Guid projectId)
         {
             return sessionPlanRepository.FindAllSessionPlan(projectId).ToList();
+        }
+
+        public StaffingResult Arrange(Guid sessionPlanId)
+        {
+            var sessionPlans = projectRepository
+                .GetSessionPlans(projectId: null)
+                .Where(x => x.Id == sessionPlanId && x.Status == (int)PlanStatus.Active)
+                .ToList();
+
+            var employees = employeeRepository.GetEmployees();
+
+            var filler = new EmployeeFiller();
+
+            return filler.FillEmp(sessionPlanId, sessionPlans, employees);
         }
     }
 }
