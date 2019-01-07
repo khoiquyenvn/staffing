@@ -14,16 +14,16 @@ export default class EmployeeSkillset extends Component {
         this.handleOnChangeCompetentLevel = this.handleOnChangeCompetentLevel.bind(this);
     }
 
-    handleOnChangeSkillCategory(even){    
-        this.props.onChangeSkillCategory(this.props.employeeSkill.Id, even.value);
+    handleOnChangeSkillCategory(event){    
+        this.props.onChangeSkillCategory(this.props.employeeSkill.Id, event.value);
     }
 
-    handleOnChangeExperience(even){        
-        this.props.onChangeExperience(this.props.employeeSkill.Id, even.value);
+    handleOnChangeExperience(event){        
+        this.props.onChangeExperience(this.props.employeeSkill.Id, event.value);
     }
 
-    handleOnChangeCompetentLevel(even){        
-        this.props.onChangeCompetentLevel(this.props.employeeSkill.Id, even.value);
+    handleOnChangeCompetentLevel(event){        
+        this.props.onChangeCompetentLevel(this.props.employeeSkill.Id, event.value);
     }
 
     render() {

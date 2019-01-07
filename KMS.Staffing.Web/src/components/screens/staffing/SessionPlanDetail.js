@@ -304,7 +304,7 @@ export default class SessionPlanDetail extends Component {
                         <Scrollbars style={{ height: 1200 }}>
                             <Droppable droppableId="resultStaffing">
                                 {(provided, snapshot) => (
-                                    <div ref={provided.innerRef}>
+                                    <div ref={provided.innerRef} className="droppable-container">
                                         {
                                             this.state.employeeResults.map((result, index) => {
                                                 if (result) {
@@ -334,7 +334,7 @@ export default class SessionPlanDetail extends Component {
                         <Scrollbars style={{ height: 1200 }}>
                             <Droppable droppableId="suggestEmployee">
                                 {(provided, snapshot) => (
-                                    <div ref={provided.innerRef}>
+                                    <div ref={provided.innerRef} className="droppable-container">
                                         {
                                             this.state.employeesByRequest.map((result, index) => {
                                                 if (result) {
