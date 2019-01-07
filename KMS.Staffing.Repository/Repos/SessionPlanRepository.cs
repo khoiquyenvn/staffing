@@ -12,7 +12,7 @@ namespace KMS.Staffing.Repository.Repos
     {
         public IEnumerable<SessionPlan> FindAllSessionPlan(Guid projectId)
         {
-            return Context.SessionPlan.Where(x => x.ProjectId == projectId).ToList();
+            return Context.SessionPlans.Where(x => x.ProjectId == projectId).ToList();
         }
     }
 }
