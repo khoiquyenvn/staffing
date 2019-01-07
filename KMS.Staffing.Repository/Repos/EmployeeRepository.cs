@@ -5,6 +5,7 @@ using KMS.Staffing.Core.Model.Constant;
 using KMS.Staffing.Core.Model.Utility;
 using KMS.Staffing.Repository.Contants;
 using KMS.Staffing.Repository.DBContexts;
+using System.Data.Entity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace KMS.Staffing.Repository.Repos
 
         public List<Employee> LoadEmployees(EmployeePageRequest pageRequest)
         {
-            var employees = Context.Employees.Include("Title").ToList();
+            var employees = Context.Employees.Include(e => e.Title).ToList();
 
             UpdateAdditionalDetail(employees);
 
@@ -47,16 +48,12 @@ namespace KMS.Staffing.Repository.Repos
 
         public Employee GetEmployee(int? empId)
         {
-            var employees = Context.Employees.Include("Title")
-                                             .Include("EmployeeSkill.Skill")
-                                             .Include("EmployeeSkill.Employee")
-                                             .Include("EmployeeSkill.Skill.SkillCategory")
-                                             .ToList();
-
-            UpdateAdditionalDetail(employees);
-
-            var result = employees.FirstOrDefault(e => e.Id.Equals(empId.Value));
-            return result;
+            var result = Context.Employees.Where(e => e.Id.Equals(empId.Value))
+                .Include(e => e.Title).Include(e=> e.EmployeeSkill.Select(ek => ek.Skill))
+                .Include(e => e.EmployeeSkill.Select(ek => ek.Employee)).Include(e => e.EmployeeSkill.Select(ek => ek.Skill.SkillCategory)).ToList();
+                               
+            UpdateAdditionalDetail(result);
+            return result.FirstOrDefault();
         }
 
         public int Update(Employee emp)
@@ -116,7 +113,7 @@ namespace KMS.Staffing.Repository.Repos
             return employees;
         }
 
-        private void UpdateAdditionalDetail(List<Employee> employees)
+        public void UpdateAdditionalDetail(List<Employee> employees)
         {
             employees.ForEach(e =>
             {

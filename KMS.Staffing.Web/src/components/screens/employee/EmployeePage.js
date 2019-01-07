@@ -5,6 +5,8 @@ import * as employeeActions from '../../../actions/employeeActions';
 import EmployeeList from './EmployeeList';
 import SearchControl from '../../controls/search/SearchControl';
 
+import { withRouter } from "react-router-dom";
+
 class EmployeePage extends React.Component {
     constructor(props) {
         super(props);
@@ -44,11 +46,7 @@ class EmployeePage extends React.Component {
             };
         }
 
-        this.props.employeeActions.loadEmployees(criteria);
-
-        this.setState({
-            searchValue: ''
-        });
+        this.props.employeeActions.loadEmployees(criteria);        
     }
 
     render() {
@@ -60,7 +58,7 @@ class EmployeePage extends React.Component {
                         searchValue={this.state.searchValue}
                         changeSearchValue={this.changeSearchValue}
                         handleSearch={this.handleSearch} />
-                    <EmployeeList employees={this.props.employees} />
+                    <EmployeeList accessEmployeeDetailAction={this.props.employeeActions.accessEmployeeDetail} employees={this.props.employees} />
                 </div>
             </div>
         )
@@ -79,4 +77,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmployeePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EmployeePage));

@@ -7,10 +7,11 @@ import * as selectedEmployeeActions from '../../../../actions/selectedEmployeeAc
 import * as titleActions from '../../../../actions/titleActions';
 import EmployeeAvatar from './EmployeeDetail.Avatar';
 import EmployeeInformation from './EmployeeDetail.Information';
-import EmployeeSkillset from './EmployeeDetail.Skillset';
+import EmployeeSkillsetList from './EmployeeDetail.SkillsetList';
 import 'react-tabs/style/react-tabs.css';
 
 import '../../../../styles/employee/employeeDetail.css'; 
+import '../../../../styles/common/common.css';
 
 class EmployeeDetail extends Component {
     constructor(props) {
@@ -24,10 +25,15 @@ class EmployeeDetail extends Component {
         this.updateEmployeeInformation = this.updateEmployeeInformation.bind(this);
         this.toggleEditting = this.toggleEditting.bind(this);
         this.saveEmployeeInformation = this.saveEmployeeInformation.bind(this);
+        this.updateEmployeeSkill = this.updateEmployeeSkill.bind(this);
+        this.handleChangeSkillCategory = this.handleChangeSkillCategory.bind(this);
+        this.handleChangeExperience = this.handleChangeExperience.bind(this);
+        this.handleChangeCompetentLevel = this.handleChangeCompetentLevel.bind(this);
     }
 
     componentDidMount() {
-        this.props.selectedEmployeeActions.loadEmployeeById();
+        const id = this.props.match.params.id;
+        this.props.selectedEmployeeActions.loadEmployeeById(id);
         this.props.titleActions.loadTitles();
     }
 
@@ -36,9 +42,9 @@ class EmployeeDetail extends Component {
     }
 
     updateEmployeeInformation(event) {
-        const field = event.target.name;
+        const field = (event.target) ? event.target.name : event.propertyName;
         const emp = this.state.employee;
-        emp[field] = event.target.value;
+        emp[field] = (event.target) ? event.target.value : event.value;
         this.setState({ employee: emp });
     }
 
@@ -52,10 +58,63 @@ class EmployeeDetail extends Component {
         });
     }
 
+    updateEmployeeSkill(newEmployeeSkill) {
+        this.setState((currentState) => {
+            let nextEmployee = currentState.employee;
+            nextEmployee.EmployeeSkill = newEmployeeSkill;
+
+            return {
+                employee: nextEmployee
+            };
+        });
+    }
+
+    handleChangeSkillCategory(employeeSkillId, newCategory) {
+        let newEmployeeSkill = this.state.employee.EmployeeSkill.map(s => {
+            if (s.Id == employeeSkillId) {
+                s.Skill.CategoryId = newCategory;
+            }
+
+            return s;
+        });
+
+        if (newEmployeeSkill.length > 0) {
+            this.updateEmployeeSkill(newEmployeeSkill);
+        }
+    }
+
+    handleChangeExperience(employeeSkillId, newExperience) {
+        let newEmployeeSkill = this.state.employee.EmployeeSkill.map(s => {
+            if (s.Id == employeeSkillId) {
+                s.ExperienceId = newExperience;
+            }
+
+            return s;
+        });
+
+        if (newEmployeeSkill.length > 0) {
+            this.updateEmployeeSkill(newEmployeeSkill);
+        }
+    }
+
+    handleChangeCompetentLevel(employeeSkillId, newCompetentLevel) {
+        let newEmployeeSkill = this.state.employee.EmployeeSkill.map(s => {
+            if (s.Id == employeeSkillId) {
+                s.CompetentLevelId = newCompetentLevel;
+            }
+
+            return s;
+        });
+
+        if (newEmployeeSkill.length > 0) {
+            this.updateEmployeeSkill(newEmployeeSkill);
+        }
+    }
+
     saveEmployeeInformation() {
         let updatedEmployee = Object.assign({}, this.state.employee);
         this.props.selectedEmployeeActions.updateEmployee(updatedEmployee);
-    }
+    }    
 
     render() {
 
@@ -78,15 +137,18 @@ class EmployeeDetail extends Component {
                                     titles={this.props.titles} />
                             </TabPanel>
                             <TabPanel>
-                                <EmployeeSkillset employee={this.state.employee}
-                                    isEditting={this.state.isEditting} />
+                                <EmployeeSkillsetList employee={this.state.employee}
+                                    isEditting={this.state.isEditting}
+                                    onChangeSkillCategory={this.handleChangeSkillCategory}
+                                    onChangeExperience={this.handleChangeExperience}
+                                    onChangeCompetentLevel={this.handleChangeCompetentLevel} />
                             </TabPanel>
                         </Tabs>
                     </div>
                     <div className="employee-detail-btn-container">
-                        <button className="w3-btn w3-blue employee-handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
-                        <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}>Save</button>
-                        <button className="w3-btn w3-blue employee-handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
+                        <button className="w3-btn w3-blue handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
+                        <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}>Save</button>
+                        <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
                     </div>
                 </div>
             )

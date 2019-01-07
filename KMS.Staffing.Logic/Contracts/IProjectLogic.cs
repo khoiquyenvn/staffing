@@ -7,11 +7,11 @@ namespace KMS.Staffing.Logic
 {
     public interface IProjectLogic
     {
-        string test(string name);
-
         int CountProjects();
-
         List<Project> GetProjects();
+        Project GetProjectDetail(Guid projectId);
+        List<List<ProjectStaff>> GetAllEmployeeInProject(Guid projectId);
+        List<SessionPlan> GetAllSessionPlanList(Guid projectId);
 
         StaffingResult Arrange(Guid sessionPlanId);
     }

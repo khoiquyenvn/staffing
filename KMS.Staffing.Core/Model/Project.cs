@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using KMS.Staffing.Core.Model.Constant;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,6 +27,9 @@ namespace KMS.Staffing.Core.Model
         public Guid DepartmentId { get; set; }
 
         public int Status { get; set; }
+
+        [NotMapped]
+        public string PhotoURL { get; set; }
 
         [JsonIgnore]
         public virtual List<SessionPlan> SessionPlans { get; set; }

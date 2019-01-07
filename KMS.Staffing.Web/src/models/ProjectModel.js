@@ -8,35 +8,30 @@ import { FaBookReader } from 'react-icons/fa';
     kickoff: 1,
     done: 2
   }
-
-  const projectModel = {
-    name : '',
-    description : '',
-    teamSize : 0,
-    status : projectStatusEnum.working
-  }
   
   var statusLabel = {
     padding: '5px',
     borderRadius: '10px',
     font: 'Arial',
     textAlign: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
+    background: 'white',
+    border: '2px solid'
   }
   
   var workingStatusLabelStyle = {
-    color: 'white',
-    background: '#800000',
+    color: '#800000',
+    borderColor: '#800000',
   }
   
   var kickoffStatusLabelStyle = {
-    color: 'white',
-    background: '#008080'
+    color: '#008080',
+    borderColor: '#008080'
   }
   
   var doneStatusLabelStyle = {
-    color: 'white',
-    background: '#800080'
+    color: '#800080',
+    borderColor: '#800080'
   }
   
   function renderStyle(projectModelStatus) {
@@ -55,27 +50,34 @@ import { FaBookReader } from 'react-icons/fa';
       }
   }
   
-  const projectShortInformation = [{
+  function renderStatusLabel (status) {
+    return (
+      <label style={{...renderStyle(status), ...statusLabel}}>{renderName(status)}</label>  
+    )
+  }
+
+  function renderProjectColumn(enterProjectDetail) {
+    let projectShortInformation = [{
       Header: 'Name',
       accessor: 'Name'
     }, {
-      Header: 'Description',
-      accessor: 'Description'
+        Header: 'Description',
+        accessor: 'Description'
     }, {
-      Header: 'Team Size',
-      accessor: 'TeamSize'
+        Header: 'Team Size',
+        accessor: 'TeamSize'
     }, {
-      Header: 'Status',
-      accessor: 'Status',
-      Cell: row => (
-        <label style={{...renderStyle(row.value), ...statusLabel}}>{renderName(row.value)}</label>  // label change with value
-          )
+        Header: 'Status',
+        accessor: 'Status',
+        Cell: row => renderStatusLabel(row.value)
     }, {
-      Header: '',
-      accessor: '',
-      Cell: row => (
-        <button className="staffingButton"><FaBookReader/> View </button>
-          )
+        Header: '',
+        accessor: '',
+        Cell: cellInfo => (
+        <button className="w3-btn w3-dark-grey w3-round-xxlarge" onClick={()=>enterProjectDetail(cellInfo.original.Id)} ><FaBookReader/> View </button>
+            )
     }];
-    
-export { projectModel, projectStatusEnum, projectShortInformation }
+
+    return projectShortInformation;
+  }
+export { projectStatusEnum, renderStatusLabel , renderProjectColumn, renderName}

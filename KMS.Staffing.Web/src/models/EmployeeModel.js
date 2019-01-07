@@ -3,7 +3,7 @@ import React from "react";
 import "react-table/react-table.css";
 import { FaBookReader } from 'react-icons/fa';
 
-export function getEmployeeModel(isEditting) {
+export function getEmployeeModel(isEditting, accessEmployeeDetailAction) {
   let employeeShortInformation = [{
     Header: 'Id',
     accessor: 'DisplayId'
@@ -31,8 +31,8 @@ export function getEmployeeModel(isEditting) {
   }, {
     Header: '',
     accessor: '',
-    Cell: row => (
-      <button className="staffingButton"><FaBookReader /> View </button>
+    Cell: cellInfo => (
+      <button className="w3-btn w3-green" onClick={()=>accessEmployeeDetailAction(cellInfo.original.Id)} ><FaBookReader/> View </button>
     )
   }];
 

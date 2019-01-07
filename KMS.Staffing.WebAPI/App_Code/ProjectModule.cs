@@ -20,9 +20,25 @@ namespace KMS.Staffing.WebAPI
                 return CreateResponse(result);
             };
 
-            Get["/test"] = _ =>
+            Get["/{projectId}"] = parameters =>
             {
-                return projectLogic.test(Request.Query.Name);
+                var projectId = Guid.Parse(parameters.projectId);
+                var result = projectLogic.GetProjectDetail(projectId);
+                return CreateResponse(result);
+            };
+
+            Get["getMemberList/{projectId}"] = parameters =>
+            {
+                var projectId = Guid.Parse(parameters.projectId);
+                var result = projectLogic.GetAllEmployeeInProject(projectId);
+                return CreateResponse(result);
+            };
+
+            Get["getSessionPlanList/{projectId}"] = parameters =>
+            {
+                var projectId = Guid.Parse(parameters.projectId);
+                var result = projectLogic.GetAllSessionPlanList(projectId);
+                return CreateResponse(result);
             };
 
             Get["/count"] = _ =>

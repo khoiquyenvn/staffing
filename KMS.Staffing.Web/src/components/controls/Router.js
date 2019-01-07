@@ -2,23 +2,31 @@ import React, { Component } from 'react'
 import { Switch, Route,Redirect  } from 'react-router'
 import NotFound from './NotFound';
 import ProjectDetail from '../screens/project/ProjectDetail';
-import ProjectPage from '../screens/project/ProjectPage';
+import ProjectList from '../screens/project/ProjectList';
+import StaffingBoardDetail from '../screens/staffing/StaffingBoardDetail';
 import EmployeePage from '../screens/employee/EmployeePage';
+import { withRouter } from "react-router-dom";
 import EmployeeDetail from '../screens/employee//detail/EmployeeDetail';
+import SessionPlanDetail from '../screens/staffing/SessionPlanDetail';
 import App from '../../App';
-export default class MainRouter extends Component {
+
+class MainRouter extends Component {
   render() {
       
     return (
       <Switch>
-          <Route path='/employeelist' component={EmployeePage} />
-          <Route path='/employeedetail' component={EmployeeDetail} />
-          <Route path='/projectlist' component={ProjectPage} />
-          <Route path='/projectlist/:id' component={ProjectDetail} />
-          <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} />    
+          <Route exact path='/employeelist' component={EmployeePage} />
+          <Route exact path='/projectlist' component={ProjectList} />
+          <Route exact path='/projectlist/:id' component={ProjectDetail} />
+          <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} /> 
+          <Route path='/employeelist/:id' component={EmployeeDetail} />   
+          <Route exact path='/projectlist/sessiondetail/:projectId/:sessionPlanId' component={StaffingBoardDetail} />   
+          <Route path='/sessionPlan' component={SessionPlanDetail} />
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>
     )
   }
 }
+
+export default withRouter(MainRouter)

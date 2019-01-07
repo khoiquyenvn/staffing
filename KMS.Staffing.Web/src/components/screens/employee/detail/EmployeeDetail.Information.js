@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../../../controls/common/TextInput';
-import SelectDropdownInput from '../../../controls/common/SelectDropdownInput';
+import TitleDropdown from "../../common/TitleDropdown";
 
 import '../../../../styles/employee/employee.css';
 
@@ -13,42 +13,76 @@ export default class EmployeeInformation extends Component {
     render() {
         return (
             <div>
-                <TextInput
-                    name="Id"
-                    label="Id"
-                    value={this.props.employee.DisplayId}
-                    isEditting={false} />
-                <TextInput
-                    name="Name"
-                    label="Name"
-                    value={this.props.employee.Name}
-                    isEditting={this.props.isEditting}
-                    onChange={this.props.onChangeInformation} />
-                <TextInput
-                    name="Email"
-                    label="Email"
-                    value={this.props.employee.Email}
-                    isEditting={this.props.isEditting}
-                    onChange={this.props.onChangeInformation} />
-                <TextInput
-                    name="Phone"
-                    label="Phone"
-                    value={this.props.employee.Phone}
-                    isEditting={this.props.isEditting}
-                    onChange={this.props.onChangeInformation} />
-                <TextInput
-                    name="Address"
-                    label="Address"
-                    value={this.props.employee.Address}
-                    isEditting={this.props.isEditting}                    
-                    onChange={this.props.onChangeInformation} />
-                <SelectDropdownInput
-                    name="TitleId"
-                    label="Title"
-                    options={this.props.titles}                    
-                    selectedValue={this.props.employee.TitleId}
-                    isEditting={this.props.isEditting}
-                    onChange={this.props.onChangeInformation} />
+                <table style={{width: '100%'}}>
+                    <tbody>
+                        <tr>
+                            <td className="employee-info-label">Id</td>
+                            <td>
+                                <TextInput
+                                    name="Id"
+                                    label="Id"
+                                    value={this.props.employee.DisplayId}
+                                    isEditting={false} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="employee-info-label">Name</td>
+                            <td>
+                                <TextInput
+                                    name="Name"
+                                    label="Name"
+                                    value={this.props.employee.Name}
+                                    isEditting={this.props.isEditting}
+                                    onChange={this.props.onChangeInformation} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="employee-info-label">Email</td>
+                            <td>
+                                <TextInput
+                                    name="Email"
+                                    label="Email"
+                                    value={this.props.employee.Email}
+                                    isEditting={this.props.isEditting}
+                                    onChange={this.props.onChangeInformation} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="employee-info-label">Phone</td>
+                            <td>
+                                <TextInput
+                                    name="Phone"
+                                    label="Phone"
+                                    value={this.props.employee.Phone}
+                                    isEditting={this.props.isEditting}
+                                    onChange={this.props.onChangeInformation} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="employee-info-label">Address</td>
+                            <td>
+                                <TextInput
+                                    name="Address"
+                                    label="Address"
+                                    value={this.props.employee.Address}
+                                    isEditting={this.props.isEditting}
+                                    onChange={this.props.onChangeInformation} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="employee-info-label">Title</td>
+                            <td>
+                                <TitleDropdown
+                                    name="TitleId"
+                                    label="Title"
+                                    selectedValue={this.props.employee.TitleId}
+                                    isEditting={this.props.isEditting}
+                                    isSearchable={true}
+                                    onChange={this.props.onChangeInformation} />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         );
     }

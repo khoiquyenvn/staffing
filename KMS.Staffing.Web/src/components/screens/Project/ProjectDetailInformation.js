@@ -1,32 +1,48 @@
 import React, { Component , Fragment} from 'react'
-import ReactTable from "react-table";
-class ProjectDetailInformation extends Component {
-  render() {
-    const initialProjectDetail = {
-      name: 'Izenda',
-      description: 'BI Platform',
-      teamSize: 20,
-      status: 0,
-      member: []
-    }
+import * as projectDetailActions from '../../../actions/projectDetailAction';
+import { connect } from 'react-redux';
+import { renderName } from '../../../models/ProjectModel';
+import { bindActionCreators } from 'redux';
+import TextInput from '../../controls/common/TextInput';
 
+class ProjectDetailInformation extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    
+    const { projectDetail } = this.props;
     return (
       <Fragment>
-        <ProjectHeader/>
-        {/* <img src="data:image/jpeg;base64,{projectDetail.image}" /> */}
-        {/* <table style="width:100%">
-          <theader>
-            <th>Description</th>
-            <th>Detail</th>
-          </theader>
-          <tbody>
-            <th>{projectDetail.description}</th>
-            <th><ProjectDetail/></th>
-          </tbody>
-        </table> */}
+        <TextInput
+                    name="Description"
+                    label="Description"
+                    value={projectDetail.Description}
+                    isEditting={false} />
+        <TextInput
+                    name="TeamSize"
+                    label="Team Size"
+                    value={projectDetail.TeamSize}
+                    isEditting={false} />
+        <TextInput
+                    name="Status"
+                    label="Status"
+                    value={renderName(projectDetail.Status)}
+                    isEditting={false} />
       </Fragment>
       )
   }
 }
 
-export default ProjectDetailInformation
+const mapStateToProps = (state) => ({
+  projectDetail: state.projectDetail
+})
+
+function mapDispatchToProps(dispatch) {
+  return {
+    projectDetailActions: bindActionCreators(projectDetailActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetailInformation)

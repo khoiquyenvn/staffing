@@ -23,6 +23,3 @@
 .employee-avatar-container {
     grid-area: avatar;
 }
-.employee-handle-btn{
-    margin: 10px;
-}

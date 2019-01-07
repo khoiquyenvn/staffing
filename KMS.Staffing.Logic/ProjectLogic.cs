@@ -16,18 +16,18 @@ namespace KMS.Staffing.Logic
     public class ProjectLogic : IProjectLogic
     {
         readonly IProjectRepository projectRepository;
+        readonly IProjectStaffRepository projectStaffRepsitory;
+        readonly ISessionPlanRepository sessionPlanRepository;
+
         readonly IEmployeeRepository employeeRepository;
 
-
-        public ProjectLogic(IProjectRepository projectRepository, IEmployeeRepository employeeRepository)
+        public ProjectLogic(IProjectRepository projectRepository, IProjectStaffRepository projectStaffRepsitory,
+                            IEmployeeRepository employeeRepository, ISessionPlanRepository sessionPlanRepository)
         {
             this.projectRepository = projectRepository;
+            this.projectStaffRepsitory = projectStaffRepsitory;
             this.employeeRepository = employeeRepository;
-        }
-
-        public string test(string name)
-        {
-            return $"Hello {name} at";
+            this.sessionPlanRepository = sessionPlanRepository;
         }
 
         public int CountProjects()
@@ -38,6 +38,26 @@ namespace KMS.Staffing.Logic
         public List<Project> GetProjects()
         {
             return projectRepository.GetProjects().ToList();
+        }
+
+        public Project GetProjectDetail(Guid projectId)
+        {
+            return projectRepository.FindById(projectId);
+        }
+
+        public List<List<ProjectStaff>> GetAllEmployeeInProject(Guid projectId)
+        {
+            var projectStaff = projectStaffRepsitory.FindAllEmployee(projectId).ToList();
+
+            var employeeList = projectStaff.Select(x => x.Employee).ToList();
+            employeeRepository.UpdateAdditionalDetail(employeeList);
+
+            return projectStaff.GroupBy(x => x.PositionId).Select(gr=> gr.ToList()).ToList();
+        }
+
+        public List<SessionPlan> GetAllSessionPlanList(Guid projectId)
+        {
+            return sessionPlanRepository.FindAllSessionPlan(projectId).ToList();
         }
 
         public StaffingResult Arrange(Guid sessionPlanId)

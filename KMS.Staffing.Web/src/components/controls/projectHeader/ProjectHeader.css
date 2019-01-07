@@ -1,7 +1,7 @@
 .ph-container {
     position: relative; 
     width: 100%; /* Maximum width */
-    height: 300px;
+    height: 500px;
     overflow: hidden;
   }
 
@@ -15,8 +15,8 @@
     See the answer's update */
     left: -100%;
     right: -100%;
-    top: -100%;
-    bottom: -100%;;
+    top: -110%;
+    bottom: -90%;;
   }
   
   .ph-container .ph-content {
