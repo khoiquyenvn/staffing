@@ -13,7 +13,7 @@ const MemberAvatarInList = ({ employee, selected }) => {
   }
     return (
       <div className="member-in-list">
-        <EmployeeAvatar image={employee.Employee.PhotoURL}/>
+        <EmployeeCir image={employee.Employee.PhotoURL}/>
       </div>
     );
   };

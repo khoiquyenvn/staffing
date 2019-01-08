@@ -1,0 +1,15 @@
+img.eia-image {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.eia-image-wrap {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0;
+}
