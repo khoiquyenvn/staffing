@@ -42,7 +42,9 @@ namespace KMS.Staffing.Repository.DBContexts
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillCategory> SkillCategory { get; set; }
         public DbSet<EmployeeSkill> EmployeeSkills { get; set; }
-        public DbSet<ProjectStaff> ProjectStaff { get; set; }
-        public DbSet<SessionPlan> SessionPlan { get; set; }
+        public DbSet<ProjectStaff> ProjectStaff { get; set; }        
+        public DbSet<SessionPlan> SessionPlans { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestDetail> RequestDetails { get; set; }
     }    
 }

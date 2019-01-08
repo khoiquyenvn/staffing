@@ -10,8 +10,7 @@ export default class TextInput extends Component {
         let label = this.props.onlyInput ? <span/> : <label htmlFor={this.props.name}>{this.props.label}</label>;
 
         return (
-            <div className="form-group">
-                {label}
+            <div className="form-group">                
                 <div className="field">
                     <input
                         className="form-control"

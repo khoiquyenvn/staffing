@@ -7,7 +7,9 @@ import StaffingBoardDetail from '../screens/staffing/StaffingBoardDetail';
 import EmployeePage from '../screens/employee/EmployeePage';
 import { withRouter } from "react-router-dom";
 import EmployeeDetail from '../screens/employee//detail/EmployeeDetail';
+import SessionPlanDetail from '../screens/staffing/SessionPlanDetail';
 import App from '../../App';
+
 class MainRouter extends Component {
   render() {
       
@@ -19,6 +21,7 @@ class MainRouter extends Component {
           <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} /> 
           <Route path='/employeelist/:id' component={EmployeeDetail} />   
           <Route exact path='/projectlist/sessiondetail/:projectId/:sessionPlanId' component={StaffingBoardDetail} />   
+          <Route path='/sessionPlan' component={SessionPlanDetail} />
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>

@@ -46,11 +46,7 @@ class EmployeePage extends React.Component {
             };
         }
 
-        this.props.employeeActions.loadEmployees(criteria);
-
-        this.setState({
-            searchValue: ''
-        });
+        this.props.employeeActions.loadEmployees(criteria);        
     }
 
     render() {

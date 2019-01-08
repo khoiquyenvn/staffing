@@ -16,5 +16,7 @@ namespace KMS.Staffing.Core.Contracts
 
         IEnumerable<Project> GetProjects();
         Project FindById(Guid id);
+
+        IEnumerable<SessionPlan> GetSessionPlans(Guid? projectId);
     }
 }

@@ -10,6 +10,7 @@ import titles from './titleReducer';
 import experiences from './experienceReducer';
 import competentLevels from './competentLevelReducer';
 import skillCategories from './skillCategoryReducer';
+import skills from './skillReducer';
 
 const reducers = {
   // Your other reducers go here
@@ -19,6 +20,7 @@ const reducers = {
   experiences,
   competentLevels,
   skillCategories,
+  skills,
   projects,
   projectDetail,
   burgerMenu, // Must be mounted at 'burgerMenu'
