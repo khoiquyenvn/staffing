@@ -7,6 +7,7 @@ using KMS.Staffing.Core.Enums;
 using KMS.Staffing.Core.Model;
 using KMS.Staffing.Core.Model.ApiResponse;
 using KMS.Staffing.Logic.Bussiness;
+using KMS.Staffing.Logic.Bussiness.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,18 @@ namespace KMS.Staffing.Logic
         readonly IProjectRepository projectRepository;
         readonly IProjectStaffRepository projectStaffRepsitory;
         readonly ISessionPlanRepository sessionPlanRepository;
-
         readonly IEmployeeRepository employeeRepository;
+        readonly IRequestRepository requestRepository;
 
         public ProjectLogic(IProjectRepository projectRepository, IProjectStaffRepository projectStaffRepsitory,
-                            IEmployeeRepository employeeRepository, ISessionPlanRepository sessionPlanRepository)
+                            IEmployeeRepository employeeRepository, ISessionPlanRepository sessionPlanRepository,
+                            IRequestRepository requestRepository)
         {
             this.projectRepository = projectRepository;
             this.projectStaffRepsitory = projectStaffRepsitory;
             this.employeeRepository = employeeRepository;
             this.sessionPlanRepository = sessionPlanRepository;
+            this.requestRepository = requestRepository;
         }
 
         public int CountProjects()
@@ -72,6 +75,29 @@ namespace KMS.Staffing.Logic
             var filler = new EmployeeFiller();
 
             return filler.FillEmp(sessionPlanId, sessionPlans, employees);
+        }
+
+        SessionResult IProjectLogic.GetAllRequestList(Guid sessionPlanId)
+        {
+            var requests =  this.requestRepository.getRequestList(sessionPlanId).ToList();
+            
+            var result = new SessionResult();
+            if (requests != null && requests.Count() > 0)
+            {
+                result.Id = sessionPlanId;
+                result.requests = new List<RequestResult>();
+                requests.ForEach(request => {
+                    var requestResult = new RequestResult();
+                    requestResult.Id = request.Id;
+                    requestResult.Number = request.Number;
+                    var skillIdList = request.RequestDetails.Select(detail => detail.SkillId).ToList();
+                    requestResult.TitleId = request.RequestDetails.FirstOrDefault()?.TitleId;
+                    requestResult.SkillId = String.Join(";#", skillIdList);
+                    result.requests.Add(requestResult);
+                });
+            }
+
+            return result;
         }
     }
 }
