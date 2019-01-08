@@ -19,9 +19,8 @@ class MainRouter extends Component {
           <Route exact path='/projectlist' component={ProjectList} />
           <Route exact path='/projectlist/:id' component={ProjectDetail} />
           <Route exact path="/" render={() => (<Redirect to="/employeelist" />)} /> 
-          <Route path='/employeelist/:id' component={EmployeeDetail} />   
-          <Route exact path='/projectlist/sessiondetail/:projectId/:sessionPlanId' component={StaffingBoardDetail} />   
-          <Route path='/sessionPlan' component={SessionPlanDetail} />
+          <Route path='/employeelist/:id' component={EmployeeDetail} />    
+          <Route path='/sessionplan/:sessionPlanId' component={SessionPlanDetail} />
           <Route path='*' component={NotFound}>
           </Route>
       </Switch>

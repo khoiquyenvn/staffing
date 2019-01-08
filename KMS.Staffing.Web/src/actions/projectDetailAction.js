@@ -34,6 +34,6 @@ export function loadSessionPlanList(id) {
 
 export function enterSessionPlanDetail(projectId, sessionId) {  
   return function(dispatch) {
-    return history.push('/projectlist/sessiondetail/' + projectId + '/' + sessionId);
+    return history.push('/sessionplan/' + sessionId);
   };
 }

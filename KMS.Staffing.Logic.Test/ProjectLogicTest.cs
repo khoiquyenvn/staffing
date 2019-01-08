@@ -19,9 +19,10 @@ namespace KMS.Staffing.Logic.Test
             var employeeRepo = new EmployeeRepository();
             var projectStaffRepsitory = new ProjectStaffRepository();
             var sessionPlanRepository = new SessionPlanRepository();
+            var requestRepository = new RequestRepository();
 
 
-            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository);
+            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository,requestRepository);
 
             Guid projectId = Guid.Parse("46E90FD9-7FDA-494E-891F-03EE5EBF8BCE");
             Guid sessionPlanId = Guid.Parse("4E46C7F1-C9E1-4B4F-99C9-1C4BE2AECF51");
