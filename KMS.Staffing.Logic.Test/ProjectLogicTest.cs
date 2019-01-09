@@ -10,7 +10,7 @@ using Xunit;
 
 namespace KMS.Staffing.Logic.Test
 {
-    public class ProjectLogicTest
+    public class ProjectLogicTest : LogicTestBase
     {
         [Fact]
         public void FillEmployee_Success()
