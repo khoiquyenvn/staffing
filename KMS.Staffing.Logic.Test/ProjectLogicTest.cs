@@ -18,6 +18,7 @@ namespace KMS.Staffing.Logic.Test
         readonly IProjectStaffRepository projectStaffRepsitory;
         readonly ISessionPlanRepository sessionPlanRepository;
         readonly IRequestRepository requestRepository;
+        readonly ITitleRepository titleRepository;
 
         public ProjectLogicTest()
         {
@@ -26,12 +27,13 @@ namespace KMS.Staffing.Logic.Test
             projectStaffRepsitory = new ProjectStaffRepository();
             sessionPlanRepository = new SessionPlanRepository();
             requestRepository = new RequestRepository();
+            titleRepository = new TitleRepository();
         }
 
         [Fact]
         public void FillEmployee_Success()
         {            
-            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository, requestRepository);
+            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository, requestRepository, titleRepository);
             
             Guid sessionPlanId = Guid.Parse("4E46C7F1-C9E1-4B4F-99C9-1C4BE2AECF51");
             var result = sut.Arrange(sessionPlanId);
@@ -42,7 +44,7 @@ namespace KMS.Staffing.Logic.Test
         [Fact]
         public void FillEmployee_By_Request_Success()
         {
-            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository, requestRepository);
+            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository, requestRepository, titleRepository);
             
             Guid requestId = Guid.Parse("d228568c-a402-427e-bdcf-2a5b7c199322");
 

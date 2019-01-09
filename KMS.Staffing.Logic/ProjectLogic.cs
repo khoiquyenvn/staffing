@@ -21,18 +21,21 @@ namespace KMS.Staffing.Logic
         readonly ISessionPlanRepository sessionPlanRepository;
         readonly IEmployeeRepository employeeRepository;
         readonly IRequestRepository requestRepository;
+        readonly ITitleRepository titleRepository;
 
         public ProjectLogic(IProjectRepository projectRepository,
                             IProjectStaffRepository projectStaffRepsitory,
                             IEmployeeRepository employeeRepository,
                             ISessionPlanRepository sessionPlanRepository,
-                            IRequestRepository requestRepository)
+                            IRequestRepository requestRepository,
+                            ITitleRepository titleRepository)
         {
             this.projectRepository = projectRepository;
             this.projectStaffRepsitory = projectStaffRepsitory;
             this.employeeRepository = employeeRepository;
             this.sessionPlanRepository = sessionPlanRepository;
             this.requestRepository = requestRepository;
+            this.titleRepository = titleRepository;
         }
 
         public int CountProjects()
@@ -87,8 +90,9 @@ namespace KMS.Staffing.Logic
             var employees = employeeRepository.GetEmployees();
 
             var filler = new EmployeeFiller();
+            var result = filler.FillEmp(activeRequests, employees);
 
-            return filler.FillEmp(activeRequests, employees);
+            return result;
         }
 
         public StaffingResult FindEmployeesForRequest(Guid requestId)
@@ -136,9 +140,12 @@ namespace KMS.Staffing.Logic
                 .OrderByDescending(x => x.MatchedResult.MatchedScore)
                 .ToList();
 
+
+            var result = filler.ProjectMainProperties(employees);            
+
             return new StaffingResult
             {
-                Result = filler.ProjectMainProperties(employees),
+                Result = result,
                 ExpectedResult = expectedScore,
                 Fitness = CalculateFitness(employees, expectedScore)
             };
@@ -176,6 +183,6 @@ namespace KMS.Staffing.Logic
             }
 
             return result;
-        }
+        }        
     }
 }

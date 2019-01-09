@@ -39,6 +39,9 @@ export default class SessionPlanDetail extends Component {
         this.reorderItemsInList = this.reorderItemsInList.bind(this);
         this.getListItemsByStateId = this.getListItemsByStateId.bind(this);
         this.moveItemsAmongList = this.moveItemsAmongList.bind(this);
+        this.generateRequestDetailByRequest = this.generateRequestDetailByRequest.bind(this);
+        this.generatePostRequest = this.generatePostRequest.bind(this);
+        this.handleRemoveAlreadySelectedEmployee = this.handleRemoveAlreadySelectedEmployee.bind(this);
     }
 
     componentDidMount() {
@@ -161,44 +164,133 @@ export default class SessionPlanDetail extends Component {
         });
     }
 
-    handleViewSuggestion() {
-        let staffs = ModelUtility.getStaffingResults();
-        let suggestEmployees = _.concat([], staffs);
+    generateRequestDetailByRequest(request) {
+        let requestDetails = [{
+            TitleId: request.TitleId,
+            CompetentLevelId: '0e3b823e-a2a7-4a50-8edf-d29bd7a20231',
+            RequestId: request.Id
+        }];
 
-        this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.Requests);
-            nextRequests = nextRequests.map(r => {
-                r.IsSelected = false;
-                return r;
+        if (request.Skills != '') {
+            let selectedSkillIds = request.Skills.split(";#");
+
+            requestDetails = selectedSkillIds.map(s => {
+                return {
+                    TitleId: request.TitleId,
+                    CompetentLevelId: '0e3b823e-a2a7-4a50-8edf-d29bd7a20231',
+                    RequestId: request.Id,
+                    SkillId: s
+                }
             });
 
-            let nextSession = currentState.session;
-            nextSession.Requests = nextRequests;
+        }
 
-            return {
-                staffingResults: staffs,
-                employeeResults: suggestEmployees,
-                session: nextSession
+        return requestDetails
+    }
+
+    generatePostRequest(request) {
+        let requestType = 0;
+
+        if ((!request.TitleId || request.TitleId == '' || request.TitleId == ModelUtility.EmptyGuid) && (request.Skills != '')) {
+            requestType = 1;
+        }
+        else if ((request.TitleId != '' && request.TitleId != ModelUtility.EmptyGuid) && (request.Skills != '')) {
+            requestType = 2;
+        }
+
+        let requestDetails = this.generateRequestDetailByRequest(request);
+
+        return {
+            Id: request.Id,
+            Type: requestType,
+            Number: request.Number,
+            SessionPlanId: this.state.session.Id,
+            RequestDetails: requestDetails,
+            Status: 1
+        }
+    }
+
+    handleViewSuggestion() {
+        if (this.state.session && this.state.session.Requests.length > 0) {
+
+            let requests = this.state.session.Requests.map(r => {
+                return this.generatePostRequest(r);
+            });
+
+            let sessionRequest = {
+                Id: this.state.session.Id,
+                Requests: requests
             }
-        });
+
+            projectApi.getSuggestArrangement(sessionRequest).then(result => {
+                let staffs = _.concat([], result.Result);
+                let suggestEmployees = _.concat([], result.Result);
+
+                this.setState((currentState) => {
+                    let nextRequests = _.concat([], currentState.session.Requests);
+                    nextRequests = nextRequests.map(r => {
+                        r.IsSelected = false;
+                        return r;
+                    });
+
+                    let nextSession = currentState.session;
+                    nextSession.Requests = nextRequests;
+
+                    return {
+                        staffingResults: staffs,
+                        employeeResults: suggestEmployees,
+                        session: nextSession
+                    }
+                });
+            }).catch(error => {
+                throw (error);
+            });
+        }
+    }
+
+    handleRemoveAlreadySelectedEmployee(selected, suggested) {
+        let suggestedEmployees = _.concat([], suggested);
+
+        if (selected.length > 0) {
+
+            for (let i = 0; i < selected.length; i++) {
+                let selectedEmp = suggested.find(e => e.Id == selected[i].Id);
+                let deletedIndex = suggestedEmployees.indexOf(selectedEmp);
+                if (deletedIndex > -1) {
+                    suggestedEmployees.splice(deletedIndex, 1);
+                }
+            }
+        }
+        return suggestedEmployees;
     }
 
     handleSelectRequest(requestId) {
         let employeesByRequest = ModelUtility.getSuggestedEmployeeByRequest(requestId);
+        if (this.state.session) {
+            let selectedRequest = this.state.session.Requests.find(r => r.Id == requestId);
 
-        this.setState((currentState) => {
-            let nextEmployeeResults = _.concat([], currentState.staffingResults);
-            nextEmployeeResults = currentState.staffingResults.map(s => {
-                if (s.RequestId == requestId) {
-                    return s;
-                }
+            projectApi.findEmployeesForRequest(this.generatePostRequest(selectedRequest)).then(result => {
+                let employeesByRequest = _.concat([], result.Result);
+
+                this.setState((currentState) => {
+                    let nextEmployeeResults = _.concat([], currentState.staffingResults);
+                    nextEmployeeResults = currentState.staffingResults.filter(s => {
+                        if (s.MatchedResult.MatchedRequest == requestId) {
+                            return s;
+                        }
+                    });
+
+                    employeesByRequest = this.handleRemoveAlreadySelectedEmployee(nextEmployeeResults, employeesByRequest);
+
+                    return {
+                        employeeResults: nextEmployeeResults,
+                        employeesByRequest: employeesByRequest
+                    }
+                });
+            }).catch(error => {
+                throw (error);
             });
-
-            return {
-                employeeResults: nextEmployeeResults,
-                employeesByRequest: employeesByRequest
-            }
-        });
+        }
     }
 
     reorderItemsInList(list, startIndex, endIndex) {

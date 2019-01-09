@@ -30,6 +30,8 @@ export default class RequestDetailResult extends Component {
     }
 
     render() {
+        let titleName = (this.props.employeeResult.Title) ? this.props.employeeResult.Title.Name : '';
+
         return (
             <div className="request-result-card request-result-containter">
                 <div className="result-container-ava">
@@ -38,7 +40,7 @@ export default class RequestDetailResult extends Component {
                 </div>
                 <div className="result-container-info">
                     <h6>{this.props.employeeResult.DisplayId}</h6>
-                    <h6>{this.props.employeeResult.Title.Name}</h6>
+                    <h6>{titleName}</h6>
                     <h6>{this.getSkillAsString()}</h6>
                 </div>
             </div>

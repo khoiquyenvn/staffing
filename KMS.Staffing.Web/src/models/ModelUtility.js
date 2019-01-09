@@ -1,5 +1,7 @@
 import _ from 'lodash/fp';
 
+export const EmptyGuid = '00000000-0000-0000-0000-000000000000';
+
 export function getDefaultDropdownObject(propertyName) {
   return {
     value: '00000000-0000-0000-0000-000000000000',
