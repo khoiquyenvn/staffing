@@ -286,5 +286,18 @@ namespace KMS.Staffing.Repository.Test
 
             return newEmp;
         }
+
+        [Fact]
+        public void DynamicQuery()
+        {
+            var sut = new ProjectRepository();
+            var requestId = Guid.Parse("d228568c-a402-427e-bdcf-2a5b7c199322");
+
+            var inclusions = new List<string> { "SessionPlan", "RequestDetails" };
+
+            var request = sut.Query<Request>(x => x.Id == requestId, inclusions).FirstOrDefault();
+
+            Assert.NotNull(request);
+        }
     }
 }

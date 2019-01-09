@@ -11,7 +11,7 @@ using Xunit;
 
 namespace KMS.Staffing.Logic.Test
 {
-    public class ProjectLogicTest
+    public class ProjectLogicTest : LogicTestBase
     {
         readonly IProjectRepository projectRepo;
         readonly IEmployeeRepository employeeRepo;
@@ -19,19 +19,19 @@ namespace KMS.Staffing.Logic.Test
         readonly ISessionPlanRepository sessionPlanRepository;
         readonly IRequestRepository requestRepository;
 
-        public ProjectLogicTest()
+        public ProjectLogicTest() : base()
         {
-            projectRepo = new ProjectRepository();
-            employeeRepo = new EmployeeRepository();
-            projectStaffRepsitory = new ProjectStaffRepository();
-            sessionPlanRepository = new SessionPlanRepository();
-            requestRepository = new RequestRepository();
+            fixture.Register(projectRepo = new ProjectRepository());
+            fixture.Register(employeeRepo = new EmployeeRepository());
+            fixture.Register(projectStaffRepsitory = new ProjectStaffRepository());
+            fixture.Register(sessionPlanRepository = new SessionPlanRepository());
+            fixture.Register(requestRepository = new RequestRepository());
         }
 
         [Fact]
         public void FillEmployee_Success()
         {            
-            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository, requestRepository);
+            var sut = fixture.Resolve<ProjectLogic>();
             
             Guid sessionPlanId = Guid.Parse("4E46C7F1-C9E1-4B4F-99C9-1C4BE2AECF51");
             var result = sut.Arrange(sessionPlanId);
@@ -42,8 +42,8 @@ namespace KMS.Staffing.Logic.Test
         [Fact]
         public void FillEmployee_By_Request_Success()
         {
-            var sut = new ProjectLogic(projectRepo, projectStaffRepsitory, employeeRepo, sessionPlanRepository, requestRepository);
-            
+            var sut = fixture.Resolve<ProjectLogic>();
+
             Guid requestId = Guid.Parse("d228568c-a402-427e-bdcf-2a5b7c199322");
 
             var result = sut.FindEmployeesForRequest(requestId);
