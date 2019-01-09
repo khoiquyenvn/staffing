@@ -9,6 +9,8 @@ import RequestDetailResult from './RequestDetailResult';
 import SuggestEmployee from './SuggestEmployee';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import projectApi from '../../../api/projectApi';
+
 import _ from 'lodash/fp';
 import { Card, CardHeader, CardBody, CardFooter } from "react-simple-card";
 
@@ -24,23 +26,7 @@ export default class SessionPlanDetail extends Component {
         super(props);
         this.state = {
             staffingResults: [],
-            session: {
-                Id: utility.GenerateUUID(),
-                requests: [
-                    {
-                        Id: '82e8f005-00db-4954-a1de-d6e43baaa001',
-                        TitleId: '82e8f005-00db-4954-a1de-d6e43b037001',
-                        Number: 2
-                    },
-                    {
-                        Id: '82e8f005-00db-4954-a1de-d6e43baaa002',
-                        TitleId: '82e8f005-00db-4954-a1de-d6e43b037002',
-                        Skills: '120e768d-1ffd-4bfc-be39-ab23170bda72;#120e768d-1ffd-4bfc-be39-ab23170bda74',
-                        CompetentLevelId: '0e3b823e-a2a7-4a50-8edf-d29bd7a20234',
-                        Number: 2
-                    }
-                ]
-            },
+            session: {},
             employeeResults: [],
             employeesByRequest: []
         };
@@ -58,15 +44,31 @@ export default class SessionPlanDetail extends Component {
         this.reorderItemsInList = this.reorderItemsInList.bind(this);
         this.getListItemsByStateId = this.getListItemsByStateId.bind(this);
         this.moveItemsAmongList = this.moveItemsAmongList.bind(this);
+        this.generateRequestDetailByRequest = this.generateRequestDetailByRequest.bind(this);
+        this.generatePostRequest = this.generatePostRequest.bind(this);
+        this.handleRemoveAlreadySelectedEmployee = this.handleRemoveAlreadySelectedEmployee.bind(this);
     }
 
     componentDidMount() {
+        const sessionPlanId = this.props.match.params.sessionPlanId;
+
+        if (sessionPlanId) {
+            projectApi.loadRequestsBySession(sessionPlanId).then(nextSession => {
+                this.setState((currentState) => {
+                    return {
+                        session: nextSession
+                    };
+                });
+            }).catch(error => {
+                throw (error);
+            });
+        }
     }
 
     updateNewRequests(newRequests) {
         this.setState((currentState) => {
             let nextSession = currentState.session;
-            nextSession.requests = newRequests;
+            nextSession.Requests = newRequests;
 
             return {
                 session: nextSession
@@ -75,7 +77,7 @@ export default class SessionPlanDetail extends Component {
     }
 
     handleChangeTitle(requestId, titleId) {
-        let nextRequests = this.state.session.requests.map(r => {
+        let nextRequests = this.state.session.Requests.map(r => {
             if (r.Id == requestId) {
                 r.TitleId = titleId;
             }
@@ -89,7 +91,7 @@ export default class SessionPlanDetail extends Component {
     }
 
     handleChangeSkill(requestId, newSkills) {
-        let nextRequests = this.state.session.requests.map(r => {
+        let nextRequests = this.state.session.Requests.map(r => {
             if (r.Id == requestId) {
                 r.Skills = newSkills;
             }
@@ -103,7 +105,7 @@ export default class SessionPlanDetail extends Component {
     }
 
     handleChangeNumber(requestId, newNumber) {
-        let nextRequests = this.state.session.requests.map(r => {
+        let nextRequests = this.state.session.Requests.map(r => {
             if (r.Id == requestId) {
                 r.Number = newNumber;
             }
@@ -122,10 +124,10 @@ export default class SessionPlanDetail extends Component {
         };
 
         this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.requests);
+            let nextRequests = _.concat([], currentState.session.Requests);
             nextRequests.push(newRequest);
             let nextSession = currentState.session;
-            nextSession.requests = nextRequests;
+            nextSession.Requests = nextRequests;
 
             return {
                 session: nextSession
@@ -151,7 +153,7 @@ export default class SessionPlanDetail extends Component {
 
     handleDeleteRequest(requestId) {
         this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.requests);
+            let nextRequests = _.concat([], currentState.session.Requests);
             let selectedRequest = nextRequests.find(t => t.Id == requestId);
             let deletedIndex = nextRequests.indexOf(selectedRequest);
             if (deletedIndex > -1) {
@@ -159,7 +161,7 @@ export default class SessionPlanDetail extends Component {
             }
 
             let nextSession = currentState.session;
-            nextSession.requests = nextRequests;
+            nextSession.Requests = nextRequests;
 
             return {
                 session: nextSession,
@@ -167,44 +169,133 @@ export default class SessionPlanDetail extends Component {
         });
     }
 
-    handleViewSuggestion() {
-        let staffs = ModelUtility.getStaffingResults();
-        let suggestEmployees = _.concat([], staffs);
+    generateRequestDetailByRequest(request) {
+        let requestDetails = [{
+            TitleId: request.TitleId,
+            CompetentLevelId: '0e3b823e-a2a7-4a50-8edf-d29bd7a20231',
+            RequestId: request.Id
+        }];
 
-        this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.requests);
-            nextRequests = nextRequests.map(r => {
-                r.IsSelected = false;
-                return r;
+        if (request.Skills != '') {
+            let selectedSkillIds = request.Skills.split(";#");
+
+            requestDetails = selectedSkillIds.map(s => {
+                return {
+                    TitleId: request.TitleId,
+                    CompetentLevelId: '0e3b823e-a2a7-4a50-8edf-d29bd7a20231',
+                    RequestId: request.Id,
+                    SkillId: s
+                }
             });
 
-            let nextSession = currentState.session;
-            nextSession.requests = nextRequests;
+        }
 
-            return {
-                staffingResults: staffs,
-                employeeResults: suggestEmployees,
-                session: nextSession
+        return requestDetails
+    }
+
+    generatePostRequest(request) {
+        let requestType = 0;
+
+        if ((!request.TitleId || request.TitleId == '' || request.TitleId == ModelUtility.EmptyGuid) && (request.Skills != '')) {
+            requestType = 1;
+        }
+        else if ((request.TitleId != '' && request.TitleId != ModelUtility.EmptyGuid) && (request.Skills != '')) {
+            requestType = 2;
+        }
+
+        let requestDetails = this.generateRequestDetailByRequest(request);
+
+        return {
+            Id: request.Id,
+            Type: requestType,
+            Number: request.Number,
+            SessionPlanId: this.state.session.Id,
+            RequestDetails: requestDetails,
+            Status: 1
+        }
+    }
+
+    handleViewSuggestion() {
+        if (this.state.session && this.state.session.Requests.length > 0) {
+
+            let requests = this.state.session.Requests.map(r => {
+                return this.generatePostRequest(r);
+            });
+
+            let sessionRequest = {
+                Id: this.state.session.Id,
+                Requests: requests
             }
-        });
+
+            projectApi.getSuggestArrangement(sessionRequest).then(result => {
+                let staffs = _.concat([], result.Result);
+                let suggestEmployees = _.concat([], result.Result);
+
+                this.setState((currentState) => {
+                    let nextRequests = _.concat([], currentState.session.Requests);
+                    nextRequests = nextRequests.map(r => {
+                        r.IsSelected = false;
+                        return r;
+                    });
+
+                    let nextSession = currentState.session;
+                    nextSession.Requests = nextRequests;
+
+                    return {
+                        staffingResults: staffs,
+                        employeeResults: suggestEmployees,
+                        session: nextSession
+                    }
+                });
+            }).catch(error => {
+                throw (error);
+            });
+        }
+    }
+
+    handleRemoveAlreadySelectedEmployee(selected, suggested) {
+        let suggestedEmployees = _.concat([], suggested);
+
+        if (selected.length > 0) {
+
+            for (let i = 0; i < selected.length; i++) {
+                let selectedEmp = suggested.find(e => e.Id == selected[i].Id);
+                let deletedIndex = suggestedEmployees.indexOf(selectedEmp);
+                if (deletedIndex > -1) {
+                    suggestedEmployees.splice(deletedIndex, 1);
+                }
+            }
+        }
+        return suggestedEmployees;
     }
 
     handleSelectRequest(requestId) {
         let employeesByRequest = ModelUtility.getSuggestedEmployeeByRequest(requestId);
+        if (this.state.session) {
+            let selectedRequest = this.state.session.Requests.find(r => r.Id == requestId);
 
-        this.setState((currentState) => {
-            let nextEmployeeResults = _.concat([], currentState.staffingResults);
-            nextEmployeeResults = currentState.staffingResults.map(s => {
-                if (s.RequestId == requestId) {
-                    return s;
-                }
+            projectApi.findEmployeesForRequest(this.generatePostRequest(selectedRequest)).then(result => {
+                let employeesByRequest = _.concat([], result.Result);
+
+                this.setState((currentState) => {
+                    let nextEmployeeResults = _.concat([], currentState.staffingResults);
+                    nextEmployeeResults = currentState.staffingResults.filter(s => {
+                        if (s.MatchedResult.MatchedRequest == requestId) {
+                            return s;
+                        }
+                    });
+
+                    employeesByRequest = this.handleRemoveAlreadySelectedEmployee(nextEmployeeResults, employeesByRequest);
+
+                    return {
+                        employeeResults: nextEmployeeResults,
+                        employeesByRequest: employeesByRequest
+                    }
+                });
+            }).catch(error => {
+                throw (error);
             });
-
-            return {
-                employeeResults: nextEmployeeResults,
-                employeesByRequest: employeesByRequest
-            }
-        });
+        }
     }
 
     reorderItemsInList(list, startIndex, endIndex) {
@@ -287,6 +378,13 @@ export default class SessionPlanDetail extends Component {
     }
 
     render() {
+
+        if (!this.state.session) {
+            return <div className='session-plan-detail-containter'>
+                Loading...
+                   </div>
+        }
+
         return (
             <div>
                 <StaffingPageHeader title='Session Plan'/>
@@ -295,7 +393,7 @@ export default class SessionPlanDetail extends Component {
                         <CardHeader>Requests</CardHeader>
                         <CardBody>
                             <Scrollbars style={{ height: 1200 }}>
-                                <RequestDetailList requestDetails={this.state.session.requests}
+                                <RequestDetailList requestDetails={this.state.session.Requests}
                                     onChangeTitle={this.handleChangeTitle}
                                     onChangeSkill={this.handleChangeSkill}
                                     onChangeNumber={this.handleChangeNumber}

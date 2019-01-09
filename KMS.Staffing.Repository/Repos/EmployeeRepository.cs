@@ -30,9 +30,9 @@ namespace KMS.Staffing.Repository.Repos
             var employees = 
                 Context
                     .Employees
-                    //.Include("Title")
+                    .Include("Title")
                     .Include("EmployeeSkill.Skill")
-                    .ToList();
+                    .ToList();           
 
             return employees;
         }

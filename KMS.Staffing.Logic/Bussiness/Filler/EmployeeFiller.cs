@@ -8,6 +8,7 @@ using KMS.Staffing.Core.Model;
 using KMS.Staffing.Core.Model.ApiResponse;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace KMS.Staffing.Logic.Bussiness
     {
         const int GENERATION_SAFE_GATE = 2000;
         private const int WAIT_PROCESSING = 30 * 1000;
+        private readonly string avatarPath = ConfigurationManager.AppSettings["avatarPath"];
 
         public StaffingResult FillEmp(List<Request> activeRequests, List<Employee> employees)
         {
@@ -111,10 +113,22 @@ namespace KMS.Staffing.Logic.Bussiness
                 Id = x.Id,
                 TitleId = x.TitleId,
                 MatchedResult = x.MatchedResult,
+                Title = new Title
+                {
+                    Id = x.Title.Id,
+                    Name = x.Title.Name
+                },
+                EmployeeSkill = x.EmployeeSkill.Select(s => new EmployeeSkill
+                {
+                    Id = s.Id,
+                    EmployeeId = x.Id,
+                    SkillId = s.SkillId,
+                    Skill = new Skill { Id = s.SkillId, Name = s.Skill.Name }
+                }).ToList(),
                 Name = x.Name,
                 Photo = x.Photo,
-                PhotoURL = x.PhotoURL,
-                DisplayId = x.DisplayId,
+                PhotoURL = $"{avatarPath}{x.Photo}",
+                DisplayId = x.Id.ToString("D" + 4),
                 Email = x.Email
             }).ToList();
         }

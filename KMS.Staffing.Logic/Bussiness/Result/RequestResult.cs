@@ -11,6 +11,6 @@ namespace KMS.Staffing.Logic.Bussiness.Result
         public Guid Id { get; set; }
         public int Number { get; set; }
         public Guid? TitleId { get; set; }
-        public String SkillId { get; set; }
+        public string Skills { get; set; }
     }
 }
