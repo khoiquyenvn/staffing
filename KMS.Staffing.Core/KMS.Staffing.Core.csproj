@@ -49,6 +49,7 @@
     <Compile Include="Contracts\IExperienceRepository.cs" />
     <Compile Include="Contracts\ICompetentLevelRepository.cs" />
     <Compile Include="Contracts\IProjectStaffRepository.cs" />
+    <Compile Include="Contracts\IRequestRepository.cs" />
     <Compile Include="Contracts\ISessionPlanRepository.cs" />
     <Compile Include="Contracts\ISkillRepository.cs" />
     <Compile Include="Contracts\ISkillCategoryRepository.cs" />

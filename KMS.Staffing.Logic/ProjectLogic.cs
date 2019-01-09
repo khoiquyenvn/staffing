@@ -18,16 +18,20 @@ namespace KMS.Staffing.Logic
         readonly IProjectRepository projectRepository;
         readonly IProjectStaffRepository projectStaffRepsitory;
         readonly ISessionPlanRepository sessionPlanRepository;
-
         readonly IEmployeeRepository employeeRepository;
+        readonly IRequestRepository requestRepository;
 
-        public ProjectLogic(IProjectRepository projectRepository, IProjectStaffRepository projectStaffRepsitory,
-                            IEmployeeRepository employeeRepository, ISessionPlanRepository sessionPlanRepository)
+        public ProjectLogic(IProjectRepository projectRepository,
+                            IProjectStaffRepository projectStaffRepsitory,
+                            IEmployeeRepository employeeRepository,
+                            ISessionPlanRepository sessionPlanRepository,
+                            IRequestRepository requestRepository)
         {
             this.projectRepository = projectRepository;
             this.projectStaffRepsitory = projectStaffRepsitory;
             this.employeeRepository = employeeRepository;
             this.sessionPlanRepository = sessionPlanRepository;
+            this.requestRepository = requestRepository;
         }
 
         public int CountProjects()
@@ -52,7 +56,7 @@ namespace KMS.Staffing.Logic
             var employeeList = projectStaff.Select(x => x.Employee).ToList();
             employeeRepository.UpdateAdditionalDetail(employeeList);
 
-            return projectStaff.GroupBy(x => x.PositionId).Select(gr=> gr.ToList()).ToList();
+            return projectStaff.GroupBy(x => x.PositionId).Select(gr => gr.ToList()).ToList();
         }
 
         public List<SessionPlan> GetAllSessionPlanList(Guid projectId)
@@ -67,11 +71,87 @@ namespace KMS.Staffing.Logic
                 .Where(x => x.Id == sessionPlanId && x.Status == (int)PlanStatus.Active)
                 .ToList();
 
+            return Arrange(sessionPlans.FirstOrDefault());
+        }
+
+        public StaffingResult Arrange(SessionPlan sessionPlan)
+        {
+            sessionPlan = sessionPlan ?? new SessionPlan { Requests = new List<Request>() };
+
+            var activeRequests = sessionPlan
+                .Requests
+                .Where(x => x.Status == (int)RequestStatus.Active)
+                .ToList();
+
             var employees = employeeRepository.GetEmployees();
 
             var filler = new EmployeeFiller();
 
-            return filler.FillEmp(sessionPlanId, sessionPlans, employees);
+            return filler.FillEmp(activeRequests, employees);
+        }
+
+        public StaffingResult FindEmployeesForRequest(Guid requestId)
+        {
+            Request request = requestRepository.FindById(requestId);
+
+            return FindEmployeesForRequest(request);
+        }
+
+        public SessionPlan FindSessionPlan(Guid sessionPlanId)
+        {
+            return sessionPlanRepository.FindById(sessionPlanId);
+        }
+
+        public Request FindRequest(Guid requestId)
+        {
+            return requestRepository.FindById(requestId);
+        }
+
+        public StaffingResult FindEmployeesForRequest(Request request)
+        {
+            Guid? requestTitleId = request.RequestDetails.FirstOrDefault()?.TitleId;
+
+            var employees = employeeRepository
+                .GetEmployees()
+                .Where(x => x.TitleId.Equals(requestTitleId.GetValueOrDefault()))
+                .ToList();
+
+            var filler = new EmployeeFiller();
+
+            var expectedScore = filler.CalExpectedScore(request) / request.Number;
+
+            // update matched result for each employee
+            employees.ForEach(
+                x => x.MatchedResult = new MatchedResult
+                {
+                    MatchedRequest = requestTitleId.GetValueOrDefault(),
+                    MatchedScore = x.CalScore(request),
+                    RequestExpectedScore = expectedScore
+                });
+
+            // filter and sort employees by MatchedScore desc
+            employees = employees
+                .Where(x => x.MatchedResult.MatchedScore > 0)
+                .OrderByDescending(x => x.MatchedResult.MatchedScore)
+                .ToList();
+
+            return new StaffingResult
+            {
+                Result = filler.ProjectMainProperties(employees),
+                ExpectedResult = expectedScore,
+                Fitness = CalculateFitness(employees, expectedScore)
+            };
+        }
+
+        private int CalculateFitness(List<Employee> employees, int expectedScore)
+        {
+            var fitness = -expectedScore;
+            if (employees.Any())
+            {
+                fitness = employees.First().MatchedResult.MatchedScore - expectedScore;
+            }
+
+            return fitness;
         }
     }
 }

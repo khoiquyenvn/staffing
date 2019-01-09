@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace KMS.Staffing.Core.Contracts
 {
-    public interface ISessionPlanRepository
+    public interface IRequestRepository
     {
-        IEnumerable<SessionPlan> FindAllSessionPlan(Guid projectId);
-        SessionPlan FindById(Guid sessionPlanId);
+        Request FindById(Guid requestId);
     }
 }
