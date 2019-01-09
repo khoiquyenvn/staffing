@@ -50,6 +50,7 @@
     "react-simple-card": "^1.0.11",
     "react-table": "^6.8.6",
     "react-tabs": "^2.3.0",
+    "reactstrap": "^7.0.2",
     "redux": "^4.0.1",
     "redux-burger-menu": "^0.2.8",
     "redux-thunk": "^2.3.0",
