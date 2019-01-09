@@ -392,7 +392,7 @@ export default class SessionPlanDetail extends Component {
                         <CardHeader>Requests</CardHeader>
                         <CardBody>
                             <Scrollbars style={{ height: 1200 }}>
-                                <RequestDetailList requestDetails={this.state.session.requests}
+                                <RequestDetailList requestDetails={this.state.session.Requests}
                                     onChangeTitle={this.handleChangeTitle}
                                     onChangeSkill={this.handleChangeSkill}
                                     onChangeNumber={this.handleChangeNumber}
