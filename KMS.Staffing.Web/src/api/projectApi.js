@@ -30,8 +30,19 @@ class ProjectApi {
         return error;
       });
     }
+
     static loadSessionPlanList(id) {
       return fetch(apiConfig.API_URL + apiConfig.PROJECT_MODULE + '/getSessionPlanList/' + id, {
+        method: 'GET'
+      }).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+    }
+
+    static loadRequestsBySession(sessionPlanId) {
+      return fetch(apiConfig.API_URL + apiConfig.PROJECT_MODULE + '/getRequestList/' + sessionPlanId, {
         method: 'GET'
       }).then(response => {
         return response.json();

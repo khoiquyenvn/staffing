@@ -6,7 +6,7 @@ export default class RequestDetailList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            requestDetails: [],            
+            requestDetails: [],
         };
 
         this.handleSelectRequest = this.handleSelectRequest.bind(this);
@@ -19,10 +19,10 @@ export default class RequestDetailList extends Component {
         return ({ requestDetails: nextProps.requestDetails })
     }
 
-    handleSelectRequest(requestId){
+    handleSelectRequest(requestId) {
         if (this.state.requestDetails.length > 0) {
             let requests = _.concat([], this.state.requestDetails)
-            let updatedRequests = requests.map(request =>{
+            let updatedRequests = requests.map(request => {
                 if (request.Id == requestId) {
                     request.IsSelected = true;
                 } else {
@@ -32,7 +32,7 @@ export default class RequestDetailList extends Component {
                 return request;
             });
 
-            this.setState((currentState) => {                
+            this.setState((currentState) => {
                 return {
                     requestDetails: updatedRequests,
                     selectedRequestId: requestId
@@ -44,20 +44,24 @@ export default class RequestDetailList extends Component {
     }
 
     render() {
-        const details = this.state.requestDetails.map(detail => {
-            return <RequestDetail key={detail.Id}
-                                  id={detail.Id}
-                                  isSelected={detail.IsSelected}
-                                  titleId={detail.TitleId}
-                                  skills={detail.Skills}
-                                  competentLevelId={detail.CompetentLevelId}
-                                  number={detail.Number}
-                                  onSelectRequest={this.handleSelectRequest}
-                                  onChangeTitle={this.props.onChangeTitle}
-                                  onChangeSkill={this.props.onChangeSkill}
-                                  onChangeNumber={this.props.onChangeNumber}
-                                  onDeleteRequest={this.props.onDeleteRequest} />
-        });
+        let details = [];
+
+        if (this.state.requestDetails) {
+            details = this.state.requestDetails.map(detail => {
+                return <RequestDetail key={detail.Id}
+                    id={detail.Id}
+                    isSelected={detail.IsSelected}
+                    titleId={detail.TitleId}
+                    skills={detail.Skills}
+                    competentLevelId={detail.CompetentLevelId}
+                    number={detail.Number}
+                    onSelectRequest={this.handleSelectRequest}
+                    onChangeTitle={this.props.onChangeTitle}
+                    onChangeSkill={this.props.onChangeSkill}
+                    onChangeNumber={this.props.onChangeNumber}
+                    onDeleteRequest={this.props.onDeleteRequest} />
+            });
+        }
         return (
             <div>
                 {details}

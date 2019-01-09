@@ -9,6 +9,8 @@ import RequestDetailResult from './RequestDetailResult';
 import SuggestEmployee from './SuggestEmployee';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import projectApi from '../../../api/projectApi';
+
 import _ from 'lodash/fp';
 
 import '../../../styles/staffing/sessionPlanDetail.css';
@@ -19,23 +21,7 @@ export default class SessionPlanDetail extends Component {
         super(props);
         this.state = {
             staffingResults: [],
-            session: {
-                Id: utility.GenerateUUID(),
-                requests: [
-                    {
-                        Id: '82e8f005-00db-4954-a1de-d6e43baaa001',
-                        TitleId: '82e8f005-00db-4954-a1de-d6e43b037001',
-                        Number: 2
-                    },
-                    {
-                        Id: '82e8f005-00db-4954-a1de-d6e43baaa002',
-                        TitleId: '82e8f005-00db-4954-a1de-d6e43b037002',
-                        Skills: '120e768d-1ffd-4bfc-be39-ab23170bda72;#120e768d-1ffd-4bfc-be39-ab23170bda74',
-                        CompetentLevelId: '0e3b823e-a2a7-4a50-8edf-d29bd7a20234',
-                        Number: 2
-                    }
-                ]
-            },
+            session: {},
             employeeResults: [],
             employeesByRequest: []
         };
@@ -56,12 +42,25 @@ export default class SessionPlanDetail extends Component {
     }
 
     componentDidMount() {
+        const sessionPlanId = this.props.match.params.sessionPlanId;
+
+        if (sessionPlanId) {
+            projectApi.loadRequestsBySession(sessionPlanId).then(nextSession => {
+                this.setState((currentState) => {
+                    return {
+                        session: nextSession
+                    };
+                });
+            }).catch(error => {
+                throw (error);
+            });
+        }
     }
 
     updateNewRequests(newRequests) {
         this.setState((currentState) => {
             let nextSession = currentState.session;
-            nextSession.requests = newRequests;
+            nextSession.Requests = newRequests;
 
             return {
                 session: nextSession
@@ -70,7 +69,7 @@ export default class SessionPlanDetail extends Component {
     }
 
     handleChangeTitle(requestId, titleId) {
-        let nextRequests = this.state.session.requests.map(r => {
+        let nextRequests = this.state.session.Requests.map(r => {
             if (r.Id == requestId) {
                 r.TitleId = titleId;
             }
@@ -84,7 +83,7 @@ export default class SessionPlanDetail extends Component {
     }
 
     handleChangeSkill(requestId, newSkills) {
-        let nextRequests = this.state.session.requests.map(r => {
+        let nextRequests = this.state.session.Requests.map(r => {
             if (r.Id == requestId) {
                 r.Skills = newSkills;
             }
@@ -98,7 +97,7 @@ export default class SessionPlanDetail extends Component {
     }
 
     handleChangeNumber(requestId, newNumber) {
-        let nextRequests = this.state.session.requests.map(r => {
+        let nextRequests = this.state.session.Requests.map(r => {
             if (r.Id == requestId) {
                 r.Number = newNumber;
             }
@@ -117,10 +116,10 @@ export default class SessionPlanDetail extends Component {
         };
 
         this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.requests);
+            let nextRequests = _.concat([], currentState.session.Requests);
             nextRequests.push(newRequest);
             let nextSession = currentState.session;
-            nextSession.requests = nextRequests;
+            nextSession.Requests = nextRequests;
 
             return {
                 session: nextSession
@@ -146,7 +145,7 @@ export default class SessionPlanDetail extends Component {
 
     handleDeleteRequest(requestId) {
         this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.requests);
+            let nextRequests = _.concat([], currentState.session.Requests);
             let selectedRequest = nextRequests.find(t => t.Id == requestId);
             let deletedIndex = nextRequests.indexOf(selectedRequest);
             if (deletedIndex > -1) {
@@ -154,7 +153,7 @@ export default class SessionPlanDetail extends Component {
             }
 
             let nextSession = currentState.session;
-            nextSession.requests = nextRequests;
+            nextSession.Requests = nextRequests;
 
             return {
                 session: nextSession,
@@ -167,14 +166,14 @@ export default class SessionPlanDetail extends Component {
         let suggestEmployees = _.concat([], staffs);
 
         this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.requests);
+            let nextRequests = _.concat([], currentState.session.Requests);
             nextRequests = nextRequests.map(r => {
                 r.IsSelected = false;
                 return r;
             });
 
             let nextSession = currentState.session;
-            nextSession.requests = nextRequests;
+            nextSession.Requests = nextRequests;
 
             return {
                 staffingResults: staffs,
@@ -282,12 +281,19 @@ export default class SessionPlanDetail extends Component {
     }
 
     render() {
+
+        if (!this.state.session) {
+            return <div className='session-plan-detail-containter'>
+                Loading...
+                   </div>
+        }
+
         return (
             <div className='session-plan-detail-containter'>
                 <div className='request-container'>
                     <h3>Requests</h3>
                     <Scrollbars style={{ height: 1200 }}>
-                        <RequestDetailList requestDetails={this.state.session.requests}
+                        <RequestDetailList requestDetails={this.state.session.Requests}
                             onChangeTitle={this.handleChangeTitle}
                             onChangeSkill={this.handleChangeSkill}
                             onChangeNumber={this.handleChangeNumber}

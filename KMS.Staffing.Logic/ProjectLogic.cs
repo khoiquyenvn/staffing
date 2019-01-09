@@ -85,15 +85,15 @@ namespace KMS.Staffing.Logic
             if (requests != null && requests.Count() > 0)
             {
                 result.Id = sessionPlanId;
-                result.requests = new List<RequestResult>();
+                result.Requests = new List<RequestResult>();
                 requests.ForEach(request => {
                     var requestResult = new RequestResult();
                     requestResult.Id = request.Id;
                     requestResult.Number = request.Number;
                     var skillIdList = request.RequestDetails.Select(detail => detail.SkillId).ToList();
                     requestResult.TitleId = request.RequestDetails.FirstOrDefault()?.TitleId;
-                    requestResult.SkillId = String.Join(";#", skillIdList);
-                    result.requests.Add(requestResult);
+                    requestResult.Skills = String.Join(";#", skillIdList);
+                    result.Requests.Add(requestResult);
                 });
             }
 
