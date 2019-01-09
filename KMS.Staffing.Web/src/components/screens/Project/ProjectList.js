@@ -7,6 +7,7 @@ import { renderProjectColumn } from '../../../models/ProjectModel';
 
 import * as projectActions from '../../../actions/projectActions';
 import { withRouter } from "react-router-dom";
+import StaffingPageHeader from '../../controls/common/StaffingPageHeader';
 
 class ProjectList extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class ProjectList extends Component {
 
         return (
             <div>
-                <h1>Projects</h1>
+                <StaffingPageHeader title='Projects'/>
                 <div>
                     <ReactTable className='-highlight'
                         data={projects}

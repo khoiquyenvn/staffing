@@ -41,7 +41,7 @@ class ProjectMemberList extends Component {
                 const employeeMenu = EmployeeMenu(memberListOfEachPosition, selected);
                 return (
                     <Card key={idx}>
-                        <CardHeader style={{color:'white', background:'#373a47', fontSize: '20px'}} >{position.PositionShortName} ({memberListOfEachPosition.length})</CardHeader>
+                        <CardHeader className ='staffing-card-header'>{position.PositionShortName} ({memberListOfEachPosition.length})</CardHeader>
                         <CardBody><ScrollMenu alignCenter={false}
                             data={employeeMenu}
                             arrowLeft={ArrowLeft}
@@ -49,7 +49,6 @@ class ProjectMemberList extends Component {
                             selected={selected}
                         />
                         </CardBody>
-                        
                     </Card>
                 )
             }, this)

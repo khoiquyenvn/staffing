@@ -1,6 +1,6 @@
 import React from 'react';
 import ReduxBurgerMenu from './Menu';
-import menuStyles from './BurgerMenu.css';
+import menuStyles from '../../../styles/burgerMenu/BurgerMenu.css';
 import MenuItem from './MenuItem';
 import { FaAddressBook, FaHandshake } from 'react-icons/fa';
 

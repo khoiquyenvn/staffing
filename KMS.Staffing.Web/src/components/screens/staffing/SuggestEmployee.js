@@ -4,6 +4,7 @@ import _ from 'lodash/fp';
 
 import '../../../styles/staffing/sessionPlanDetail.css';
 import '../../../styles/common/common.css';
+import EmployeeShortInfo from '../../controls/employee/EmployeeShortInfo';
 
 export default class SuggestEmployee extends Component {
     constructor(props) {
@@ -30,18 +31,9 @@ export default class SuggestEmployee extends Component {
     }
 
     render() {
+        this.props.suggestEmployee.Skill = this.getSkillAsString();
         return (
-            <div className="request-result-card request-result-containter">
-                <div className="result-container-ava">
-                    <h5>{this.props.suggestEmployee.Name}</h5>
-                    <img src={this.props.suggestEmployee.PhotoURL} className="emp-avatar-card" />
-                </div>
-                <div className="result-container-info">
-                    <h6>{this.props.suggestEmployee.DisplayId}</h6>
-                    <h6>{this.props.suggestEmployee.Title.Name}</h6>
-                    <h6>{this.getSkillAsString()}</h6>
-                </div>
-            </div>
+            <EmployeeShortInfo employee={this.props.suggestEmployee} />
         )
     }
 }

@@ -12,6 +12,7 @@ import 'react-tabs/style/react-tabs.css';
 
 import '../../../../styles/employee/employeeDetail.css'; 
 import '../../../../styles/common/common.css';
+import StaffingPageHeader from '../../../controls/common/StaffingPageHeader';
 
 class EmployeeDetail extends Component {
     constructor(props) {
@@ -119,36 +120,39 @@ class EmployeeDetail extends Component {
     render() {
 
         if (this.state.employee.Id) {
-            return (
-                <div className='employee-detail-containter'>
-                    <div className='employee-avatar-container'>
-                        <EmployeeAvatar image={this.state.employee.PhotoURL} />
-                    </div>
-                    <div className='employee-information-container'>
-                        <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
-                            <TabList>
-                                <Tab>Information</Tab>
-                                <Tab>Skillset</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <EmployeeInformation onChangeInformation={this.updateEmployeeInformation}
-                                    employee={this.state.employee}
-                                    isEditting={this.state.isEditting}
-                                    titles={this.props.titles} />
-                            </TabPanel>
-                            <TabPanel>
-                                <EmployeeSkillsetList employee={this.state.employee}
-                                    isEditting={this.state.isEditting}
-                                    onChangeSkillCategory={this.handleChangeSkillCategory}
-                                    onChangeExperience={this.handleChangeExperience}
-                                    onChangeCompetentLevel={this.handleChangeCompetentLevel} />
-                            </TabPanel>
-                        </Tabs>
-                    </div>
-                    <div className="employee-detail-btn-container">
-                        <button className="w3-btn w3-blue handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
-                        <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}>Save</button>
-                        <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
+                return (
+                <div>
+                    <StaffingPageHeader title={this.state.employee.Name}/>
+                    <div className='employee-detail-containter'>
+                        <div className='employee-avatar-container'>
+                            <EmployeeAvatar image={this.state.employee.PhotoURL} />
+                        </div>
+                        <div className='employee-information-container'>
+                            <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
+                                <TabList>
+                                    <Tab>Information</Tab>
+                                    <Tab>Skillset</Tab>
+                                </TabList>
+                                <TabPanel>
+                                    <EmployeeInformation onChangeInformation={this.updateEmployeeInformation}
+                                        employee={this.state.employee}
+                                        isEditting={this.state.isEditting}
+                                        titles={this.props.titles} />
+                                </TabPanel>
+                                <TabPanel>
+                                    <EmployeeSkillsetList employee={this.state.employee}
+                                        isEditting={this.state.isEditting}
+                                        onChangeSkillCategory={this.handleChangeSkillCategory}
+                                        onChangeExperience={this.handleChangeExperience}
+                                        onChangeCompetentLevel={this.handleChangeCompetentLevel} />
+                                </TabPanel>
+                            </Tabs>
+                        </div>
+                        <div className="employee-detail-btn-container">
+                            <button className="w3-btn w3-blue handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
+                            <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}>Save</button>
+                            <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
+                        </div>
                     </div>
                 </div>
             )
