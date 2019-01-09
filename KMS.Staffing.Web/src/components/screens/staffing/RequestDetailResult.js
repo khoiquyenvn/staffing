@@ -30,8 +30,9 @@ export default class RequestDetailResult extends Component {
         return skills;
     }
 
-    render() {
+    render() {        
         this.props.employeeResult.Skill = this.getSkillAsString();
+        
         return (
             <EmployeeShortInfo employee={this.props.employeeResult} />
         )

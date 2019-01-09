@@ -18,6 +18,7 @@ namespace KMS.Staffing.Logic.Test
         readonly IProjectStaffRepository projectStaffRepsitory;
         readonly ISessionPlanRepository sessionPlanRepository;
         readonly IRequestRepository requestRepository;
+        readonly ITitleRepository titleRepository;
 
         public ProjectLogicTest() : base()
         {
@@ -26,6 +27,7 @@ namespace KMS.Staffing.Logic.Test
             fixture.Register(projectStaffRepsitory = new ProjectStaffRepository());
             fixture.Register(sessionPlanRepository = new SessionPlanRepository());
             fixture.Register(requestRepository = new RequestRepository());
+            fixture.Register(titleRepository = new TitleRepository());
         }
 
         [Fact]
