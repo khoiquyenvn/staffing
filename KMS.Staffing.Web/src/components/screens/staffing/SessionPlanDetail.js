@@ -17,6 +17,7 @@ import '../../../styles/common/staffingCardHeader.css';
 import '../../../styles/common/common.css';
 import StaffingPageHeader from '../../controls/common/StaffingPageHeader';
 import cardStyles from '../../../styles/common/staffingCardHeader.css';
+import { FaPlus, FaBookReader } from 'react-icons/fa';
 
 export default class SessionPlanDetail extends Component {
     constructor(props) {
@@ -300,8 +301,8 @@ export default class SessionPlanDetail extends Component {
                                     onChangeNumber={this.handleChangeNumber}
                                     onDeleteRequest={this.handleDeleteRequest}
                                     onSelectRequest={this.handleSelectRequest} />
-                                <button className="w3-btn w3-blue handle-btn" onClick={this.handleAddNewRequest}>Add new request</button>
-                                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}>View suggestion</button>
+                                <button className="w3-btn w3-green handle-btn" onClick={this.handleAddNewRequest}><FaPlus/>  Add new request</button>
+                                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}><FaBookReader/>  View suggestion</button>
                             </Scrollbars>
                         </CardBody>
                     </Card>

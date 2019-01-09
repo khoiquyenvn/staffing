@@ -9,6 +9,7 @@ import '../../../styles/staffing/sessionPlanDetail.css';
 import '../../../styles/common/common.css';
 
 import deleteIcon from '../../../../resources/photo/delete.jpg';
+import { FaTrash } from 'react-icons/fa';
 
 export default class RequestDetail extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class RequestDetail extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        let backgroundColor = nextProps.isSelected ? '#40FF00' : '#F2F2F2';
+        let backgroundColor = nextProps.isSelected ? '#ff9900' : '#F2F2F2';
         return ({
             style: {
                 background: backgroundColor
@@ -112,7 +113,7 @@ export default class RequestDetail extends Component {
                         </tr>
                     </tbody>
                 </table>                
-                <div className="handle-btn-container"><img src={deleteIcon} className="icon-delete-btn" onClick={this.handleOnDeleteRequest}/></div>
+                <div className="handle-btn-container"><button className="w3-btn w3-orrange" onClick={this.handleOnDeleteRequest}><FaTrash/></button></div>
             </div>
         )
     }
