@@ -1,6 +1,7 @@
 // Import React Table
 import React from "react";
 import "react-table/react-table.css";
+import EmployeeCircleAvatar from "../components/controls/employee/EmployeeCircleAvatar"
 import { FaBookReader } from 'react-icons/fa';
 
 export function getEmployeeModel(isEditting, accessEmployeeDetailAction) {
@@ -11,7 +12,7 @@ export function getEmployeeModel(isEditting, accessEmployeeDetailAction) {
     Header: '',
     accessor: 'PhotoURL',
     Cell: row => (
-      <img style={ava_emp} src={row.value} />
+      <EmployeeCircleAvatar employeeImage={row.value} size='80px'/>
     )
   }, {
     Header: 'Name',
@@ -32,7 +33,7 @@ export function getEmployeeModel(isEditting, accessEmployeeDetailAction) {
     Header: '',
     accessor: '',
     Cell: cellInfo => (
-      <button className="w3-btn w3-green" onClick={()=>accessEmployeeDetailAction(cellInfo.original.Id)} ><FaBookReader/> View </button>
+      <button className="w3-btn w3-dark-grey w3-round-xxlarge" onClick={()=>accessEmployeeDetailAction(cellInfo.original.Id)} ><FaBookReader/> View </button>
     )
   }];
 

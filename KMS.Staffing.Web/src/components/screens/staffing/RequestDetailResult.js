@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TitleDropdown from '../common/TitleDropdown';
 import _ from 'lodash/fp';
 
+import EmployeeShortInfo from '../../controls/employee/EmployeeShortInfo';
 import '../../../styles/staffing/sessionPlanDetail.css';
 import '../../../styles/common/common.css';
 
@@ -30,20 +31,11 @@ export default class RequestDetailResult extends Component {
     }
 
     render() {
-        let titleName = (this.props.employeeResult.Title) ? this.props.employeeResult.Title.Name : '';
+        //let titleName = (this.props.employeeResult.Title) ? this.props.employeeResult.Title.Name : '';
 
+        this.props.employeeResult.Skill = this.getSkillAsString();
         return (
-            <div className="request-result-card request-result-containter">
-                <div className="result-container-ava">
-                    <h5>{this.props.employeeResult.Name}</h5>
-                    <img src={this.props.employeeResult.PhotoURL} className="emp-avatar-card" />
-                </div>
-                <div className="result-container-info">
-                    <h6>{this.props.employeeResult.DisplayId}</h6>
-                    <h6>{titleName}</h6>
-                    <h6>{this.getSkillAsString()}</h6>
-                </div>
-            </div>
+            <EmployeeShortInfo employee={this.props.employeeResult} />
         )
     }
 }

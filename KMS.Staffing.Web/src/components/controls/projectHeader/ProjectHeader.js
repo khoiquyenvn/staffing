@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import "./ProjectHeader.css"
-
+import "../../../styles/project/ProjectHeader.css"
 class ProjectHeader extends Component {
 
   render() {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import "./ProjectHeader.css"
-import employeeCircleStyle from './EmployeeCircleAvatar.css';
+import "../../../styles/employee/EmployeeCircleAvatar.css"
 
 class EmployeeCircleAvatar extends Component {
   constructor(props) {
@@ -9,14 +8,18 @@ class EmployeeCircleAvatar extends Component {
       size: '100px'
     }
   }
-  render() {
+
+  componentDidMount() {        
     if (this.props.size !== undefined) {
       this.setState({size: this.props.size});
     }
+}
+
+  render() {
 
     return (
-        <div className='eia-image-wrap' style={}>
-          <img className='eia-image' src={this.props.employeeImage} style={{height: this.state.size, width: this.state.size}} />
+        <div className='eia-image-wrap' style={{height: this.state.size, width: this.state.size}}>
+          <img className='eia-image' src={this.props.employeeImage} />
         </div>
         
       )

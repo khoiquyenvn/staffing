@@ -12,9 +12,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import projectApi from '../../../api/projectApi';
 
 import _ from 'lodash/fp';
+import { Card, CardHeader, CardBody, CardFooter } from "react-simple-card";
 
 import '../../../styles/staffing/sessionPlanDetail.css';
+import '../../../styles/common/staffingCardHeader.css';
 import '../../../styles/common/common.css';
+import StaffingPageHeader from '../../controls/common/StaffingPageHeader';
+import cardStyles from '../../../styles/common/staffingCardHeader.css';
 
 export default class SessionPlanDetail extends Component {
     constructor(props) {
@@ -381,84 +385,92 @@ export default class SessionPlanDetail extends Component {
         }
 
         return (
-            <div className='session-plan-detail-containter'>
-                <div className='request-container'>
-                    <h3>Requests</h3>
-                    <Scrollbars style={{ height: 1200 }}>
-                        <RequestDetailList requestDetails={this.state.session.Requests}
-                            onChangeTitle={this.handleChangeTitle}
-                            onChangeSkill={this.handleChangeSkill}
-                            onChangeNumber={this.handleChangeNumber}
-                            onDeleteRequest={this.handleDeleteRequest}
-                            onSelectRequest={this.handleSelectRequest} />
-                        <button className="w3-btn w3-blue handle-btn" onClick={this.handleAddNewRequest}>Add new request</button>
-                        <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}>View suggestion</button>
-                    </Scrollbars>
+            <div>
+                <StaffingPageHeader title='Session Plan'/>
+                <div className='session-plan-detail-containter'>
+                    <Card className='request-container'>
+                        <CardHeader>Requests</CardHeader>
+                        <CardBody>
+                            <Scrollbars style={{ height: 1200 }}>
+                                <RequestDetailList requestDetails={this.state.session.requests}
+                                    onChangeTitle={this.handleChangeTitle}
+                                    onChangeSkill={this.handleChangeSkill}
+                                    onChangeNumber={this.handleChangeNumber}
+                                    onDeleteRequest={this.handleDeleteRequest}
+                                    onSelectRequest={this.handleSelectRequest} />
+                                <button className="w3-btn w3-blue handle-btn" onClick={this.handleAddNewRequest}>Add new request</button>
+                                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}>View suggestion</button>
+                            </Scrollbars>
+                        </CardBody>
+                    </Card>
+                    <DragDropContext onDragEnd={this.handleDragAndDrop}>
+                        <Card className='request-result-container'>
+                            <CardHeader>Selected Employees</CardHeader>
+                            <CardBody>
+                                <Scrollbars style={{ height: 1200 }}>
+                                    <Droppable droppableId="resultStaffing">
+                                        {(provided, snapshot) => (
+                                            <div ref={provided.innerRef} className="droppable-container">
+                                                {
+                                                    this.state.employeeResults.map((result, index) => {
+                                                        if (result) {
+                                                            return <Draggable key={result.Id}
+                                                                draggableId={result.Id}
+                                                                index={index}>
+                                                                {(provided, snapshot) => (
+                                                                    <div ref={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        {...provided.dragHandleProps}>
+                                                                        <RequestDetailResult key={result.Id}
+                                                                            employeeResult={result} />
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        }
+                                                    })
+                                                }
+                                                {provided.placeholder}
+                                            </div>
+                                        )}
+                                    </Droppable>
+                                </Scrollbars>
+                            </CardBody>
+                        </Card>
+                        <Card className='suggest-container'>
+                            <CardHeader>Suggestion Employees</CardHeader>
+                            <CardBody>
+                                <Scrollbars style={{ height: 1200 }}>
+                                    <Droppable droppableId="suggestEmployee">
+                                        {(provided, snapshot) => (
+                                            <div ref={provided.innerRef} className="droppable-container">
+                                                {
+                                                    this.state.employeesByRequest.map((result, index) => {
+                                                        if (result) {
+                                                            return <Draggable key={result.Id}
+                                                                draggableId={result.Id}
+                                                                index={index}>
+                                                                {(provided, snapshot) => (
+                                                                    <div ref={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        {...provided.dragHandleProps}>
+                                                                        <SuggestEmployee key={result.Id}
+                                                                            suggestEmployee={result} />
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        }
+                                                    })
+                                                }
+                                                {provided.placeholder}
+                                            </div>
+                                        )}
+                                    </Droppable>
+                                </Scrollbars>
+                            </CardBody>
+                        </Card>
+                    </DragDropContext>
+
                 </div>
-
-                <DragDropContext onDragEnd={this.handleDragAndDrop}>
-                    <div className='request-result-container'>
-                        <h3>Selected Employees</h3>
-                        <Scrollbars style={{ height: 1200 }}>
-                            <Droppable droppableId="resultStaffing">
-                                {(provided, snapshot) => (
-                                    <div ref={provided.innerRef} className="droppable-container">
-                                        {
-                                            this.state.employeeResults.map((result, index) => {
-                                                if (result) {
-                                                    return <Draggable key={result.Id}
-                                                        draggableId={result.Id}
-                                                        index={index}>
-                                                        {(provided, snapshot) => (
-                                                            <div ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}>
-                                                                <RequestDetailResult key={result.Id}
-                                                                    employeeResult={result} />
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                }
-                                            })
-                                        }
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </Scrollbars>
-                    </div>
-                    <div className='suggest-container'>
-                        <h3>Suggestion Employees</h3>
-                        <Scrollbars style={{ height: 1200 }}>
-                            <Droppable droppableId="suggestEmployee">
-                                {(provided, snapshot) => (
-                                    <div ref={provided.innerRef} className="droppable-container">
-                                        {
-                                            this.state.employeesByRequest.map((result, index) => {
-                                                if (result) {
-                                                    return <Draggable key={result.Id}
-                                                        draggableId={result.Id}
-                                                        index={index}>
-                                                        {(provided, snapshot) => (
-                                                            <div ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}>
-                                                                <SuggestEmployee key={result.Id}
-                                                                    suggestEmployee={result} />
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                }
-                                            })
-                                        }
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </Scrollbars>
-                    </div>
-                </DragDropContext>
-
             </div>
         )
     }
