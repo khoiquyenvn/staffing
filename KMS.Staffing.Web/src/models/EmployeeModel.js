@@ -33,7 +33,7 @@ export function getEmployeeModel(isEditting, accessEmployeeDetailAction) {
     Header: '',
     accessor: '',
     Cell: cellInfo => (
-      <button className="w3-btn w3-green" onClick={()=>accessEmployeeDetailAction(cellInfo.original.Id)} ><FaBookReader/> View </button>
+      <button className="w3-btn w3-dark-grey w3-round-xxlarge" onClick={()=>accessEmployeeDetailAction(cellInfo.original.Id)} ><FaBookReader/> View </button>
     )
   }];
 

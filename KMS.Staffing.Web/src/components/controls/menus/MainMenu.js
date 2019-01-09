@@ -13,7 +13,7 @@ class MainMenu extends React.Component {
            ];
 
         return (
-            <ReduxBurgerMenu isOpen={ this.props.isOpen } style={menuStyles.container} noOverlay disableCloseOnEsc //customCrossIcon={ false }
+            <ReduxBurgerMenu isOpen={ this.props.isOpen } style={menuStyles.container} disableCloseOnEsc //customCrossIcon={ false }
                         pageWrapId={ this.props.pageWrapId } outerContainerId={ this.props.outerContainerId }>
                 {
                     mainMenuList.map(function(object){

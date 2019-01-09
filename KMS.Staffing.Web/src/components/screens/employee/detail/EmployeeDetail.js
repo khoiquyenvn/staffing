@@ -13,6 +13,7 @@ import 'react-tabs/style/react-tabs.css';
 import '../../../../styles/employee/employeeDetail.css'; 
 import '../../../../styles/common/common.css';
 import StaffingPageHeader from '../../../controls/common/StaffingPageHeader';
+import { FaPencilAlt, FaDoorClosed, FaSave, FaClosedCaptioning, FaMinusCircle } from 'react-icons/fa';
 
 class EmployeeDetail extends Component {
     constructor(props) {
@@ -122,7 +123,7 @@ class EmployeeDetail extends Component {
         if (this.state.employee.Id) {
                 return (
                 <div>
-                    <StaffingPageHeader title={this.state.employee.Name}/>
+                    <StaffingPageHeader title={this.state.employee.DisplayId + ' - ' + this.state.employee.Name}/>
                     <div className='employee-detail-containter'>
                         <div className='employee-avatar-container'>
                             <EmployeeAvatar image={this.state.employee.PhotoURL} />
@@ -149,9 +150,9 @@ class EmployeeDetail extends Component {
                             </Tabs>
                         </div>
                         <div className="employee-detail-btn-container">
-                            <button className="w3-btn w3-blue handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}>Edit</button>
-                            <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}>Save</button>
-                            <button className="w3-btn w3-blue handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}>Cancel</button>
+                            <button className="w3-btn w3-green w3-round-xxlarge handle-btn" hidden={this.state.isEditting} onClick={this.toggleEditting}><FaPencilAlt/>  Edit</button>
+                            <button className="w3-btn w3-yellow w3-round-xxlarge handle-btn" hidden={!this.state.isEditting} onClick={this.saveEmployeeInformation}><FaSave/>  Save</button>
+                            <button className="w3-btn w3-red w3-round-xxlarge handle-btn" hidden={!this.state.isEditting} onClick={this.toggleEditting}><FaMinusCircle/>  Cancel</button>
                         </div>
                     </div>
                 </div>
