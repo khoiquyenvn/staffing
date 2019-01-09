@@ -10,6 +10,12 @@ namespace KMS.Staffing.Repository.Repos
 {
     public class RequestRepository : BaseRepository, IRequestRepository
     {
+        public IEnumerable<Request> getRequestList(Guid sessionPlanId)
+        {
+            var requestList = Context.Requests.Where(request => request.SessionPlanId == sessionPlanId).Include(x => x.RequestDetails).Include("RequestDetails.Title").Include("RequestDetails.Skill");
+            return requestList;
+        }
+
         public Request FindById(Guid requestId)
         {
             return Context

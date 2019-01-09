@@ -67,6 +67,8 @@
     <Compile Include="Bussiness\Filler\ISampleController.cs" />
     <Compile Include="Bussiness\Filler\SampleControllerBase.cs" />
     <Compile Include="Bussiness\Filler\UniqueUniformCrossOver.cs" />
+    <Compile Include="Bussiness\Result\SessionResult.cs" />
+    <Compile Include="Bussiness\Result\RequestResult.cs" />
     <Compile Include="EmployeeLogic.cs" />
     <Compile Include="Contracts\IEmployeeLogic.cs" />
     <Compile Include="Contracts\IExperienceLogic.cs" />
