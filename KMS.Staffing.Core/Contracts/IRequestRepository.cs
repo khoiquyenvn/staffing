@@ -10,5 +10,6 @@ namespace KMS.Staffing.Core.Contracts
     public interface IRequestRepository
     {
         IEnumerable<Request> getRequestList(Guid sessionPlanId);
+        Request FindById(Guid requestId);
     }
 }

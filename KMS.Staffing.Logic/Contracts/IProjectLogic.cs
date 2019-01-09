@@ -14,6 +14,14 @@ namespace KMS.Staffing.Logic
         List<List<ProjectStaff>> GetAllEmployeeInProject(Guid projectId);
         List<SessionPlan> GetAllSessionPlanList(Guid projectId);
         SessionResult GetAllRequestList(Guid projectId);
+        SessionPlan FindSessionPlan(Guid sessionPlanId);
+        Request FindRequest(Guid requestId);
+
         StaffingResult Arrange(Guid sessionPlanId);
+        StaffingResult Arrange(SessionPlan sessionPlan);
+
+        StaffingResult FindEmployeesForRequest(Guid requestId);
+        StaffingResult FindEmployeesForRequest(Request request);
+
     }
 }

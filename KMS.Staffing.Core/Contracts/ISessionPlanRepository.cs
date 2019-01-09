@@ -10,5 +10,6 @@ namespace KMS.Staffing.Core.Contracts
     public interface ISessionPlanRepository
     {
         IEnumerable<SessionPlan> FindAllSessionPlan(Guid projectId);
+        SessionPlan FindById(Guid sessionPlanId);
     }
 }
