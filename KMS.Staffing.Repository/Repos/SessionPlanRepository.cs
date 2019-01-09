@@ -14,5 +14,13 @@ namespace KMS.Staffing.Repository.Repos
         {
             return Context.SessionPlans.Where(x => x.ProjectId == projectId).ToList();
         }
+
+        public SessionPlan FindById(Guid sessionPlanId)
+        {
+            return Context
+                .SessionPlans                
+                .Include("Requests.RequestDetails")
+                .SingleOrDefault(x => x.Id.Equals(sessionPlanId));
+        }
     }
 }

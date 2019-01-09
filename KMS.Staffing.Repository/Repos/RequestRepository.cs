@@ -16,5 +16,13 @@ namespace KMS.Staffing.Repository.Repos
             var requestList = Context.Requests.Where(request => request.SessionPlanId == sessionPlanId).Include(x => x.RequestDetails).Include("RequestDetails.Title").Include("RequestDetails.Skill");
             return requestList;
         }
-    }
+
+        public Request FindById(Guid requestId)
+        {
+            return Context
+                .Requests
+                .Include(nameof(Request.RequestDetails))
+                .FirstOrDefault(x => x.Id.Equals(requestId));
+        }
+    }    
 }

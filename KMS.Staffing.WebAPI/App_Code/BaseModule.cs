@@ -40,7 +40,7 @@ namespace KMS.Staffing.WebAPI
                 {
                     JsonSerializer ser = new JsonSerializer
                     {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore                        
                     };
 
                     ser.Serialize(jsonWriter, result);
