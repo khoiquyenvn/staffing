@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import '../../../styles/common/common.css';
+import { FaSearch } from 'react-icons/fa';
 
 export default class SearchControl extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class SearchControl extends Component {
                     value={this.props.searchValue}
                     onChange={this.props.changeSearchValue}
                     onKeyPress={this.handlePressEnter} />
-                <button className='search-button' onClick={this.props.handleSearch}>Search</button>
+                <button className='w3-btn w3-blue w3-round-xxlarge' onClick={this.props.handleSearch}><FaSearch/>  Search</button>
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import React, { Component , Fragment} from 'react'
-import EmployeeAvatar from "../employee/detail/EmployeeDetail.Avatar"
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
+import EmployeeCircleAvatar from '../../controls/employee/EmployeeCircleAvatar';
 
 // One item component
 // selected prop will be passed
@@ -13,7 +13,7 @@ const MemberAvatarInList = ({ employee, selected }) => {
   }
     return (
       <div className="member-in-list">
-        <EmployeeCir image={employee.Employee.PhotoURL}/>
+        <EmployeeCircleAvatar employeeImage={employee.Employee.PhotoURL}/>
       </div>
     );
   };

@@ -1,25 +1,30 @@
 .employee-detail-btn-container
 .employee-information-container,
 .employee-avatar-container {  
-  display: grid;  
+  display: grid;
 }
 
 .employee-detail-containter {
   display: grid;  
-  grid-template-columns: 20em 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: fit-content(40%);
+  grid-template-rows: fit-content(40%);
   grid-template-areas: 
-    "avatar   info-container" 
-    "avatar   btn-container";
+    "avatar  btn-container" 
+    "avatar  info-container";
 }
 
 .employee-detail-btn-container {
     grid-area: btn-container;
-    margin-top: 50px;
 }
+
+.employee-detail-btn-container button {
+    float: right;
+}
+
 .employee-information-container {
     grid-area: info-container;
 }
 .employee-avatar-container {
     grid-area: avatar;
+    padding-right: 20px;
 }

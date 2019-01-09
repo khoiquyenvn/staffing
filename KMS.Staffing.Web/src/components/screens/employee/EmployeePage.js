@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes  } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as employeeActions from '../../../actions/employeeActions';
@@ -6,6 +6,7 @@ import EmployeeList from './EmployeeList';
 import SearchControl from '../../controls/search/SearchControl';
 
 import { withRouter } from "react-router-dom";
+import StaffingPageHeader from '../../controls/common/StaffingPageHeader';
 
 class EmployeePage extends React.Component {
     constructor(props) {
@@ -52,7 +53,7 @@ class EmployeePage extends React.Component {
     render() {
         return (
             <div>
-                <h1>Employees</h1>
+                <StaffingPageHeader title='Employees'/>
                 <div>
                     <SearchControl placeHolder='Search by Id, Name, Title, Email, Address'
                         searchValue={this.state.searchValue}
