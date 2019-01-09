@@ -18,22 +18,14 @@ namespace KMS.Staffing.Logic.Bussiness
         const int GENERATION_SAFE_GATE = 2000;
         private const int WAIT_PROCESSING = 30 * 1000;
 
-        public StaffingResult FillEmp(Guid sessionPlanId, List<SessionPlan> sessionPlans, List<Employee> employees)
+        public StaffingResult FillEmp(List<Request> activeRequests, List<Employee> employees)
         {
             var result = new StaffingResult();
 
-            var activeRequests = sessionPlans
-                .First()
-                .Requests
-                .Where(x => x.Status == (int)RequestStatus.Active)
-                .ToList();
-
             FillCandidates(activeRequests, employees);
-            List<Request> requests = sessionPlans.First().Requests;
-
             int expectedResult = CalExpectedScore(activeRequests);
 
-            var staffingController = new StaffingController(requests, expectedResult);
+            var staffingController = new StaffingController(activeRequests, expectedResult);
 
             var selection = staffingController.CreateSelection();
             var crossover = staffingController.CreateCrossover();
@@ -64,8 +56,8 @@ namespace KMS.Staffing.Logic.Bussiness
             try
             {
                 staffingController.ConfigGA(ga);
-                //Task.Run(() => ga.Start()).Wait(WAIT_PROCESSING);
-                ga.Start();
+                Task.Run(() => ga.Start()).Wait(WAIT_PROCESSING);
+                //ga.Start();
             }
             catch (Exception ex)
             {
@@ -106,10 +98,25 @@ namespace KMS.Staffing.Logic.Bussiness
 
             return new StaffingResult
             {
-                Result = selectedEmployees,
+                Result = ProjectMainProperties(selectedEmployees),
                 ExpectedResult = expectedResult,
                 Fitness = bestChromosome.Fitness
             };
+        }
+
+        public List<Employee> ProjectMainProperties(List<Employee> employees)
+        {
+            return employees.Select(x => new Employee
+            {
+                Id = x.Id,
+                TitleId = x.TitleId,
+                MatchedResult = x.MatchedResult,
+                Name = x.Name,
+                Photo = x.Photo,
+                PhotoURL = x.PhotoURL,
+                DisplayId = x.DisplayId,
+                Email = x.Email
+            }).ToList();
         }
 
         private void FillCandidates(List<Request> activeRequests, List<Employee> employees)
@@ -130,7 +137,7 @@ namespace KMS.Staffing.Logic.Bussiness
             });
         }
 
-        private int CalExpectedScore(Request request)
+        public int CalExpectedScore(Request request)
         {
             if (request != null)
             {
@@ -139,7 +146,7 @@ namespace KMS.Staffing.Logic.Bussiness
             return 0;
         }
 
-        private int CalExpectedScore(List<Request> requests)
+        public int CalExpectedScore(List<Request> requests)
         {
             var titlesOnly = requests.Where(x => x.Type == (int)RequestType.Title).ToList();
             var titleAndSkills = requests.Where(x => x.Type == (int)RequestType.Both).ToList();
