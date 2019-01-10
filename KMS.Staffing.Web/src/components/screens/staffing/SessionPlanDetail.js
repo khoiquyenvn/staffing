@@ -175,7 +175,7 @@ export default class SessionPlanDetail extends Component {
             RequestId: request.Id
         }];
 
-        if (request.Skills != '') {
+        if (request.Skills && request.Skills != '') {
             let selectedSkillIds = request.Skills.split(";#");
 
             requestDetails = selectedSkillIds.map(s => {
@@ -243,7 +243,8 @@ export default class SessionPlanDetail extends Component {
                     return {
                         staffingResults: staffs,
                         employeeResults: suggestEmployees,
-                        session: nextSession
+                        session: nextSession,
+                        employeesByRequest: []
                     }
                 });
             }).catch(error => {
