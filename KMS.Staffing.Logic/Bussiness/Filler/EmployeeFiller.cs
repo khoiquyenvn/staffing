@@ -118,7 +118,7 @@ namespace KMS.Staffing.Logic.Bussiness
                     Id = x.Title.Id,
                     Name = x.Title.Name
                 },
-                EmployeeSkill = x.EmployeeSkill.Select(s => new EmployeeSkill
+                EmployeeSkill = x.EmployeeSkill?.Select(s => new EmployeeSkill
                 {
                     Id = s.Id,
                     EmployeeId = x.Id,
