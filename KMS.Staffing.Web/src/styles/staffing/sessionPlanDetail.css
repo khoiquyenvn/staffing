@@ -23,6 +23,7 @@
 }
 
 .request-card {
+    padding: 5px;
     box-shadow: 0 4px 8px 0 rgba(158, 5, 5, 0.2);
     transition: 0.5s;
     width: 90%;
@@ -31,10 +32,6 @@
   
 .request-card:hover {
     box-shadow: 0 15px 25px 0 rgba(158, 5, 5, 0.2);
-}
-  
-.request-card-container {
-    padding: 2px 16px;
 }
 
 .request-card table {
