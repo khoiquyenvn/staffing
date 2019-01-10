@@ -257,8 +257,7 @@ export default class SessionPlanDetail extends Component {
     handleRemoveAlreadySelectedEmployee(selected, suggested) {
         let suggestedEmployees = _.concat([], suggested);
 
-        if (selected.length > 0) {
-
+        if (selected.length > 0 && suggested.length > 0) {
             for (let i = 0; i < selected.length; i++) {
                 let selectedEmp = suggested.find(e => e.Id == selected[i].Id);
                 let deletedIndex = suggestedEmployees.indexOf(selectedEmp);
