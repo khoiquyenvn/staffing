@@ -21,7 +21,25 @@ namespace KMS.Staffing.Logic
 
         public List<Employee> LoadEmployees(EmployeePageRequest pageRequest)
         {
-            return employeeRepository.LoadEmployees(pageRequest);
+            var result = employeeRepository.LoadEmployees(pageRequest);
+
+            result.ForEach(x =>
+            {
+                x.Title = new Title
+                {
+                    Id = x.Title.Id,
+                    Name = x.Title.Name
+                };
+                x.EmployeeSkill = x.EmployeeSkill?.Select(s => new EmployeeSkill
+                {
+                    Id = s.Id,
+                    EmployeeId = x.Id,
+                    SkillId = s.SkillId,
+                    Skill = new Skill { Id = s.SkillId, Name = s.Skill.Name }
+                }).ToList();
+            });
+
+            return result;
         }
 
         public Employee GetEmployee(int? employeeId)
