@@ -1,5 +1,4 @@
 import React, { Component , Fragment} from 'react'
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import EmployeeCircleAvatar from '../../controls/employee/EmployeeCircleAvatar';
 
 // One item component
@@ -13,7 +12,7 @@ const MemberAvatarInList = ({ employee, selected }) => {
   }
     return (
       <div className="member-in-list">
-        <EmployeeCircleAvatar employeeImage={employee.Employee.PhotoURL}/>
+        <EmployeeCircleAvatar employeeImage={employee.Employee.PhotoURL} size='80px'/>
       </div>
     );
   };
@@ -32,13 +31,3 @@ export const EmployeeMenu = (list = []) => list.map(el => {
     );
   });
 
-  const Arrow = ({ icon, className }) => {
-    return (
-      <div
-        className={className}
-      >{icon}</div>
-    );
-  };
-  
-export const ArrowLeft = Arrow({ icon: <FaArrowAltCircleLeft size={70}/>, className: 'arrow-prev' });
-export const ArrowRight = Arrow({ icon: <FaArrowAltCircleRight size={70}/>, className: 'arrow-next' });

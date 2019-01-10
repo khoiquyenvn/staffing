@@ -124,8 +124,7 @@ export default class SessionPlanDetail extends Component {
         };
 
         this.setState((currentState) => {
-            let nextRequests = _.concat([], currentState.session.Requests);
-            nextRequests.push(newRequest);
+            let nextRequests = [newRequest, ...currentState.session.Requests];
             let nextSession = currentState.session;
             nextSession.Requests = nextRequests;
 
@@ -388,19 +387,19 @@ export default class SessionPlanDetail extends Component {
         return (
             <div>
                 <StaffingPageHeader title='Session Plan'/>
+                <button className="w3-btn w3-green handle-btn" onClick={this.handleAddNewRequest}><FaPlus/>  Add new request</button>
+                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}><FaBookReader/>  View suggestion</button>
                 <div className='session-plan-detail-containter'>
                     <Card className='request-container'>
                         <CardHeader>Requests</CardHeader>
                         <CardBody>
-                            <Scrollbars style={{ height: 1200 }}>
+                            <Scrollbars style={{ height: 1000 }}>
                                 <RequestDetailList requestDetails={this.state.session.Requests}
                                     onChangeTitle={this.handleChangeTitle}
                                     onChangeSkill={this.handleChangeSkill}
                                     onChangeNumber={this.handleChangeNumber}
                                     onDeleteRequest={this.handleDeleteRequest}
                                     onSelectRequest={this.handleSelectRequest} />
-                                <button className="w3-btn w3-green handle-btn" onClick={this.handleAddNewRequest}><FaPlus/>  Add new request</button>
-                                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}><FaBookReader/>  View suggestion</button>
                             </Scrollbars>
                         </CardBody>
                     </Card>
@@ -408,7 +407,7 @@ export default class SessionPlanDetail extends Component {
                         <Card className='request-result-container'>
                             <CardHeader>Selected Employees</CardHeader>
                             <CardBody>
-                                <Scrollbars style={{ height: 1200 }}>
+                                <Scrollbars style={{ height: 1000 }}>
                                     <Droppable droppableId="resultStaffing">
                                         {(provided, snapshot) => (
                                             <div ref={provided.innerRef} className="droppable-container">
@@ -440,7 +439,7 @@ export default class SessionPlanDetail extends Component {
                         <Card className='suggest-container'>
                             <CardHeader>Suggestion Employees</CardHeader>
                             <CardBody>
-                                <Scrollbars style={{ height: 1200 }}>
+                                <Scrollbars style={{ height: 1000 }}>
                                     <Droppable droppableId="suggestEmployee">
                                         {(provided, snapshot) => (
                                             <div ref={provided.innerRef} className="droppable-container">
