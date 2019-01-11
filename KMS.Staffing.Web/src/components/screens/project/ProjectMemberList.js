@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { renderName } from '../../../models/ProjectModel';
 import { bindActionCreators } from 'redux';
 import TextInput from '../../controls/common/TextInput';
-import { EmployeeMenu, ArrowLeft, ArrowRight } from './ProjectMember';
+import { EmployeeMenu } from './ProjectMember';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { Card, CardHeader, CardBody, CardFooter } from "react-simple-card";
+import { ArrowLeft, ArrowRight } from '../../controls/common/ArrowForScrolling';
 
 
 class ProjectMemberList extends Component {
@@ -46,8 +47,7 @@ class ProjectMemberList extends Component {
                             data={employeeMenu}
                             arrowLeft={ArrowLeft}
                             arrowRight={ArrowRight}
-                            selected={selected}
-                        />
+                            selected={selected} />
                         </CardBody>
                     </Card>
                 )
