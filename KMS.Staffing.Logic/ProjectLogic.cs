@@ -129,7 +129,7 @@ namespace KMS.Staffing.Logic
             employees.ForEach(
                 x => x.MatchedResult = new MatchedResult
                 {
-                    MatchedRequest = requestTitleId.GetValueOrDefault(),
+                    MatchedRequest = request.Id,
                     MatchedScore = x.CalScore(request),
                     RequestExpectedScore = expectedScore
                 });
