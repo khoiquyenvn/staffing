@@ -23,7 +23,7 @@ export default class RequestDetailList extends Component {
         if (this.state.requestDetails.length > 0) {
             let requests = _.concat([], this.state.requestDetails)
             let updatedRequests = requests.map(request => {
-                if (request.Id == requestId) {
+                if (request.Id == requestId && !request.IsSelected) {
                     request.IsSelected = true;
                 } else {
                     request.IsSelected = false;

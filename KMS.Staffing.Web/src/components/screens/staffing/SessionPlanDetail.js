@@ -47,6 +47,7 @@ export default class SessionPlanDetail extends Component {
         this.generateRequestDetailByRequest = this.generateRequestDetailByRequest.bind(this);
         this.generatePostRequest = this.generatePostRequest.bind(this);
         this.handleRemoveAlreadySelectedEmployee = this.handleRemoveAlreadySelectedEmployee.bind(this);
+        this.handleSelectedEmployeesAfterDragAndDrop = this.handleSelectedEmployeesAfterDragAndDrop.bind(this);
     }
 
     componentDidMount() {
@@ -273,27 +274,39 @@ export default class SessionPlanDetail extends Component {
         if (this.state.session) {
             let selectedRequest = this.state.session.Requests.find(r => r.Id == requestId);
 
-            projectApi.findEmployeesForRequest(this.generatePostRequest(selectedRequest)).then(result => {
-                let employeesByRequest = _.concat([], result.Result);
+            if (selectedRequest.IsSelected) {
+                projectApi.findEmployeesForRequest(this.generatePostRequest(selectedRequest)).then(result => {
+                    let employeesByRequest = _.concat([], result.Result);
 
-                this.setState((currentState) => {
-                    let nextEmployeeResults = _.concat([], currentState.staffingResults);
-                    nextEmployeeResults = currentState.staffingResults.filter(s => {
-                        if (s.MatchedResult.MatchedRequest == requestId) {
-                            return s;
+                    this.setState((currentState) => {
+                        let nextEmployeeResults = _.concat([], currentState.staffingResults);
+                        nextEmployeeResults = currentState.staffingResults.filter(s => {
+                            if (s.MatchedResult.MatchedRequest == requestId) {
+                                return s;
+                            }
+                        });
+
+                        employeesByRequest = this.handleRemoveAlreadySelectedEmployee(nextEmployeeResults, employeesByRequest);
+
+                        return {
+                            employeeResults: nextEmployeeResults,
+                            employeesByRequest: employeesByRequest
                         }
                     });
-
-                    employeesByRequest = this.handleRemoveAlreadySelectedEmployee(nextEmployeeResults, employeesByRequest);
+                }).catch(error => {
+                    throw (error);
+                });
+            }
+            else {
+                this.setState((currentState) => {
+                    let suggestStaffsResult = currentState.staffingResults;
 
                     return {
-                        employeeResults: nextEmployeeResults,
-                        employeesByRequest: employeesByRequest
-                    }
+                        employeeResults: suggestStaffsResult,
+                        employeesByRequest: []
+                    };
                 });
-            }).catch(error => {
-                throw (error);
-            });
+            }
         }
     }
 
@@ -329,8 +342,46 @@ export default class SessionPlanDetail extends Component {
         return result;
     }
 
+    handleSelectedEmployeesAfterDragAndDrop(allSelectedEmps, selectedEmpsByRequest) {
+        let currentStaffingResults = _.concat([], this.state.staffingResults);
+
+        if (selectedEmpsByRequest.length > 0) {
+            let allUnselectRequest = this.state.session.Requests.every(r => {
+                return !r.IsSelected;
+            });
+
+            // Check if there is a selected request
+            if (!allUnselectRequest) {
+                let selectedRequestId = selectedEmpsByRequest[0].MatchedResult.MatchedRequest;
+                let currentEmpsByRequest = allSelectedEmps.filter(emp => {
+                    if (emp.MatchedResult.MatchedRequest == selectedRequestId) {
+                        return emp;
+                    }
+                })
+
+                for (let i = 0; i < currentEmpsByRequest.length; i++) {
+                    currentStaffingResults.splice(currentStaffingResults.indexOf(currentEmpsByRequest[i]), 1);
+                }
+
+                for (let i = 0; i < selectedEmpsByRequest.length; i++) {
+                    currentStaffingResults.push(selectedEmpsByRequest[i]);
+                }
+            }
+            else {
+                currentStaffingResults = selectedEmpsByRequest;
+            }
+
+            this.setState((currentState) => {
+                return {
+                    staffingResults: currentStaffingResults
+                }
+            });
+        }
+    }
+
     handleDragAndDrop(result) {
         const { source, destination } = result;
+        let currentStaffingResults = this.state.staffingResults;
 
         if (!destination) {
             return;
@@ -344,12 +395,16 @@ export default class SessionPlanDetail extends Component {
                 destination.index
             );
 
-            if (source.droppableId === 'resultStaffing') {
+            if (source.droppableId === 'resultStaffing') {                
                 this.setState((currentState) => {
+                    
                     return {
-                        employeeResults: items
+                        employeeResults: items,
+                        staffingResults: nextAllStaffing
                     }
                 });
+
+                this.handleSelectedEmployeesAfterDragAndDrop(currentStaffingResults, items);
             }
             if (source.droppableId === 'suggestEmployee') {
                 this.setState((currentState) => {
@@ -373,6 +428,8 @@ export default class SessionPlanDetail extends Component {
                     employeesByRequest: result.suggestEmployee
                 }
             });
+
+            this.handleSelectedEmployeesAfterDragAndDrop(currentStaffingResults, result.resultStaffing);
         }
     }
 
@@ -384,14 +441,18 @@ export default class SessionPlanDetail extends Component {
                    </div>
         }
 
+        let numberOfRequests = (this.state.session.Requests) ? this.state.session.Requests.length : 0;
+        let arrangedStaffs = this.state.employeeResults.length;
+        let suggestedEmployeeByRequest = this.state.employeesByRequest.length;
+
         return (
             <div>
-                <StaffingPageHeader title='Session Plan'/>
-                <button className="w3-btn w3-green handle-btn" onClick={this.handleAddNewRequest}><FaPlus/>  Add new request</button>
-                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}><FaBookReader/>  View suggestion</button>
+                <StaffingPageHeader title='Session Plan' />
+                <button className="w3-btn w3-green handle-btn" onClick={this.handleAddNewRequest}><FaPlus />  Add new request</button>
+                <button className="w3-btn w3-blue handle-btn" onClick={this.handleViewSuggestion}><FaBookReader />  View suggestion</button>
                 <div className='session-plan-detail-containter'>
                     <Card className='request-container'>
-                        <CardHeader>Requests</CardHeader>
+                        <CardHeader>Requests: {numberOfRequests}</CardHeader>
                         <CardBody>
                             <Scrollbars style={{ height: 1000 }}>
                                 <RequestDetailList requestDetails={this.state.session.Requests}
@@ -405,7 +466,7 @@ export default class SessionPlanDetail extends Component {
                     </Card>
                     <DragDropContext onDragEnd={this.handleDragAndDrop}>
                         <Card className='request-result-container'>
-                            <CardHeader>Selected Employees</CardHeader>
+                            <CardHeader>Selected Employees: {arrangedStaffs}</CardHeader>
                             <CardBody>
                                 <Scrollbars style={{ height: 1000 }}>
                                     <Droppable droppableId="resultStaffing">
@@ -437,7 +498,7 @@ export default class SessionPlanDetail extends Component {
                             </CardBody>
                         </Card>
                         <Card className='suggest-container'>
-                            <CardHeader>Suggestion Employees</CardHeader>
+                            <CardHeader>Suggestion Employees: {suggestedEmployeeByRequest}</CardHeader>
                             <CardBody>
                                 <Scrollbars style={{ height: 1000 }}>
                                     <Droppable droppableId="suggestEmployee">
